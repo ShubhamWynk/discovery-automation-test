@@ -1,0 +1,45 @@
+{
+  "action" : {
+    "type" : "DEEPLINK",
+    "value" : ""
+  },
+  "createdBy" : "ashwini.bhatnagar@wynk.in",
+  "deliveryType" : "PERIODIC",
+  "endTime" :1620716681126,
+  "platform" : [
+    "IOS",
+    "ANDROID"
+  ],
+  "priority" :1,
+  "startTime" :1618902280307,
+  "status" : "ACTIVE",
+  "realm" : "XSTREAM",
+  "tags" : [
+    "XSTREAM"
+  ],
+  "timezone" : "IST",
+
+
+  "title" : "claim-pend-two",
+  "description" : "Xstream PP BB Lifecycle Claim UGP-B",
+  "type" : "SMS",
+  "variants" : [
+    {
+      "templateInfoMap" : {
+        "FALLBACK" : [
+          "66a0b4f6bbdc0562434aa57d"
+        ]
+      },
+      "variantName" : "ugp_xstream_daily_xpp_prepaid_pan_india_sms-variant-1",
+      "variantTag" : "ugp_xstream_daily_xpp_prepaid_pan_india_sms_tag1",
+      "childSegmentId" : "664d90e4911ac7713fb1ab41"
+    },
+    {
+      "variantName" : "ugp_xstream_daily_xpp_prepaid_pan_india_sms-variant-2",
+      "variantTag" : "ugp_xstream_daily_xpp_prepaid_pan_india_sms_tag2",
+      "childSegmentId" : "664d90e4911ac7713fb1ab42"
+    }
+  ],
+  "segmentId" : "664d9063b1093c47ab38a393"
+
+}

@@ -1,0 +1,46 @@
+{
+  "action" : {
+    "type" : "DEEPLINK",
+    "value" : ""
+  },
+  "createdBy" : "ashwini.bhatnagar@wynk.in",
+  "deliveryType" : "PERIODIC",
+  "endTime" :1620716681126,
+  "platform" : [
+    "IOS",
+    "ANDROID"
+  ],
+
+  "priority" :1,
+  "startTime" :1618902280307,
+  "status" : "ACTIVE",
+  "realm" : "WYNK_MUSIC",
+  "tags" : [
+    "WYNK_MUSIC"
+  ],
+  "timezone" : "IST",
+  "variants": [
+    {
+      "templateInfoMap" : {
+        "FALLBACK" : [
+          "668f87e4753559090906e5d2"
+        ]
+      },
+      "variantName": "ugp_music_daily_xpp_prepaid_pan_india_sms-variant-1",
+      "variantTag": "ugp_music_daily_xpp_prepaid_pan_india_sms_tag1",
+      "childSegmentId": "664d911852eabf3ec792f296"
+    },
+    {
+      "variantName": "ugp_music_daily_xpp_prepaid_pan_india_sms-variant-2",
+      "variantTag": "ugp_music_daily_xpp_prepaid_pan_india_sms_tag2",
+      "childSegmentId": "664d911852eabf3ec792f297"
+    }
+  ],
+  "segmentId": "664d8fdbb1093c47ab38a392",
+  "title" : "tkt-ent-2",
+  "description" : "Ticket to Entertainment - Adrishyam",
+  "type" : "SMS"
+
+
+
+}

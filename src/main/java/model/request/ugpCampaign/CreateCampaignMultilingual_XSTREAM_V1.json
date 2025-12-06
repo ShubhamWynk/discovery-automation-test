@@ -1,0 +1,50 @@
+{
+  "_id" : "669f1089bbdc0562434aa572",
+  "action" : {
+    "type" : "DEEPLINK",
+    "value" : ""
+  },
+  "createdBy" : "shubham.gupta@wynk.in",
+  "createdOn" : 1721700489729,
+  "d1" : false,
+  "deliveryType" : "PERIODIC",
+  "description" : "Union Budget",
+  "endTime" : 1620716681126,
+  "lastUpdatedOn" : 1721700489729,
+  "platform" : [
+    "IOS",
+    "ANDROID"
+  ],
+  "priority" : 1,
+  "realm" : "XSTREAM",
+  "segmentId" : "664d9063b1093c47ab38a393",
+  "stalenessAllowed" : false,
+  "startTime" : 1618902280307,
+  "status" : "ACTIVE",
+  "tags" : [
+    "XSTREAM"
+  ],
+  "timezone" : "IST",
+  "title" : "union-bud",
+  "type" : "SMS",
+  "variants" : [
+    {
+      "childSegmentId" : "664d9158e09967571ff55b9f",
+      "templateInfoMap" : {
+        "hi" : [
+          "669e9387bbdc0562434aa570"
+        ],
+        "FALLBACK" : [
+          "669e91bdbbdc0562434aa56e"
+        ]
+      },
+      "variantName" : "ugp_xstream_daily_xpp_prepaid_pan_india_sms-variant-1",
+      "variantTag" : "ugp_xstream_daily_xpp_prepaid_pan_india_sms_tag1"
+    },
+    {
+      "childSegmentId" : "664d9158e09967571ff55ba0",
+      "variantName" : "ugp_xstream_daily_xpp_prepaid_pan_india_sms-variant-2",
+      "variantTag" : "ugp_xstream_daily_xpp_prepaid_pan_india_sms_tag2"
+    }
+  ]
+}

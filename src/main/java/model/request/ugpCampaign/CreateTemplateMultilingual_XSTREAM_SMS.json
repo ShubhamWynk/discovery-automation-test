@@ -1,0 +1,60 @@
+{
+  "active": true,
+  "appRefreshInBackground": false,
+  "createdOn": 1713335548390,
+  "languageCode": "EN",
+  "largeIcon": true,
+  "largeIconUrl": "",
+  "lastUpdatedOn": 1713335548390,
+  "makeNotificationSticky": true,
+  "platform": [
+    "ANDROID",
+    "IOS"
+  ],
+  "templateConfig": {
+    "placeholderMapping": {
+      "actionValue": "action.value"
+    }
+  },
+  "messageSubtitle": "",
+  "catalogConfig": {
+    "placeholderMapping": {
+      "artwork": "images.FEATURE_BANNER",
+      "movieId": "id",
+      "type": "type",
+      "movieName": "title",
+      "cp": "cp"
+    }
+  },
+
+  "name": "TKT-Ent-2",
+  "description": "TKT-Ent-2",
+  "smsHeader": "650015",
+  "smsTemplateId": "1007989096501952890",
+  "smsType": "PROMOTIONAL",
+  "messageTitle": "",
+  "messageBody": "Your ticket to entertainment is here. Watch $movieName and other fan-favorite shows and movies on Xstream Play. $actionValue",
+  "collections": [
+    {
+      "collectionId" : "axaut_hccl69921689162659539",
+      "contentConfig" : {
+        "contentFetchingStrategy" : "RANDOM"
+      }
+    }
+  ],
+  "esConfig": {
+    "placeholderMapping": {
+      "usl" : ""
+    }
+  },
+  "richContents": [
+    {
+      "type" : "IMAGE",
+      "value" : ""
+    }
+  ],
+  "action": {
+    "type": "DEEPLINK",
+    "value": "wynkpremiere://$cp/$type/$movieId"
+  }
+}
