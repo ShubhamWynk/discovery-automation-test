@@ -1,12 +1,12 @@
 
-package model.response.arsenalCollection;
+package model.Common.arsenalCollection;
 
 import java.util.List;
 
 import lombok.Data;
 
 @Data
-public class ArsenalCollectionRes {
+public class ArsenalCollection {
     private Artworks artworks;
     private Long cacheTime;
     private String category;

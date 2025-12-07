@@ -1,4 +1,4 @@
-package steps.api.discovery;
+package steps.api.common;
 
 import io.restassured.response.Response;
 import io.cucumber.datatable.DataTable;
@@ -50,9 +50,6 @@ public class LayoutConfigSteps {
         Response response = ZionServices.loginService(email,pass);
         Assert.assertEquals(200, response.getStatusCode());
         return gson().fromJson(response.body().asString(), ZionLoginServiceRes.class);
-
-
-
     }
 
     public static GetSegmentation getSegmentsFromZion(String segment) {
@@ -180,13 +177,13 @@ public class LayoutConfigSteps {
         return gson().fromJson(response.body().asString(), PostNewTemplateRes.class);
     }
 
-    @Given("^login with curator user$")
-    public void loginWithCuratorUser() {
-        if(Objects.equals(ConfigLoader.environment, "prod")){
-            ZionLoginServiceRes zionLoginServiceRes = loginService("shubhamgupta212755@gmail.com","U2FsdGVkX19NQaev3NfCf/RPc7QSo16B39TywmXFdzk=");
-            ApiHelper.setAuth(zionLoginServiceRes.getRtkn());
-        }
-    }
+//    @Given("^login with curator user$")
+//    public void loginWithCuratorUser() {
+//        if(Objects.equals(ConfigLoader.environment, "prod")){
+//            ZionLoginServiceRes zionLoginServiceRes = loginService("shubhamgupta212755@gmail.com","U2FsdGVkX19NQaev3NfCf/RPc7QSo16B39TywmXFdzk=");
+//            ApiHelper.setAuth(zionLoginServiceRes.getRtkn());
+//        }
+//    }
 
     @Given("^User create new section$")
     public void userCreateNewSection(List<PostNewSectionReq> postNewSection) throws Throwable {

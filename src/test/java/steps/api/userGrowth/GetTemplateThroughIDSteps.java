@@ -12,24 +12,24 @@ import services.userGrowth.UserGrowthService;
 import java.util.Map;
 
 public class GetTemplateThroughIDSteps {
-    String realm,id;
-    UpdateTemplateRequestPayload updateTemplateRequestPayload = new UpdateTemplateRequestPayload();
-    UpdateTemplateRequestPayload.RichContent richContent = new UpdateTemplateRequestPayload.RichContent();
-    UpdateTemplateRequestPayload.Action action = new UpdateTemplateRequestPayload.Action();
-    UpdateTemplateRequestPayload.Collection collection = new UpdateTemplateRequestPayload.Collection();
-    UpdateTemplateRequestPayload.ContentConfig contentConfig = new UpdateTemplateRequestPayload.ContentConfig();
-    UpdateTemplateRequestPayload.Params params = new UpdateTemplateRequestPayload.Params();
-
-    @Given("^get template details for \"([^\"]*)\"$")
-    public void getTemplateDetailsFor(String arg0, DataTable dataTable) throws Throwable {
-        Map<String, String> data = dataTable.asMaps(String.class, String.class).get(0);
-        realm = arg0;
-        id = data.get("id");
-        Response response = UserGrowthService.getTemplateThroughId(realm,id);
-        response.prettyPrint();
-    }
-    @Before
-    public void setUp(){
+//    String realm,id;
+//    UpdateTemplateRequestPayload updateTemplateRequestPayload = new UpdateTemplateRequestPayload();
+//    UpdateTemplateRequestPayload.RichContent richContent = new UpdateTemplateRequestPayload.RichContent();
+//    UpdateTemplateRequestPayload.Action action = new UpdateTemplateRequestPayload.Action();
+//    UpdateTemplateRequestPayload.Collection collection = new UpdateTemplateRequestPayload.Collection();
+//    UpdateTemplateRequestPayload.ContentConfig contentConfig = new UpdateTemplateRequestPayload.ContentConfig();
+//    UpdateTemplateRequestPayload.Params params = new UpdateTemplateRequestPayload.Params();
+//
+//    @Given("^get template details for \"([^\"]*)\"$")
+//    public void getTemplateDetailsFor(String arg0, DataTable dataTable) throws Throwable {
+//        Map<String, String> data = dataTable.asMaps(String.class, String.class).get(0);
+//        realm = arg0;
+//        id = data.get("id");
+//        Response response = UserGrowthService.getTemplateThroughId(realm,id);
+//        response.prettyPrint();
+//    }
+//    @Before
+//    public void setUp(){
 
 //        updateTemplateRequestPayload.setName("avod");
 //        updateTemplateRequestPayload.setType("SMS");
@@ -75,21 +75,21 @@ public class GetTemplateThroughIDSteps {
 //        collectionArrayList.add(collection);
 //        updateTemplateRequestPayload.setCollections(collectionArrayList);
 
-    }
+//    }
 
-    @And("^user set data for template which needs to be updated$")
-    public void userSetDataForTemplateWhichNeedsToBeUpdated(DataTable dataTable) {
-        Map<String, String> data = dataTable.asMaps(String.class, String.class).get(0);
-        if (data.containsKey("description")) updateTemplateRequestPayload.setDescription(data.get("description"));
-
-    }
-
-    @Then("^update template for \"([^\"]*)\"$")
-    public void updateTemplateFor(String arg0) throws Throwable {
-        realm = arg0;
-        updateTemplateRequestPayload.setId(id);
-        updateTemplateRequestPayload.setRealm(realm);
-        Response response = UserGrowthService.updateTemplate(updateTemplateRequestPayload,id);
-        response.prettyPrint();
-    }
+//    @And("^user set data for template which needs to be updated$")
+//    public void userSetDataForTemplateWhichNeedsToBeUpdated(DataTable dataTable) {
+//        Map<String, String> data = dataTable.asMaps(String.class, String.class).get(0);
+//        if (data.containsKey("description")) updateTemplateRequestPayload.setDescription(data.get("description"));
+//
+//    }
+//
+//    @Then("^update template for \"([^\"]*)\"$")
+//    public void updateTemplateFor(String arg0) throws Throwable {
+//        realm = arg0;
+//        updateTemplateRequestPayload.setId(id);
+//        updateTemplateRequestPayload.setRealm(realm);
+//        Response response = UserGrowthService.updateTemplate(updateTemplateRequestPayload,id);
+//        response.prettyPrint();
+//    }
 }

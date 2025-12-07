@@ -11,7 +11,7 @@ public class ArsenalCrud extends ApiHelper {
     private final static String ARSENAL="/arsenal/api";
 
     public Response clearCollectionCache(String collectionId,String realm) {
-        return discoveryApiUrl().when().get(ARSENAL+"/v1/collection"+collectionId+"/clearCollectionCache?realm="+appName);
+        return baseApiUrl("discoveryUrl").get(ARSENAL+"/v1/collection"+collectionId+"/clearCollectionCache?realm="+appName);
     }
 
     public Response getCollectionSearch(Map<String, String> query) {
@@ -19,18 +19,18 @@ public class ArsenalCrud extends ApiHelper {
             query = new HashMap<>();
             query.put("realm", appName);
         }
-        return discoveryApiUrl().queryParams(query).when().get(ARSENAL+"/v1/collections");
+        return baseApiUrl("discoveryUrl").queryParams(query).get(ARSENAL+"/v1/collections");
     }
 
     public Response getCollectionByCollectionId(String collectionId,String realm) {
-        return discoveryApiUrl().when().get(ARSENAL+"/v1/collection/collectionId/"+collectionId+"?realm="+realm);
+        return baseApiUrl("discoveryUrl").get(ARSENAL+"/v1/collection/collectionId/"+collectionId+"?realm="+realm);
     }
 
     public Response getCollectionHasArtworks(String collectionId,String realm) {
-        return discoveryApiUrl().when().get(ARSENAL+"/v1/collection/"+collectionId+"/hasArtwork?realm="+realm);
+        return baseApiUrl("discoveryUrl").get(ARSENAL+"/v1/collection/"+collectionId+"/hasArtwork?realm="+realm);
     }
 
     public Response getCollectionById(String id,String realm) {
-        return discoveryApiUrl().when().get(ARSENAL+"/v1/collection/"+id+"?realm="+realm);
+        return baseApiUrl("discoveryUrl").get(ARSENAL+"/v1/collection/"+id+"?realm="+realm);
     }
 }

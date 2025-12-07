@@ -1,0 +1,384 @@
+{
+  "id": "67bde2707d0ef82ec7be7657",
+  "collectionId": "sports_affinity_coll",
+  "realm": "XSTREAM",
+  "type": "HYBRID",
+  "status": "PUBLISHED",
+  "category": "MERGED_COLLECTION",
+  "languages": [
+    "all"
+  ],
+  "regions": null,
+  "title": "sports affinity",
+  "subtitle": "",
+  "description": "",
+  "isImmersive": null,
+  "owner": null,
+  "promoterDeeplink": null,
+  "logoUrl": null,
+  "videoUrl": null,
+  "cps": null,
+  "contentTypes": [
+    "COLLECTION"
+  ],
+  "extra": null,
+  "contents": [
+    {
+      "contentId": "SONYLIV_VOD_TVSHOW_1700000725",
+      "position": 1,
+      "type": "TVSHOW"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_MOVIE_PUNCTUREY2011M",
+      "position": 2,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_MOVIE_12STRONG0Y2018M",
+      "position": 3,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_MOVIE_LATENIGHTWITHTHEDEVILY2024M",
+      "position": 4,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_MOVIE_FREELANCEY2023M",
+      "position": 5,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "SONYLIV_VOD_TVSHOW_1700000084",
+      "position": 6,
+      "type": "TVSHOW"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_MOVIE_SLEEPINGDOGSY2024M",
+      "position": 7,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_MOVIE_THERITUALY2025M",
+      "position": 8,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_MOVIE_RAMBOY2019M",
+      "position": 9,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "SONYLIV_VOD_MOVIE_1090477084",
+      "position": 10,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_MOVIE_WELIVEINTIMEY2024M",
+      "position": 11,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "SONYLIV_VOD_TVSHOW_1700000196",
+      "position": 12,
+      "type": "TVSHOW"
+    },
+    {
+      "contentId": "SONYLIV_VOD_MOVIE_1000263265",
+      "position": 13,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "SONYLIV_VOD_TVSHOW_1700001014",
+      "position": 14,
+      "type": "TVSHOW"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_MOVIE_OLYMPUSHASFALLEN0Y2013M",
+      "position": 15,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_MOVIE_APOCALYPTOY2006M",
+      "position": 16,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_MOVIE_LONDONHASFALLEN0Y2016M",
+      "position": 17,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_MOVIE_PRETTYTHINGY2025M",
+      "position": 18,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_MOVIE_ARJUNCHAKRAVARTHYY2025MHI",
+      "position": 19,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "SONYLIV_VOD_MOVIE_1000131115",
+      "position": 20,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_MOVIE_BLEEDINGSTEEL0Y2017M",
+      "position": 21,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_MOVIE_DEMOLITIONY2016M",
+      "position": 22,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "SONYLIV_VOD_TVSHOW_1700001266",
+      "position": 23,
+      "type": "TVSHOW"
+    },
+    {
+      "contentId": "SONYLIV_VOD_HIGHLIGHTS_1090493959",
+      "position": 24,
+      "type": "VIDEO"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_MOVIE_DIRTYANGELSY2024M",
+      "position": 25,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_TVSHOW_KABULY2025S",
+      "position": 26,
+      "type": "TVSHOW"
+    },
+    {
+      "contentId": "SONYLIV_VOD_TVSHOW_1700001212",
+      "position": 27,
+      "type": "TVSHOW"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_MOVIE_THEOFFERINGY2022M",
+      "position": 28,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_TVSHOW_CODEOFSILENCEY2025S",
+      "position": 29,
+      "type": "TVSHOW"
+    },
+    {
+      "contentId": "MINITV_MOVIE_amzn1.dv.gti.1c99aa97-5f2c-4cf8-9db9-d609ddd418e7",
+      "position": 30,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "MINITV_MOVIE_amzn1.dv.gti.2a67b1bd-15a9-414c-97e9-8ccb8380eff4",
+      "position": 31,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_MOVIE_THEABOMINABLEBRIDEY2016M",
+      "position": 32,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "MINITV_MOVIE_amzn1.dv.gti.10430bdc-712f-47e8-bdd6-c7d5ce01e643",
+      "position": 33,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "SONYLIV_VOD_MOVIE_1090492633",
+      "position": 34,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_MOVIE_SECRETARYY2002M",
+      "position": 35,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_MOVIE_THEWOLFOFWALLSTREET0Y2013M",
+      "position": 36,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "MINITV_MOVIE_amzn1.dv.gti.4a55d35e-9295-4ef1-b8db-59d6d9e6697b",
+      "position": 37,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "MINITV_MOVIE_amzn1.dv.gti.22b9c0d0-0797-1f04-4ef8-029ab4bdeb48",
+      "position": 38,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "MINITV_MOVIE_amzn1.dv.gti.30d35783-1780-4167-988b-de5cc560864d",
+      "position": 39,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "SONYLIV_VOD_MOVIE_1000007714",
+      "position": 40,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "MINITV_MOVIE_amzn1.dv.gti.1e79e2a2-bbb1-43cb-8df7-f45bb9264047",
+      "position": 41,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "SONYLIV_VOD_MOVIE_1000184530",
+      "position": 42,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "MINITV_MOVIE_amzn1.dv.gti.15fd4cb9-514c-47a7-b631-39d365224ce5",
+      "position": 43,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "SONYLIV_VOD_MOVIE_1090428919",
+      "position": 44,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "SONYLIV_VOD_TVSHOW_1700000921",
+      "position": 45,
+      "type": "TVSHOW"
+    },
+    {
+      "contentId": "SONYLIV_VOD_TVSHOW_1790006577",
+      "position": 46,
+      "type": "TVSHOW"
+    },
+    {
+      "contentId": "SHEMAROOME_MOVIE_67bef8f178457a2562000456",
+      "position": 47,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "SONYLIV_VOD_TVSHOW_1790006675",
+      "position": 48,
+      "type": "TVSHOW"
+    },
+    {
+      "contentId": "MINITV_MOVIE_amzn1.dv.gti.e3e8233b-9cd9-4b8c-9fbb-e2f16625c008",
+      "position": 49,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "SONYLIV_VOD_TVSHOW_1700000292",
+      "position": 50,
+      "type": "TVSHOW"
+    },
+    {
+      "contentId": "SONYLIV_VOD_TVSHOW_1700000035",
+      "position": 51,
+      "type": "TVSHOW"
+    },
+    {
+      "contentId": "SONYLIV_VOD_MOVIE_1090484698",
+      "position": 52,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "SONYLIV_VOD_MOVIE_1000167052",
+      "position": 53,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_MOVIE_THEAMBUSHY2022MHI",
+      "position": 54,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "MINITV_MOVIE_amzn1.dv.gti.1808ccec-b0d7-4de4-a51d-a7ff5185b932",
+      "position": 55,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "MINITV_TVSHOW_amzn1.dv.gti.a8be2e81-9299-4fd1-aa09-04df91c37624",
+      "position": 56,
+      "type": "TVSHOW"
+    },
+    {
+      "contentId": "SONYLIV_VOD_TVSHOW_1700000195",
+      "position": 57,
+      "type": "TVSHOW"
+    },
+    {
+      "contentId": "MINITV_TVSHOW_amzn1.dv.gti.20d77b61-2d48-4268-bcdb-a7a94b9d8276",
+      "position": 58,
+      "type": "TVSHOW"
+    },
+    {
+      "contentId": "LIONSGATEPLAY_MOVIE_EXPEND4BLESY2023MHI",
+      "position": 59,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "MINITV_MOVIE_amzn1.dv.gti.1f7b64a3-2636-40b3-a8c1-648d98eeab85",
+      "position": 60,
+      "type": "MOVIE"
+    },
+    {
+      "contentId": "MINITV_TVSHOW_amzn1.dv.gti.aab7780f-ed9d-4ebe-8c1c-fee3aca49fcc",
+      "position": 61,
+      "type": "TVSHOW"
+    },
+    {
+      "contentId": "MINITV_TVSHOW_amzn1.dv.gti.3bd7c93b-f4db-49ec-b5a1-377b314e700b",
+      "position": 62,
+      "type": "TVSHOW"
+    },
+    {
+      "contentId": "SONYLIV_VOD_TVSHOW_1790006628",
+      "position": 63,
+      "type": "TVSHOW"
+    },
+    {
+      "contentId": "MINITV_TVSHOW_amzn1.dv.gti.bcffe2e1-c28c-425c-ab46-c6f07fd9483b",
+      "position": 64,
+      "type": "TVSHOW"
+    }
+  ],
+  "sortStrategy": "manual",
+  "dynamicMeta": {
+    "functionName": null,
+    "useCase": null,
+    "isFollowable": false,
+    "refreshType": "ALWAYS",
+    "protocol": null,
+    "mixParam": {
+      "sourceStrategy": null,
+      "useCase": null,
+      "sortStrategy": null,
+      "filterStrategy": null,
+      "mixOperator": null,
+      "itemPerMix": 0,
+      "minItemPerMix": 0,
+      "mixCount": 0,
+      "multiSourceRequest": null,
+      "postProcessing": {
+        "enableDeduplication": true
+
+      },
+      "noir": {
+        "strategy": [ ]
+      },
+      "params": {}
+    },
+    "functionType": "EXTERNAL_DTO",
+    "url": "http://multisource-collection.discovery.svc.cluster.local:8080/v1/content?deviceType=PHONE&_disablePostProcessing=true&uid=p-cWmUEqg4MGRdaJp&os=ANDROID&languages=hi%2Cen&appKey=SDK&realm=XSTREAM&id=axhyb_t2xi77811739265745036&buildNo=15000&artistId",
+    "collectionId": null
+  },
+  "cacheTime": 0,
+  "artworks": {},
+  "mTags": null,
+  "tags": [],
+  "xFilters": null,
+  "xAppKey": null,
+  "xPageLink": null
+}

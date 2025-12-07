@@ -1,4 +1,4 @@
-package steps.api.discovery;
+package steps.api.common;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;

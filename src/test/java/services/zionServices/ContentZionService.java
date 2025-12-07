@@ -14,7 +14,7 @@ public class ContentZionService extends ApiHelper {
     }
 
     public static Response getSongsContent(GetSongsContantListReq getSongsContantListReq) {
-        return zionApiUrl().when().body(gson().toJson(getSongsContantListReq)).post("/content/song/search?realm="+appName);
+        return zionApiUrl().body(gson().toJson(getSongsContantListReq)).post("/content/song/search?realm="+appName);
     }
 
     public static Response updateCollectionStatus(String id, UpdateCollectionStatusReq updateCollectionStatusReq) {
@@ -23,7 +23,7 @@ public class ContentZionService extends ApiHelper {
 
     public static Response getCollections(Map<String, String> param) {
         param.put("realm",appName);
-        return zionApiUrl().params(param).when().get("/content/collections");
+        return zionApiUrl().params(param).get("/content/collections");
     }
 
     public static Response postNewCollection(PostTileIntoCollectionReq postTileIntoCollectionReq) {

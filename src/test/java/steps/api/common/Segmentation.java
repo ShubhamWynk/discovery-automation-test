@@ -1,4 +1,4 @@
-package steps.api.discovery;
+package steps.api.common;
 
 import io.restassured.response.Response;
 import io.cucumber.datatable.DataTable;

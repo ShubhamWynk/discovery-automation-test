@@ -5,13 +5,13 @@ import io.cucumber.java.en.And;
 
 import io.cucumber.java.en.Then;
 import model.Common.UserInfo;
-import model.response.arsenalCollection.ArsenalCollectionRes;
+import model.Common.arsenalCollection.ArsenalCollection;
 import org.junit.Assert;
 import services.discovery.ArsenalService;
 
 public class NonLinearProductSteps {
     UserInfo userInfo = new UserInfo();
-    ArsenalCollectionRes version1Collections;
+    ArsenalCollection version1Collections;
 
     @And("^Fetch content from arsenal collection \"([^\"]*)\"$")
     public void fetchContentFromArsenalCollection(String collectionId) throws Throwable {
@@ -70,4 +70,5 @@ public class NonLinearProductSteps {
     public void verifyContentLanguageIsSameFromUserPLanguageIfPIsNotAvaliable() {
 
     }
+
 }

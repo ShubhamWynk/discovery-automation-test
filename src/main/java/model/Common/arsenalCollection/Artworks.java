@@ -1,5 +1,5 @@
 
-package model.response.arsenalCollection;
+package model.Common.arsenalCollection;
 
 import lombok.Data;
 

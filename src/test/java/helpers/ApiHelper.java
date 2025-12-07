@@ -4,7 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.typesafe.config.Config;
 import io.restassured.RestAssured;
+import io.restassured.http.Header;
 import io.restassured.specification.RequestSpecification;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import config.ConfigLoader;
@@ -12,7 +14,7 @@ import config.ConfigLoader;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.net.URI;
-
+import io.restassured.http.Headers;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,10 +24,6 @@ public class ApiHelper {
 
     public Logger log = LoggerFactory.getLogger(ApiHelper.class);
     private static final Config conf = ConfigLoader.load();
-    private static final String discoveryUrl = conf.getString("discoveryUrl");
-    private static final String userGrowthApiUrl = conf.getString("userGrowthApiUrl");
-    private static final String userGrowthEnigmaApiUrl = conf.getString("userGrowthEnigmaApiUrl");
-    private static final String wynkUtil = conf.getString("wynkUtil");
     private static final String watchContentApiUrl = conf.getString("watchContentApiUrl");
     private static final String zionApiUrl = conf.getString("zionApiUrl");
     private static final String catalogKibana = conf.getString("catalogKibana");
@@ -34,25 +32,14 @@ public class ApiHelper {
     private static String auth = conf.getString("auth");
     public static Gson gson;
 
-    protected static RequestSpecification discoveryApiUrl() {
-        RestAssured.baseURI = URI.create(discoveryUrl).toString();
-        return given().log().all()
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json;charset=UTF-8");
-    }
+    private static final Headers headers = new Headers(
+            new Header("Content-Type", "application/json"),
+            new Header("Authorization", "Bearer token123")
+    );
 
-    protected static RequestSpecification userGrowthApiUrl() {
-        RestAssured.baseURI = URI.create(userGrowthApiUrl).toString();
-        return given().log().all()
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json;charset=UTF-8");
-    }
-
-    protected static RequestSpecification userGrowthEnigmaApiUrl() {
-        RestAssured.baseURI = URI.create(userGrowthEnigmaApiUrl).toString();
-        return given().log().all()
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json;charset=UTF-8");
+    protected static RequestSpecification baseApiUrl(String baseUrl) {
+        RestAssured.baseURI = URI.create(conf.getString(baseUrl)).toString();
+        return given().log().all().headers(headers);
     }
 
     protected static RequestSpecification kibanaApiURL() {
@@ -75,17 +62,14 @@ public class ApiHelper {
 
     protected static RequestSpecification zionApiUrlBe() {
         RestAssured.baseURI = URI.create(zionApiUrl_be).toString();
-        return given().log().all()
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json;charset=UTF-8");
+        return given().log().all().headers(headers);
     }
 
     protected static RequestSpecification zionApiUrl() {
         RestAssured.baseURI = URI.create(zionApiUrl).toString();
         return given().log().all()
                 .header("rtkn", auth)
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json;charset=UTF-8");
+                .headers(headers);
     }
 
     protected static RequestSpecification zionApiUrla() {
@@ -101,9 +85,7 @@ public class ApiHelper {
 
         Map<String, String> map = new HashMap<>();
 
-        if (query == null || query.isEmpty()) {
-            return map;
-        }
+        if (query == null || query.isEmpty()) { return map; }
 
         String[] params = query.split("&");
 
@@ -116,12 +98,12 @@ public class ApiHelper {
             if (pair.length > 1) {
                 value = URLDecoder.decode(pair[1], StandardCharsets.UTF_8.name());
             }
-
             map.put(key, value);
         }
 
         return map;
     }
+
     //Specify all one time default Gson config
     public static Gson gson() {
         GsonBuilder gsonBuilder = new GsonBuilder();

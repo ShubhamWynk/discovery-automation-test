@@ -1,4 +1,4 @@
-package steps.api.discovery;
+package steps.api.common;
 
 import io.cucumber.datatable.DataTable;
 import io.restassured.response.Response;
@@ -8,6 +8,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import model.request.getSongsContentList.GetSongsContantListReq;
 import model.request.zion.postNewTile.PostNewTileReq;
+import model.request.zion.postTileIntoCollection.*;
 import model.request.zion.updateCollectionStatus.UpdateCollectionStatusReq;
 import model.response.content.getSongsContentList.GetSongContentListRes;
 import model.response.zion.getTileList.GetTilesListRes;

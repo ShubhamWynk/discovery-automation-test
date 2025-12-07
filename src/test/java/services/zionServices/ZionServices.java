@@ -68,61 +68,61 @@ public class ZionServices extends ApiHelper {
 
     public static Response getLayoutConfigFromZion(Map<String, String> param) {
         param.put("realm",appName);
-        return zionApiUrl().params(param).when().get("/layout/config");
+        return zionApiUrl().params(param).get("/layout/config");
     }
 
     public static Response getLayoutFieldsFromZion(Map<String, String> param) {
         param.put("realm",appName);
-        return zionApiUrl().params(param).when().get("/layout/fields");
+        return zionApiUrl().params(param).get("/layout/fields");
     }
 
     public static Response getTiles(Map<String, String> param) {
         param.put("realm",appName);
         param.put("pageNo","0");
-        return zionApiUrl().params(param).when().get("/tile/tiles/search?pageSize=10&query=Shubham&sort=-lastUpdatedOn");
+        return zionApiUrl().params(param).get("/tile/tiles/search?pageSize=10&query=Shubham&sort=-lastUpdatedOn");
     }
 
     public static Response getLayoutTemplateFromZion(Map<String, String> param) {
         param.put("realm",appName);
-        return zionApiUrl().params(param).when().get("/layout/templates");
+        return zionApiUrl().params(param).get("/layout/templates");
     }
 
     public static Response getLayoutSectionsFromZion(Map<String, String> param) {
         param.put("realm",appName);
-        return zionApiUrl().when().params(param).get("/layout/sections");
+        return zionApiUrl().params(param).get("/layout/sections");
     }
 
     public static Response deleteSectionsFromZion(String sectionId) {
-        return zionApiUrl().when().delete("/layout/sections"+sectionId+"?realm="+appName);
+        return zionApiUrl().delete("/layout/sections"+sectionId+"?realm="+appName);
     }
 
     public static Response getSegmentsFromZion(Map<String, String> param) {
         param.put("realm",appName);
-        return zionApiUrl().when().params(param).get("/layout/segments");
+        return zionApiUrl().params(param).get("/layout/segments");
     }
 
     public static Response getSegmentFromZionById(String segmentId, Map<String, String> param) {
         param.put("realm",appName);
-        return zionApiUrl().when().params(param).get("/layout/segments/"+segmentId);
+        return zionApiUrl().params(param).get("/layout/segments/"+segmentId);
     }
 
     public static Response getSectionFromZion(String sectionId,Map<String, String> param) {
         param.put("realm",appName);
-        return zionApiUrl().when().params(param).get("/layout/sections/"+sectionId);
+        return zionApiUrl().params(param).get("/layout/sections/"+sectionId);
     }
 
     public static Response getSectionFromZion(String sectionId) {
-        return zionApiUrl().when().get("/layout/sections/"+sectionId+"?realm="+appName);
+        return zionApiUrl().get("/layout/sections/"+sectionId+"?realm="+appName);
     }
 
     public static Response getPagesFromZion(Map<String, String> param) {
         param.put("realm",appName);
-        return zionApiUrl().when().params(param).get("/layout/pages");
+        return zionApiUrl().params(param).get("/layout/pages");
     }
 
     public static Response getPageFromZion(String pageId,Map<String, String> param) {
         param.put("realm",appName);
-        return zionApiUrl().when().params(param).get("/layout/pages/"+pageId);
+        return zionApiUrl().params(param).get("/layout/pages/"+pageId);
     }
 
     public static Response postSegment(PostSegment postSegment) {
@@ -149,16 +149,16 @@ public class ZionServices extends ApiHelper {
     }
 
     public static Response deleteTemplate(String templateId) {
-        return zionApiUrl().when().delete("/layout/templates/"+templateId+"?realm="+appName);
+        return zionApiUrl().delete("/layout/templates/"+templateId+"?realm="+appName);
     }
 
     public static Response deleteField(String fieldId) {
-        return zionApiUrl().when().delete("/layout/fields/"+fieldId+"?realm="+appName);
+        return zionApiUrl().delete("/layout/fields/"+fieldId+"?realm="+appName);
     }
 
     public static Response getModuleFromZion(Map<String, String> param) {
         param.put("realm",appName);
-        return zionApiUrl().when().params(param).get("/layout/modules");
+        return zionApiUrl().params(param).get("/layout/modules");
     }
 
     public static Response postModuleFromZion(Object postXMasterModule) {

@@ -1,5 +1,5 @@
 
-package model.response.arsenalCollection;
+package model.Common.arsenalCollection;
 
 import lombok.Data;
 
@@ -10,7 +10,7 @@ public class DynamicMeta {
     private String functionName;
     private Object functionType;
     private Boolean isFollowable;
-    private Object mixParam;
+    private MixParam mixParam;
     private String protocol;
     private String refreshType;
     private Object url;
