@@ -32,14 +32,14 @@ public class ApiHelper {
     private static String auth = conf.getString("auth");
     public static Gson gson;
 
-    private static final Headers headers = new Headers(
+    private static final Headers defaultHeaders = new Headers(
             new Header("Content-Type", "application/json"),
-            new Header("Authorization", "Bearer token123")
+            new Header("accept", "*/*")
     );
 
     protected static RequestSpecification baseApiUrl(String baseUrl) {
         RestAssured.baseURI = URI.create(conf.getString(baseUrl)).toString();
-        return given().log().all().headers(headers);
+        return given().log().all().headers(defaultHeaders);
     }
 
     protected static RequestSpecification kibanaApiURL() {
@@ -62,46 +62,20 @@ public class ApiHelper {
 
     protected static RequestSpecification zionApiUrlBe() {
         RestAssured.baseURI = URI.create(zionApiUrl_be).toString();
-        return given().log().all().headers(headers);
+        return given().log().all().headers(defaultHeaders);
     }
 
     protected static RequestSpecification zionApiUrl() {
         RestAssured.baseURI = URI.create(zionApiUrl).toString();
         return given().log().all()
                 .header("rtkn", auth)
-                .headers(headers);
+                .headers(defaultHeaders);
     }
 
     protected static RequestSpecification zionApiUrla() {
         RestAssured.baseURI = URI.create(zionApiUrl).toString();
         return given().log().all()
                 .header("rtkn", auth);
-    }
-
-    public static Map<String, String> getParams(String url) throws Exception {
-
-        URI uri = new URI(url);
-        String query = uri.getQuery();  // everything after '?'
-
-        Map<String, String> map = new HashMap<>();
-
-        if (query == null || query.isEmpty()) { return map; }
-
-        String[] params = query.split("&");
-
-        for (String param : params) {
-            String[] pair = param.split("=", 2);
-
-            String key = URLDecoder.decode(pair[0], StandardCharsets.UTF_8.name());
-            String value = "";
-
-            if (pair.length > 1) {
-                value = URLDecoder.decode(pair[1], StandardCharsets.UTF_8.name());
-            }
-            map.put(key, value);
-        }
-
-        return map;
     }
 
     //Specify all one time default Gson config

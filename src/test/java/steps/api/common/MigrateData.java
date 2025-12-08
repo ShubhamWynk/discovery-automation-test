@@ -19,7 +19,6 @@ import model.request.zion.layout.module.createModule.DISPLAY;
 import model.response.zion.layout.section.getSectionDetails.SegmentModule;
 import org.junit.Assert;
 import services.zionServices.ZionServices;
-import utilities.CsvReader;
 
 import java.text.SimpleDateFormat;
 import java.util.*;

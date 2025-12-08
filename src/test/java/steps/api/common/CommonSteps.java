@@ -13,6 +13,7 @@ import org.junit.Assert;
 import services.discovery.ArsenalService;
 import services.discovery.DiscoveryServices;
 import services.zionServices.ZionServices;
+import utilities.Utils;
 
 import java.util.Objects;
 
@@ -42,7 +43,7 @@ public class CommonSteps {
         Response response4 = ZionServices.getUserLogs(arg0);
         Assert.assertEquals(200, response4.getStatusCode());
         userLogs = mapper.readTree(response4.getBody().asString());
-        UserInfo.liveAttribute = ZionServices.getParams(userLogs.get("hits").get("hits").get(0).get("_source").get("origamiRequest").asText());
+        UserInfo.liveAttribute = Utils.getParams(userLogs.get("hits").get("hits").get(0).get("_source").get("origamiRequest").asText());
 
         //Fetch Experiment
         Response response3 = DiscoveryServices.getExperimentForUser(arg0);
