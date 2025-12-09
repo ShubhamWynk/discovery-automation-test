@@ -1,4 +1,4 @@
-package steps.api.common;
+package steps.api.microService;
 
 import io.restassured.response.Response;
 import io.cucumber.datatable.DataTable;

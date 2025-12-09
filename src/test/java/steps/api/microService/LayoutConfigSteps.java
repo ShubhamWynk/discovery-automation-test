@@ -1,11 +1,10 @@
-package steps.api.common;
+package steps.api.microService;
 
 import io.restassured.response.Response;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import helpers.ApiHelper;
 import model.request.common.SupportedClient;
 import model.request.zion.layoutConfigReq.PostNewSection.PostNewSectionReq;
 import model.request.zion.layoutConfigReq.postNewField.Attributes;
@@ -31,7 +30,6 @@ import model.response.zion.layoutConfig.getPage.SegmentModule;
 import model.response.zion.zionLoginService.ZionLoginServiceRes;
 import org.junit.Assert;
 import services.zionServices.ZionServices;
-import config.ConfigLoader;
 
 import java.util.*;
 import static helpers.ApiHelper.gson;

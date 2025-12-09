@@ -30,7 +30,7 @@ public class DiscoveryServices extends ApiHelper {
     }
 
     public static Response getWatchHistory(String userID) {
-        return watchContentApiUrl()
-                .get("/get/userWatchInfo?uid="+userID);
+        return watchContentApiUrl().queryParam("uid",userID)
+                .get("/get/userWatchInfo");
     }
 }

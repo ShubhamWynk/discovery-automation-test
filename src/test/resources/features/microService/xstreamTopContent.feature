@@ -9,7 +9,7 @@ Feature: Xstream Top Content
       | 0       | 90    | tvshow, movie | true           |
     Then Verify
 
-  Scenario: Verify xstream top content
+  Scenario: Verify xstream top content for
     Given We are using "p-cWmUEqg4MGRdaJp0" as a Xstream user
     And Fetch user's "HOMEPAGE_TOP_MOVIE" top content from xstream-top-content
     Then Verify

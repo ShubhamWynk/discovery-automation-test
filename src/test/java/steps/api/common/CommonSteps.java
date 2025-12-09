@@ -4,10 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import config.ConfigLoader;
 import helpers.ApiHelper;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.restassured.response.Response;
 import model.Common.UserInfo;
+import model.Common.arsenalCollection.ArsenalCollection;
 import model.response.zion.zionLoginService.ZionLoginServiceRes;
 import org.junit.Assert;
 import services.discovery.ArsenalService;
@@ -15,6 +15,9 @@ import services.discovery.DiscoveryServices;
 import services.zionServices.ZionServices;
 import utilities.Utils;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.Objects;
 
 import static helpers.ApiHelper.gson;
@@ -23,6 +26,17 @@ public class CommonSteps {
 
     ObjectMapper mapper = new ObjectMapper();
     JsonNode userLogs;
+
+    private static String jsonPath = "src/test/resources/data/json/collection.json";
+
+    public static ArsenalCollection createDownStreamApiRequest(String useCase, Map<String, String[]> params,String downStreamApiUrl) throws IOException {
+        ArsenalCollection req = gson().fromJson(Utils.jsonToBody(jsonPath), ArsenalCollection.class);
+        req.getDynamicMeta().getMixParam().setUseCase(useCase);
+        req.getDynamicMeta().setUrl(downStreamApiUrl);
+        req.setContents(new ArrayList<>());
+        req.getDynamicMeta().getMixParam().setParams(params);
+        return req;
+    }
 
     public ZionLoginServiceRes loginService(String email,String pass){
         Response response = ZionServices.loginService(email,pass);
