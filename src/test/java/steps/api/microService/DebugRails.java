@@ -41,7 +41,7 @@ public class DebugRails {
 //    }
 
     public void checkSegmentation(List<String> segment, String uid) {
-        Response response = DiscoveryServices.getUserPersona(uid,true,true,true,true);
+        Response response = DiscoveryServices.getUserPersona(uid,true,true, true);
         Assert.assertEquals(200, response.getStatusCode());
         response.prettyPrint();
         PostNewSegmentRes postNewSegmentRes = getSegmentFromZionById(segment.get(0), new HashMap<>());

@@ -11,5 +11,6 @@ public class UserInfo {
     public static JsonNode userPersona, watchHistory, experiment, userLogs;
     public static ArsenalCollection userEncounter;
     public static Map<String,String> liveAttribute;
+    public static Map<String, Map<String,Map<String,Integer>>> slotPersona;
 
 }

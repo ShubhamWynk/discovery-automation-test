@@ -8,11 +8,22 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Utils {
+
+    public static long calculateDateDifference(String dateStr){
+        return ChronoUnit.DAYS.between(
+                LocalDate.parse(dateStr, DateTimeFormatter.ofPattern("dd-MM-yyyy")),
+                LocalDate.now()
+        );
+    }
+
     public static Map<String,String[]> convertMapOfStringToMapOfList(Map<String,String> data){
         Map<String, String[]> data2 = new HashMap<>();
 

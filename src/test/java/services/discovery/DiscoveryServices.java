@@ -7,14 +7,15 @@ import model.request.segment.SegmentationCheckReq;
 public class DiscoveryServices extends ApiHelper {
 
     public static Response getUserPersona(
-            String uid, Boolean fetch_persona, Boolean fetch_custom_segments, Boolean fetch_click_rt_persona, Boolean fetchXstreamOnboarding
+            String uid, Boolean fetch_click_rt_persona, Boolean fetchXstreamOnboarding, Boolean fetchSlotRtPersona
     ) {
         return baseApiUrl("discoveryUrl")
-                .queryParam("fetch_persona",fetch_persona)
-                .queryParam("fetch_custom_segments",fetch_custom_segments)
                 .queryParam("realm",appName)
+                .queryParam("fetch_persona",true)
+                .queryParam("fetch_custom_segments",false)
                 .queryParam("fetch_click_rt_persona", fetch_click_rt_persona)
                 .queryParam("fetchXstreamOnboarding", fetchXstreamOnboarding)
+                .queryParam("fetch_slot_rt_persona",fetchSlotRtPersona)
                 .get("/segmentation/v1/persona/"+uid);
     }
 
