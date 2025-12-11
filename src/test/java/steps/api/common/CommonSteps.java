@@ -38,8 +38,8 @@ public class CommonSteps {
         return req;
     }
 
-    public static Map<String, Map<String, Map<String, Integer>>> filteredSlotPersona(long noOfDays) {
-        return UserInfo.slotPersona.entrySet().stream()
+    public static Map<String, Map<String, Map<String, Integer>>> filteredSlotPersona(Map<String, Map<String,Map<String,Integer>>> slotPersona, long noOfDays) {
+        return slotPersona.entrySet().stream()
                 .filter(e -> Utils.calculateDateDifference(e.getKey()) <= noOfDays)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
@@ -151,10 +151,9 @@ public class CommonSteps {
 //        slotPersona
         ObjectMapper mapper = new ObjectMapper();
         JsonNode slotPersona = UserInfo.userPersona.get("realtime-persona").get("slotPersonaPayload");
-        UserInfo.slotPersona = mapper.convertValue(slotPersona, new TypeReference<>() {
-        });
-        Map<String, Map<String, Map<String, Integer>>> temp = filteredSlotPersona(20);
-        Map<String,Map<String,List<String>>> slotPersonaFlatten = slotPersonaFlatten(temp);
+        UserInfo.slotPersona = mapper.convertValue(slotPersona, new TypeReference<>() {});
+        Map<String, Map<String, Map<String, Integer>>> temp = filteredSlotPersona(UserInfo.slotPersona,20);
+        UserInfo.slotPersonaFlatten = slotPersonaFlatten(temp);
     }
 
     @Given("login with curator user")
