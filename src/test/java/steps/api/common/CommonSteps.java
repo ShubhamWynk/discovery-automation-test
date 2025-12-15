@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import config.ConfigLoader;
 import helpers.ApiHelper;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.restassured.response.Response;
 import model.Common.UserInfo;
@@ -148,12 +149,20 @@ public class CommonSteps {
         //User Encounter
         UserInfo.userEncounter = ArsenalService.getArsenalCollectionController("axaut_goxe32721718098299613", UserInfo.liveAttribute);
 
-//        slotPersona
+//        SlotPersona
         ObjectMapper mapper = new ObjectMapper();
         JsonNode slotPersona = UserInfo.userPersona.get("realtime-persona").get("slotPersonaPayload");
         UserInfo.slotPersona = mapper.convertValue(slotPersona, new TypeReference<>() {});
         Map<String, Map<String, Map<String, Integer>>> temp = filteredSlotPersona(UserInfo.slotPersona,20);
         UserInfo.slotPersonaFlatten = slotPersonaFlatten(temp);
+
+        //TOD
+
+    }
+
+    @And("^Change user selected languages to \"([^\"]*)\"$")
+    public void changePLanguagesTo(String arg1) throws Throwable {
+        UserInfo.liveAttribute.put("languages",arg1);
     }
 
     @Given("login with curator user")
@@ -162,5 +171,10 @@ public class CommonSteps {
             ZionLoginServiceRes zionLoginServiceRes = loginService("shubhamgupta212755@gmail.com", "U2FsdGVkX19NQaev3NfCf/RPc7QSo16B39TywmXFdzk=");
             ApiHelper.setAuth(zionLoginServiceRes.getRtkn());
         }
+    }
+
+    @And("Add contentId {string} in params for recommendation")
+    public void addContentIdInParamsForRecommendation(String contentId) {
+        UserInfo.liveAttribute.put("contentId",contentId);
     }
 }

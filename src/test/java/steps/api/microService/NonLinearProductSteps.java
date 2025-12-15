@@ -61,11 +61,6 @@ public class NonLinearProductSteps {
         }
     }
 
-    @And("^Change P1 languages to \"([^\"]*)\"$")
-    public void changePLanguagesTo(String arg1) throws Throwable {
-        UserInfo.liveAttribute.put("languages",arg1);
-    }
-
     @Then("^Verify Content language is same from user P1 language if P0 is not available$")
     public void verifyContentLanguageIsSameFromUserPLanguageIfPIsNotAvaliable() {
 
