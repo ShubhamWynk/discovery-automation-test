@@ -1,4 +1,4 @@
-package steps.api.microService;
+package steps.api;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;

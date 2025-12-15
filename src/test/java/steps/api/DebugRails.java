@@ -1,4 +1,4 @@
-package steps.api.microService;
+package steps.api;
 
 import io.restassured.response.Response;
 import io.cucumber.java.en.Then;
