@@ -1,5 +1,7 @@
 package steps.api;
 
+import com.typesafe.config.Config;
+import config.ConfigLoader;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.restassured.response.Response;
@@ -16,7 +18,7 @@ import static utilities.Utils.convertMapOfStringToMapOfList;
 
 public class ArgusSteps {
 
-    String argusBaseUrl = "http://argus.discovery.svc.cluster.local:8080";
+    String argusBaseUrl = DownStreamService.getCollectionUrls("argusApiUrl");
     String argusUrl = argusBaseUrl + "/v1/recommendation";
     ArsenalCollection response;
 

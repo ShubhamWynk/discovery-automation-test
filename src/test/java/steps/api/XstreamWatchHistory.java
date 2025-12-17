@@ -19,11 +19,9 @@ public class XstreamWatchHistory {
 
     ArsenalCollection response;
 
-    String jsonPath = "src/test/resources/data/json/collection.json";
-
-    String watchHistoryBaseUrl = "http://xstream-watch-history.discovery.svc.cluster.local:8080/v1";
-    String watchHistoryUrl = watchHistoryBaseUrl + "/user/history/collection";
-    String watchListUrl = watchHistoryBaseUrl + "/user/watchlist/collection";
+    String watchHistoryBaseUrl = DownStreamService.getCollectionUrls("xstreamWatchHistoryApiUrl");
+    String watchHistoryUrl = watchHistoryBaseUrl + "/v1/user/history/collection";
+    String watchListUrl = watchHistoryBaseUrl + "/v1/user/watchlist/collection";
 
     private String getDownStreamUrl(String useCase){
         return useCase.equals("WATCH_LIST") ? watchListUrl : watchHistoryUrl;

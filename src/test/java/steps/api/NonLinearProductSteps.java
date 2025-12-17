@@ -10,7 +10,6 @@ import org.junit.Assert;
 import services.discovery.ArsenalService;
 
 public class NonLinearProductSteps {
-    UserInfo userInfo = new UserInfo();
     ArsenalCollection version1Collections;
 
     @And("^Fetch content from arsenal collection \"([^\"]*)\"$")

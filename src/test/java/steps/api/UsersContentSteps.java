@@ -17,9 +17,7 @@ import static utilities.Utils.convertMapOfStringToMapOfList;
 
 public class UsersContentSteps {
 
-    String jsonPath = "src/test/resources/data/json/collection.json";
-
-    String userContentBaseUrl = "http://user-content.discovery.svc.cluster.local:8080";
+    String userContentBaseUrl = DownStreamService.getCollectionUrls("userContentApiUrl");
     String userContentUrl = userContentBaseUrl + "/v1/topcontent";
     ArsenalCollection response;
 

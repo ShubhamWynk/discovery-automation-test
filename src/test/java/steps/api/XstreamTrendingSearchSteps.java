@@ -17,7 +17,7 @@ import static utilities.Utils.convertMapOfStringToMapOfList;
 
 public class XstreamTrendingSearchSteps {
 
-    String trendingSearchBaseUrl = "http://discovery-trending-service.discovery.svc.cluster.local:8080";
+    String trendingSearchBaseUrl = DownStreamService.getCollectionUrls("discoveryTrendingServiceApiUrl");
     String trendingSearchUrl = trendingSearchBaseUrl + "/v1/trending";
     ArsenalCollection response;
 

@@ -17,7 +17,7 @@ import static utilities.Utils.convertMapOfStringToMapOfList;
 
 public class XstreamTopContentSteps {
 
-    String topContentBaseUrl = "http://xstream-top-content.discovery.svc.cluster.local:8080";
+    String topContentBaseUrl = DownStreamService.getCollectionUrls("xstreamTopContentApiUrl");
     String topContentUrl = topContentBaseUrl + "/v1/topcontent";
     ArsenalCollection response;
 
