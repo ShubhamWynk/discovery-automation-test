@@ -23,7 +23,6 @@ Feature: Trending On IMBD
     And Verify content should be deduped
     And Verify no erotic content should be present in the response
 
-
   Scenario: Var4| Languages top ranked contents filtered by users languages filter(dom+ sig+USL), languages RR.
     Given We are using "PX_r7GPUCo1kqaICY0" as a Xstream user
     When Fetch content from arsenal collection "axaut_2wnt20281760425945509"
