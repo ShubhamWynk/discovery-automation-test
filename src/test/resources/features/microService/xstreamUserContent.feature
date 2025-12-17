@@ -15,7 +15,7 @@ Feature: User Content Feature
     Given We are using "p-cWmUEqg4MGRdaJp0" as a Xstream user
     And Fetch user's en-countered content for "HOMEPAGE_TOP_MOVIE" with params
       | dayFrom | dayTo | filter_type    | reduceToParent |
-      | 0       | 90    | tvshow, movie | true           |
+      | 0       | 90    | tvshow, movie | true            |
     Then Verify
 
   Scenario: Verify xstream User content for

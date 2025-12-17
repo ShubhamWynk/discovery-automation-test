@@ -11,12 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import config.ConfigLoader;
 
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.net.URI;
 import io.restassured.http.Headers;
-import java.util.HashMap;
-import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
@@ -93,5 +89,9 @@ public class ApiHelper {
 
     public static void setAuth(String auth){
         ApiHelper.auth = auth;
+    }
+
+    public static String getCollectionUrls(String urlKey){
+        return conf.getString(urlKey);
     }
 }

@@ -5,3 +5,4 @@ Feature: Argus
     And Fetch content from argus for
       | dayFrom | dayTo | filter_type   | reduceToParent |
       | 0       | 90    | tvshow, movie | true           |
+    Then Verify

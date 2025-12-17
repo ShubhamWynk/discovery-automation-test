@@ -1,4 +1,4 @@
-package steps.api.common;
+package steps.api;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -28,9 +28,8 @@ public class CommonSteps {
     ObjectMapper mapper = new ObjectMapper();
     JsonNode userLogs;
 
-    private static String jsonPath = "src/test/resources/data/json/collection.json";
-
     public static ArsenalCollection createDownStreamApiRequest(String useCase, Map<String, String[]> params, String downStreamApiUrl) throws IOException {
+        String jsonPath = "src/test/resources/data/json/collection.json";
         ArsenalCollection req = gson().fromJson(Utils.jsonToBody(jsonPath), ArsenalCollection.class);
         req.getDynamicMeta().getMixParam().setUseCase(useCase);
         req.getDynamicMeta().setUrl(downStreamApiUrl);

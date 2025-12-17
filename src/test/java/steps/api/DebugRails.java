@@ -1,4 +1,4 @@
-package steps.api.microService;
+package steps.api;
 
 import io.restassured.response.Response;
 import io.cucumber.java.en.Then;
@@ -18,21 +18,21 @@ import java.util.Map;
 import static helpers.ApiHelper.gson;
 
 public class DebugRails {
-    LayoutDebug layoutDebug;
-    MODULEDebug moduleDebug = new MODULEDebug();
-    Map<String, String> map2;
-
-    public PostNewSegmentRes getSegmentFromZionById(String segmentId, Map<String, String> map) {
-        Response response = ZionServices.getSegmentFromZionById(segmentId, map);
-        Assert.assertEquals(200, response.getStatusCode());
-        return gson().fromJson(response.body().asString(), PostNewSegmentRes.class);
-    }
-
-    public SegmentationCheckReq checkSegmentation(SegmentationCheckReq segmentationCheckReq) {
-        Response response = DiscoveryServices.checkSegmentation(segmentationCheckReq);
-        Assert.assertEquals(200, response.getStatusCode());
-        return gson().fromJson(response.body().asString(), SegmentationCheckReq.class);
-    }
+//    LayoutDebug layoutDebug;
+//    MODULEDebug moduleDebug = new MODULEDebug();
+//    Map<String, String> map2;
+//
+//    public PostNewSegmentRes getSegmentFromZionById(String segmentId, Map<String, String> map) {
+//        Response response = ZionServices.getSegmentFromZionById(segmentId, map);
+//        Assert.assertEquals(200, response.getStatusCode());
+//        return gson().fromJson(response.body().asString(), PostNewSegmentRes.class);
+//    }
+//
+//    public SegmentationCheckReq checkSegmentation(SegmentationCheckReq segmentationCheckReq) {
+//        Response response = DiscoveryServices.checkSegmentation(segmentationCheckReq);
+//        Assert.assertEquals(200, response.getStatusCode());
+//        return gson().fromJson(response.body().asString(), SegmentationCheckReq.class);
+//    }
 
 //    public LayoutDebug getDiscoveryOrigamiLayoutDebug(String page, Map<String, String> map2) {
 //        Response response = DiscoveryServices.getDiscoveryOrigamiLayoutDebug(page, map2);
@@ -40,13 +40,13 @@ public class DebugRails {
 //        return gson().fromJson(response.body().asString(), LayoutDebug.class);
 //    }
 
-    public void checkSegmentation(List<String> segment, String uid) {
-        Response response = DiscoveryServices.getUserPersona(uid,true,true, true);
-        Assert.assertEquals(200, response.getStatusCode());
-        response.prettyPrint();
-        PostNewSegmentRes postNewSegmentRes = getSegmentFromZionById(segment.get(0), new HashMap<>());
-        System.out.println("Rule ==========>" + gson.toJson(postNewSegmentRes.getRule()));
-    }
+//    public void checkSegmentation(List<String> segment, String uid) {
+//        Response response = DiscoveryServices.getUserPersona(uid,true,true, true);
+//        Assert.assertEquals(200, response.getStatusCode());
+//        response.prettyPrint();
+//        PostNewSegmentRes postNewSegmentRes = getSegmentFromZionById(segment.get(0), new HashMap<>());
+//        System.out.println("Rule ==========>" + gson.toJson(postNewSegmentRes.getRule()));
+//    }
 
 //    @Given("^User hit origami-service for \"([^\"]*)\" page$")
 //    public void userHitOrigamiServiceForPage(String page, DataTable dataTable) throws Throwable {
@@ -113,20 +113,20 @@ public class DebugRails {
 //        }
 //    }
 
-    @Then("^check module should lie in MODULE_SEGMENT_UNMATCHED if not in MODULE_RENDERED$")
-    public void checkModuleShouldLieInMODULE_SEGMENT_UNMATCHEDIfNotInMODULE_RENDERED() {
-        SegmentationCheckReq segmentationCheckReq = new SegmentationCheckReq();
-        segmentationCheckReq.setUid(map2.get("uid"));
-        segmentationCheckReq.setRealm(map2.get("realm"));
-        List<String> segments = new ArrayList<>();
-        segments.add(moduleDebug.getSegmentId());
-        segmentationCheckReq.setSegmentsToBeMatched(segments);
-        SegmentationCheckReq segmentationCheckRes = checkSegmentation(segmentationCheckReq);
-        if (segmentationCheckRes.getSegmentsToBeMatched() == null) {
-            System.out.println("==== Segment not Pass for this User =====" + map2.get("uid"));
-            checkSegmentation(segments, map2.get("uid"));
-        } else {
-            System.out.println("==== Segment Pass for this User =====" + map2.get("uid"));
-        }
-    }
+//    @Then("^check module should lie in MODULE_SEGMENT_UNMATCHED if not in MODULE_RENDERED$")
+//    public void checkModuleShouldLieInMODULE_SEGMENT_UNMATCHEDIfNotInMODULE_RENDERED() {
+//        SegmentationCheckReq segmentationCheckReq = new SegmentationCheckReq();
+//        segmentationCheckReq.setUid(map2.get("uid"));
+//        segmentationCheckReq.setRealm(map2.get("realm"));
+//        List<String> segments = new ArrayList<>();
+//        segments.add(moduleDebug.getSegmentId());
+//        segmentationCheckReq.setSegmentsToBeMatched(segments);
+//        SegmentationCheckReq segmentationCheckRes = checkSegmentation(segmentationCheckReq);
+//        if (segmentationCheckRes.getSegmentsToBeMatched() == null) {
+//            System.out.println("==== Segment not Pass for this User =====" + map2.get("uid"));
+//            checkSegmentation(segments, map2.get("uid"));
+//        } else {
+//            System.out.println("==== Segment Pass for this User =====" + map2.get("uid"));
+//        }
+//    }
 }

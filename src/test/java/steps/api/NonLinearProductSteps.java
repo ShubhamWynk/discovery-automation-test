@@ -1,4 +1,4 @@
-package steps.api.microService;
+package steps.api;
 
 
 import io.cucumber.java.en.And;
@@ -10,7 +10,6 @@ import org.junit.Assert;
 import services.discovery.ArsenalService;
 
 public class NonLinearProductSteps {
-    UserInfo userInfo = new UserInfo();
     ArsenalCollection version1Collections;
 
     @And("^Fetch content from arsenal collection \"([^\"]*)\"$")
@@ -57,7 +56,7 @@ public class NonLinearProductSteps {
     @Then("^Verify content partner should be \"([^\"]*)\"$")
     public void verifyContentPartnerShouldBe(String arg0) throws Throwable {
         for (int i = 0; i < version1Collections.getContents().size(); i++) {
-            Assert.assertTrue(arg0.contains(version1Collections.getContents().get(i).getExtras().get("_cpId")));
+            Assert.assertTrue(arg0.toLowerCase().contains(version1Collections.getContents().get(i).getExtras().get("_cpId").toLowerCase()));
         }
     }
 

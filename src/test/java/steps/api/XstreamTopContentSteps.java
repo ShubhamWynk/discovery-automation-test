@@ -1,4 +1,4 @@
-package steps.api.microService;
+package steps.api;
 
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
@@ -6,11 +6,9 @@ import io.restassured.response.Response;
 import model.Common.UserInfo;
 import model.Common.arsenalCollection.ArsenalCollection;
 import services.discovery.DownStreamService;
-import steps.api.common.CommonSteps;
 import utilities.Utils;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +17,7 @@ import static utilities.Utils.convertMapOfStringToMapOfList;
 
 public class XstreamTopContentSteps {
 
-    String topContentBaseUrl = "http://xstream-top-content.discovery.svc.cluster.local:8080";
+    String topContentBaseUrl = DownStreamService.getCollectionUrls("xstreamTopContentApiUrl");
     String topContentUrl = topContentBaseUrl + "/v1/topcontent";
     ArsenalCollection response;
 

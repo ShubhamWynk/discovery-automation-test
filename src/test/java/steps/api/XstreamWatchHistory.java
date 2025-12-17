@@ -1,4 +1,4 @@
-package steps.api.microService;
+package steps.api;
 
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
@@ -6,11 +6,9 @@ import io.restassured.response.Response;
 import model.Common.UserInfo;
 import model.Common.arsenalCollection.ArsenalCollection;
 import services.discovery.DownStreamService;
-import steps.api.common.CommonSteps;
 import utilities.Utils;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,11 +19,9 @@ public class XstreamWatchHistory {
 
     ArsenalCollection response;
 
-    String jsonPath = "src/test/resources/data/json/collection.json";
-
-    String watchHistoryBaseUrl = "http://xstream-watch-history.discovery.svc.cluster.local:8080/v1";
-    String watchHistoryUrl = watchHistoryBaseUrl + "/user/history/collection";
-    String watchListUrl = watchHistoryBaseUrl + "/user/watchlist/collection";
+    String watchHistoryBaseUrl = DownStreamService.getCollectionUrls("xstreamWatchHistoryApiUrl");
+    String watchHistoryUrl = watchHistoryBaseUrl + "/v1/user/history/collection";
+    String watchListUrl = watchHistoryBaseUrl + "/v1/user/watchlist/collection";
 
     private String getDownStreamUrl(String useCase){
         return useCase.equals("WATCH_LIST") ? watchListUrl : watchHistoryUrl;
