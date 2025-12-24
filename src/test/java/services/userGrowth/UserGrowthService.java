@@ -1,17 +1,9 @@
 package services.userGrowth;
 
-import io.restassured.response.Response;
 import helpers.ApiHelper;
-import model.response.userGrowth.AddCampaignRequestPayload;
-import model.response.userGrowth.AddTemplateRequestPayload;
-import model.response.userGrowth.UpdateCampaign.UpdateCampaignRequestPayload;
-import model.response.userGrowth.UpdateTemplate.UpdateTemplateRequestPayload;
-import model.response.userGrowth.template.CreateTemplateRequestPayload;
+import services.BaseServiceClient;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class UserGrowthService extends ApiHelper {
+public class UserGrowthService extends BaseServiceClient {
 
 //    public static Response createTemplate(String createTemplatePayload) {
 //        return userGrowthApiUrl().body(createTemplatePayload).post("/templates");

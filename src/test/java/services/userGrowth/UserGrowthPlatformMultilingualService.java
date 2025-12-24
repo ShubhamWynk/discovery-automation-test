@@ -1,4 +1,6 @@
 package services.userGrowth;
 import helpers.ApiHelper;
-public class UserGrowthPlatformMultilingualService extends ApiHelper{
+import services.BaseServiceClient;
+
+public class UserGrowthPlatformMultilingualService extends BaseServiceClient {
 }

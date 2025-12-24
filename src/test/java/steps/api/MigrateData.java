@@ -1,29 +1,5 @@
 package steps.api;
 
-import io.restassured.response.Response;
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import model.request.common.SupportedClient;
-import model.request.zion.layout.module.createModule.ACTION;
-import model.request.zion.layout.module.createModule.Meta;
-import model.request.zion.layout.module.createModule.CreateModuleReq;
-import model.request.zion.layout.postModulesPositionInSection.PostModuleInSection;
-import model.response.zion.layout.module.getModles.Datum;
-import model.response.zion.layout.module.getModles.GetModules;
-import model.response.zion.layout.module.createModule.CreateModuleRes;
-import model.response.zion.layoutConfig.getPage.GetPageResponce;
-import model.response.zion.layoutConfig.getPagesList.GetPagesListResponse;
-import model.response.zion.layout.section.getSectionDetails.GetSectionDetailsResponse;
-import model.request.zion.layout.module.createModule.DISPLAY;
-import model.response.zion.layout.section.getSectionDetails.SegmentModule;
-import org.junit.Assert;
-import services.zionServices.ZionServices;
-import utilities.CsvReader;
-
-import java.text.SimpleDateFormat;
-import java.util.*;
-
 import static helpers.ApiHelper.gson;
 
 public class MigrateData {

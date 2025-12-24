@@ -1,20 +1,5 @@
 package steps.api;
 
-import io.restassured.response.Response;
-import io.cucumber.java.en.Then;
-import model.request.segment.SegmentationCheckReq;
-import model.response.origami.debug.LayoutDebug;
-import model.response.origami.debug.MODULEDebug;
-import model.response.zion.layout.segment.PostNewSegment.PostNewSegmentRes;
-import org.junit.Assert;
-import services.discovery.DiscoveryServices;
-import services.zionServices.ZionServices;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import static helpers.ApiHelper.gson;
 
 public class DebugRails {

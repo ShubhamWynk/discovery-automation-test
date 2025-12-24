@@ -20,10 +20,8 @@ public class ApiHelper {
 
     public Logger log = LoggerFactory.getLogger(ApiHelper.class);
     private static final Config conf = ConfigLoader.load();
-    private static final String watchContentApiUrl = conf.getString("watchContentApiUrl");
     private static final String zionApiUrl = conf.getString("zionApiUrl");
-    private static final String catalogKibana = conf.getString("catalogKibana");
-    private static final String zionApiUrl_be = conf.getString("zionApiUrl_be");
+
     public static final String appName = conf.getString("appName");
     private static String auth = conf.getString("auth");
     public static Gson gson;
@@ -38,40 +36,14 @@ public class ApiHelper {
         return given().log().all().headers(defaultHeaders);
     }
 
-    protected static RequestSpecification kibanaApiURL() {
-        RestAssured.baseURI = URI.create(catalogKibana).toString();
-        return given().log().all()
-                .header("kbn-version", "7.1.1")
-                .header("authority", "catalog-kibana.wynk.in")
-                .header("accept", "text/plain, */*; q=0.01")
-                .header("accept-encoding", "gzip, deflate, br")
-                .header("content-type", "application/json")
-                .header("accept-encoding", "gzip, deflate, br")
-                .header("accept-encoding", "gzip, deflate, br");
-    }
-
-    protected static RequestSpecification watchContentApiUrl() {
-        RestAssured.baseURI = URI.create(watchContentApiUrl).toString();
-        return given().log().all()
-                .header("Accept", "*/*");
-    }
-
-    protected static RequestSpecification zionApiUrlBe() {
-        RestAssured.baseURI = URI.create(zionApiUrl_be).toString();
-        return given().log().all().headers(defaultHeaders);
-    }
-
-    protected static RequestSpecification zionApiUrl() {
-        RestAssured.baseURI = URI.create(zionApiUrl).toString();
-        return given().log().all()
-                .header("rtkn", auth)
-                .headers(defaultHeaders);
+    protected static RequestSpecification baseApiUrl(String baseUrl, Headers headers) {
+        RestAssured.baseURI = URI.create(conf.getString(baseUrl)).toString();
+        return given().log().all().headers(headers);
     }
 
     protected static RequestSpecification zionApiUrla() {
         RestAssured.baseURI = URI.create(zionApiUrl).toString();
-        return given().log().all()
-                .header("rtkn", auth);
+        return given().log().all().header("rtkn", auth);
     }
 
     //Specify all one time default Gson config
@@ -89,6 +61,10 @@ public class ApiHelper {
 
     public static void setAuth(String auth){
         ApiHelper.auth = auth;
+    }
+
+    public static String getAuth(){
+        return ApiHelper.auth ;
     }
 
     public static String getCollectionUrls(String urlKey){

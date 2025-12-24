@@ -1,18 +1,5 @@
 package steps.api.userGrowth;
 
-import io.restassured.response.Response;
-import io.cucumber.datatable.DataTable;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import model.response.userGrowth.Campaign.CreateCampaignResponse;
-import model.response.userGrowth.CreateCampaignMultilingual.CreateCampaignMultiLangRequest;
-import model.response.userGrowth.template.CreateTemplateResponse;
-import services.userGrowth.UserGrowthService;
-
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.*;
-
 import static helpers.ApiHelper.gson;
 
 public class UserGrowthStepsForMultilingualSteps {
