@@ -13,6 +13,6 @@ public class OrigamiService extends BaseServiceClient {
 
     public Response getDiscoveryOrigamiLayout(String page, Map<String,String> params) {
         return get(params, "/origami-service/v1/layout/"+page);
-//        return baseApiUrl("discoveryUrl").params(params).get("/origami-service/v1/layout/"+page);
+//        return baseApiUrl("discoveryUrl").queryParams(params).get("/origami-service/v1/layout/"+page);
     }
 }

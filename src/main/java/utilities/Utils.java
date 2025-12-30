@@ -17,20 +17,39 @@ import java.util.Map;
 
 public class Utils {
 
-    public static long calculateDateDifference(String dateStr){
+    public static long calculateDateDifference(String dateStr) {
         return ChronoUnit.DAYS.between(
                 LocalDate.parse(dateStr, DateTimeFormatter.ofPattern("dd-MM-yyyy")),
                 LocalDate.now()
         );
     }
 
-    public static Map<String,String[]> convertMapOfStringToMapOfList(Map<String,String> data){
+    public static Map<String, String[]> convertMapOfStringToMapOfList(Map<String, String> data) {
         Map<String, String[]> data2 = new HashMap<>();
 
         for (Map.Entry<String, String> entry : data.entrySet()) {
-            data2.put(entry.getKey(),  entry.getValue().split(", ") );
+            data2.put(entry.getKey(), entry.getValue().split(", "));
         }
         return data2;
+    }
+
+    public static Map<String, List<String>> convertIntoParamsObject(String data) {
+        List<String> paramsList = List.of(data.split("&"));
+        Map<String, List<String>> data2 = new HashMap<>();
+        for (String s : paramsList) {
+            String[] param = s.split("=");
+            data2.put(param[0].trim(), List.of(param[1].trim().split(",")));
+        }
+        return data2;
+    }
+
+    public static String contentType(String contentId) {
+        return (contentId.startsWith("tlxsta")) ? "TILE"
+                : (contentId.startsWith("tlxaut")) ? "DYNAMIC_TILE"
+                : (contentId.startsWith("axaut")) ? "AUTOMATED"
+                : (contentId.startsWith("axsta")) ? "STATIC"
+                : (contentId.startsWith("axhyb")) ? "HYBRID"
+                : "unknown";
     }
 
     public static Map<String, String> getParams(String url) throws Exception {
@@ -40,7 +59,9 @@ public class Utils {
 
         Map<String, String> map = new HashMap<>();
 
-        if (query == null || query.isEmpty()) { return map; }
+        if (query == null || query.isEmpty()) {
+            return map;
+        }
 
         String[] params = query.split("&");
 

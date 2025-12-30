@@ -35,7 +35,7 @@ public class ContentZionService extends BaseServiceClient {
 
     public static Response getCollections(Map<String, String> param) {
         param.put("realm", appName);
-        return baseApiUrl("zionApiUrl", zionHeaders).params(param).get("/content/collections");
+        return baseApiUrl("zionApiUrl", zionHeaders).queryParams(param).get("/content/collections");
     }
 
     public static Response postNewCollection(PostTileIntoCollectionReq postTileIntoCollectionReq) {

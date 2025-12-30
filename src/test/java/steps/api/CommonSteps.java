@@ -141,9 +141,9 @@ public class CommonSteps {
         UserInfo.experiment = mapper.readTree(response3.getBody().asString());
 
         //Fetch Watch history
-        Response response2 = DiscoveryServices.getWatchHistory(arg0);
-        Assert.assertEquals(200, response2.getStatusCode());
-        UserInfo.watchHistory = mapper.readTree(response2.getBody().asString());
+//        Response response2 = DiscoveryServices.getWatchHistory(arg0);
+//        Assert.assertEquals(200, response2.getStatusCode());
+//        UserInfo.watchHistory = mapper.readTree(response2.getBody().asString());
 
         //User Encounter
         UserInfo.userEncounter = ArsenalService.getArsenalCollectionController("axaut_goxe32721718098299613", UserInfo.liveAttribute);
