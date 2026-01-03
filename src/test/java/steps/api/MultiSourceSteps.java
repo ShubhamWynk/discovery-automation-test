@@ -1,5 +1,8 @@
 package steps.api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import constant.Operator;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
@@ -10,15 +13,15 @@ import model.Common.arsenalCollection.ArsenalCollection;
 import model.Common.arsenalCollection.Content;
 import model.Common.arsenalCollection.MultiSourceRequest;
 import model.Common.arsenalCollection.SourceCollection;
+import model.response.userPersona.UserPersonaDTO;
 import org.junit.Assert;
+import services.common.CatalogESService;
 import services.discovery.ArsenalService;
 import services.discovery.DownStreamService;
 import utilities.Utils;
 
-import java.util.Map;
+import java.util.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 
 import static helpers.ApiHelper.gson;
@@ -29,8 +32,41 @@ public class MultiSourceSteps {
     String multiSourceBaseUrl = DownStreamService.getCollectionUrls("multiSourceApiUrl");
     String multiSourceUrl = multiSourceBaseUrl + "/v1/content";
     ArsenalCollection response;
-
+    ArsenalCollection req;
     MultiSourceRequest mutiSourceRequest;
+
+    public static Set<String> getUserLanguage(String type, UserPersonaDTO userPersona, Map<String, String> liveAttribute) {
+        Set<String> userLangList = new HashSet<>();
+
+        List<String> userSelectedLang = liveAttribute.containsKey("languages")
+                ? List.of(liveAttribute.get("languages").split(","))
+                : List.of(userPersona.getXstreamOnboardingUsl());
+        List<String> dominantLang = type.startsWith("c")
+                ? List.of(userPersona.getClickPersonaDominantLang().split(","))
+                : List.of(userPersona.getXstreamDominantLanguageDaily().split(","));
+        List<String> significantLang = type.startsWith("c")
+                ? List.of(userPersona.getClickPersonaSignificantLang().split(","))
+                : userPersona.getXstreamSignificantLanguageDaily();
+
+        switch (type) {
+            case "usl" -> userLangList.addAll(userSelectedLang);
+            case "ucl","cucl" -> {
+                userLangList.addAll(dominantLang);
+                userLangList.addAll(significantLang);
+            }
+            case "ul","cul" -> {
+                userLangList.addAll(dominantLang);
+                userLangList.addAll(significantLang);
+                userLangList.addAll(userSelectedLang);
+            }
+            case "usil", "cusil" -> userLangList.addAll(significantLang);
+            case "udl", "cudl" -> userLangList.addAll(dominantLang);
+            default -> Collections.emptyList();
+        };
+
+        return userLangList;
+
+    }
 
     @And("build multiSource request in dynamic Meta")
     public void buildMultiSourceRequestInDynamicMeta(List<MultiSourceRequest> mutiSourceRequest) {
@@ -47,20 +83,20 @@ public class MultiSourceSteps {
 
             sourceCollection.setCollectionId(row.get("collectionId"));
             sourceCollection.setOperator(Operator.valueOf(row.get("operator")));
-            if (row.containsKey("order")) {
+            if (row.containsKey("order") && row.get("order")!=null) {
                 sourceCollection.setOrder(Long.valueOf(row.get("order")));
             }
-            if (row.containsKey("score")) {
+            if (row.containsKey("score") && row.get("score")!=null) {
                 sourceCollection.setScore(Double.valueOf(row.get("score")));
             }
-            if (row.containsKey("type")) {
+            if (row.containsKey("type") && row.get("type")!=null) {
                 sourceCollection.setType(row.get("type"));
             }
-            if (row.containsKey("params")) {
+            if (row.containsKey("params") && row.get("params")!=null) {
                 Map<String, List<String>> params = Utils.convertIntoParamsObject(row.get("params"));
                 sourceCollection.setParams(params);
             }
-            if(row.containsKey("contents")){
+            if (row.containsKey("contents") && row.get("contents")!=null) {
                 ArsenalCollection tem = ArsenalService.getArsenalCollectionController(row.get("collectionId"), UserInfo.liveAttribute);
                 List<Content> contentList = tem.getContents();
                 row.get("contents").lines().forEach(con -> {
@@ -68,7 +104,23 @@ public class MultiSourceSteps {
                     contentList.get(Integer.parseInt(replaceContent[1])).setContentId(replaceContent[0]);
                     contentList.get(Integer.parseInt(replaceContent[1])).setType(Utils.contentType(replaceContent[0]));
                 });
+                sourceCollection.setContents(contentList);
             }
+
+            if (row.containsKey("contents_list") && row.get("contents_list")!=null) {
+                List<Content> contentList = new ArrayList<>();
+                List<String> tempList = List.of(row.get("contents_list").split(","));
+                tempList.forEach(con -> {
+                    Content content = new Content();
+                    String[] replaceContent = con.split(":");
+                    content.setContentId(replaceContent[0]);
+                    content.setPosition(Long.valueOf(replaceContent[1]));
+                    content.setType(Utils.contentType(replaceContent[0]));
+                    contentList.add(content);
+                });
+                sourceCollection.setContents(contentList);
+            }
+
 //            if (row.containsKey("filters")) {
 //                Map<String,List<String>> params = Utils.convertIntoParamsObject(row.get("params"));
 //                SourceCollection.setFilters(params);
@@ -78,14 +130,17 @@ public class MultiSourceSteps {
         this.mutiSourceRequest.setCollections(sourceCollectionList);
     }
 
-    @And("fetch response for multiSource request")
-    public void fetchResponseForMultiSourceRequest(DataTable dataTable) throws IOException {
+    @And("pass params for multiSource request")
+    public void passParamsForMultiSourceRequest(DataTable dataTable) throws IOException {
         Map<String, String[]> params = convertMapOfStringToMapOfList(Utils.convertDataTableToMap(dataTable).get(0));
-        ArsenalCollection req = CommonSteps.createDownStreamApiRequest("multi-source", params, multiSourceUrl);
+        req = CommonSteps.createDownStreamApiRequest("multi-source", params, multiSourceUrl);
         req.getDynamicMeta().getMixParam().setMultiSourceRequest(this.mutiSourceRequest);
+    }
+
+    @And("fetch response for multiSource request")
+    public void fetchResponseForMultiSourceRequest() throws IOException {
         Response res = DownStreamService.applyMultiSourceCollection(req, UserInfo.liveAttribute);
         response = gson().fromJson(res.body().asString(), ArsenalCollection.class);
-
     }
 
     @Then("Verify sports content should be visible on top of the banner")
@@ -98,5 +153,30 @@ public class MultiSourceSteps {
                 Assert.assertFalse(response.getContents().get(i).getPosition() >= 7);
             }
         }
+    }
+
+    @Then("Verify no erotic content is present in the Banner")
+    public void verifyNoEroticContentIsPresentInTheBanner() throws JsonProcessingException {
+        for (int i = 0; i < response.getContents().size(); i++) {
+            Assert.assertFalse(response.getContents().get(i).getExtras().containsKey("_adultContent"));
+        }
+    }
+
+    @Then("Verify all content in Banner is from User languages")
+    public void verifyAllContentInBannerIsFromUserLanguages() throws JsonProcessingException {
+        for (int i = 0; i < response.getContents().size(); i++) {
+            Assert.assertTrue(
+                    getUserLanguage("cul",UserInfo.userPersona, UserInfo.liveAttribute).contains(
+                            response.getContents().get(i).getExtras().get("_language"
+                            )
+                    )
+            );
+        }
+    }
+
+    @And("Verify if pinned tile is present then sports content should not take that position and should be visible on next position.")
+    public void verifyIfPinnedTileIsPresentThenSportsContentShouldNotTakeThatPositionAndShouldBeVisibleOnNextPosition() {
+        Assert.assertEquals("tlxsta_zy8n02301756717793339", response.getContents().get(0).getContentId());
+        Assert.assertEquals("tlxsta_225h79991767071939478", response.getContents().get(1).getContentId());
     }
 }

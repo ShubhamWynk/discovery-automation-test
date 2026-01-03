@@ -18,7 +18,7 @@ import lombok.*;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Builder
-public class SourceCollection implements Serializable {
+public class SourceCollection  {
     private String collectionId;
     private String type;
     private Operator operator;
@@ -26,8 +26,7 @@ public class SourceCollection implements Serializable {
     private Long order;
     private Map<String, List<String>> params;
     private List<CollectionFilter> filters;
-    @JsonIgnore
-    private transient List<Content> contents;
+    private List<Content> contents;
 
     @Override
     public String toString() {

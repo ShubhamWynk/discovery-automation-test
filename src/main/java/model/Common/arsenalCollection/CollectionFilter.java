@@ -12,7 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)@Builder
-public class CollectionFilter implements Serializable {
+public class CollectionFilter  {
     private Collection<String> languages;
     @Builder.Default private boolean uslBasedFilter = true;
     private Collection<String> segmentIds;
