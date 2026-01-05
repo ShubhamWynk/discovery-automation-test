@@ -2,13 +2,18 @@ package services.discovery;
 
 import io.restassured.response.Response;
 import helpers.ApiHelper;
+import services.BaseServiceClient;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class OrigamiCrud extends ApiHelper {
+public class OrigamiCrud extends BaseServiceClient {
 
-    private final static String ORIGAMI_CRUD="/origami-crud";
+    private final static String ORIGAMI_CRUD = "/origami-crud/v1";
+
+    private String getUrl(String endPoint) {
+        return ORIGAMI_CRUD + endPoint;
+    }
 
     // ********************* Templates *********************
     public Response getTemplateSearch(Map<String, String> query) {
@@ -16,11 +21,11 @@ public class OrigamiCrud extends ApiHelper {
             query = new HashMap<>();
             query.put("realm", appName);
         }
-        return baseApiUrl("discoveryUrl").queryParams(query).get(ORIGAMI_CRUD+"/v1/config/templates/search");
+        return get(query, getUrl("/config/templates/search"));
     }
 
-    public Response getAllTemplates(String realm) {
-        return baseApiUrl("discoveryUrl").get(ORIGAMI_CRUD+"/v1/config/templates?realm="+realm);
+    public Response getAllTemplates() {
+        return get(Map.of("realm", appName), getUrl("/config/templates"));
     }
 
     // ********************** Fields ************************
@@ -29,15 +34,15 @@ public class OrigamiCrud extends ApiHelper {
             query = new HashMap<>();
             query.put("realm", appName);
         }
-        return baseApiUrl("discoveryUrl").queryParams(query).get(ORIGAMI_CRUD+"/v1/config/fields");
+        return get(query, getUrl("/config/fields"));
     }
 
-    public Response getAttributeFields(String realm) {
-        return baseApiUrl("discoveryUrl").get(ORIGAMI_CRUD+"/v1/config/fields/attributes?realm"+realm);
+    public Response getAttributeFields() {
+        return get(Map.of("realm", appName), getUrl("/config/fields/attributes"));
     }
 
-    public Response deleteFields(String id,String realm) {
-        return baseApiUrl("discoveryUrl").delete(ORIGAMI_CRUD+"/v1/config/fields/"+id+"?realm"+realm);
+    public Response deleteFields(String id) {
+        return delete(Map.of("realm", appName), getUrl("/config/fields/" + id));
     }
 
     // ********************  Attributes  ************************
@@ -46,7 +51,7 @@ public class OrigamiCrud extends ApiHelper {
             query = new HashMap<>();
             query.put("realm", appName);
         }
-        return baseApiUrl("discoveryUrl").queryParams(query).get(ORIGAMI_CRUD+"/v1/attributes");
+        return get(query, getUrl("/attributes"));
     }
 
     public Response getAttributeFlattened(Map<String, String> query) {
@@ -54,11 +59,11 @@ public class OrigamiCrud extends ApiHelper {
             query = new HashMap<>();
             query.put("realm", appName);
         }
-        return baseApiUrl("discoveryUrl").queryParams(query).get(ORIGAMI_CRUD+"/v1/attributes/flattened");
+        return get(query, getUrl("/attributes/flattened"));
     }
 
-    public Response getAttributeById(String id, String realm) {
-        return baseApiUrl("discoveryUrl").get("/v1/attributes/"+id+"?realm="+realm);
+    public Response getAttributeById(String id) {
+        return get(Map.of("realm", appName), "/attributes/" + id);
     }
 
     // ************************ Modules **********************
@@ -67,15 +72,15 @@ public class OrigamiCrud extends ApiHelper {
             query = new HashMap<>();
             query.put("realm", appName);
         }
-        return baseApiUrl("discoveryUrl").queryParams(query).get(ORIGAMI_CRUD+"/v1/modules");
+        return get(query, getUrl("/modules"));
     }
 
-    public Response getAllModules(String realm) {
-        return baseApiUrl("discoveryUrl").get(ORIGAMI_CRUD+"/v1/modules/all?realm"+realm);
+    public Response getAllModules() {
+        return get(Map.of("realm", appName), getUrl("/modules/all"));
     }
 
-    public Response getModulesById(String id, String realm) {
-        return baseApiUrl("discoveryUrl").get(ORIGAMI_CRUD+"/v1/modules/"+id+"?realm="+realm);
+    public Response getModulesById(String id) {
+        return get(Map.of("realm", appName), getUrl("/modules/" + id));
     }
 
     // ************************* Pages ***********************
@@ -84,28 +89,28 @@ public class OrigamiCrud extends ApiHelper {
             query = new HashMap<>();
             query.put("realm", appName);
         }
-        return baseApiUrl("discoveryUrl").queryParams(query).get(ORIGAMI_CRUD+"/v1/pages");
+        return get(query, getUrl("/pages"));
     }
 
-    public Response getAllPages(String realm) {
-        return baseApiUrl("discoveryUrl").get(ORIGAMI_CRUD+"/v1/pages/all?realm"+realm);
+    public Response getAllPages() {
+        return get(Map.of("realm", appName), getUrl("/pages/all"));
     }
 
-    public Response getPagesById(String id, String realm) {
-        return baseApiUrl("discoveryUrl").get(ORIGAMI_CRUD+"/v1/pages/"+id+"?realm="+realm);
+    public Response getPagesById(String id) {
+        return get(Map.of("realm", appName), getUrl("/pages/" + id));
     }
 
-    public Response getPagesByAdapterKey(String adapterKey, String realm) {
-        return baseApiUrl("discoveryUrl").get(ORIGAMI_CRUD+"/v1/pages/adapter/"+adapterKey+"?realm="+realm);
+    public Response getPagesByAdapterKey(String adapterKey) {
+        return get(Map.of("realm", appName), getUrl("/pages/adapter/" + adapterKey));
     }
 
-    public Response getPagesByKey(String key, String realm) {
-        return baseApiUrl("discoveryUrl").get(ORIGAMI_CRUD+"/v1/pages/key/"+key+"?realm="+realm);
+    public Response getPagesByKey(String key) {
+        return get(Map.of("realm", appName), getUrl("/pages/key/" + key));
     }
 
     // ********************** Section *************************
-    public Response getSectionVariants(String Key, String realm) {
-        return baseApiUrl("discoveryUrl").get(ORIGAMI_CRUD+"/v1/sections/variants/"+Key+"?realm="+realm);
+    public Response getSectionVariants(String Key) {
+        return get(Map.of("realm", appName), getUrl("/sections/variants/" + Key));
     }
 
     public Response getSections(Map<String, String> query) {
@@ -113,20 +118,20 @@ public class OrigamiCrud extends ApiHelper {
             query = new HashMap<>();
             query.put("realm", appName);
         }
-        return baseApiUrl("discoveryUrl").queryParams(query).get(ORIGAMI_CRUD+"/v1/sections");
+        return get(query, getUrl("/sections"));
     }
 
     // *********************** Segment ************************
-    public Response getDefaultSegments(String realm) {
-        return baseApiUrl("discoveryUrl").get(ORIGAMI_CRUD+"/v1/segments/default?realm="+realm);
+    public Response getDefaultSegments() {
+        return get(Map.of("realm", appName), getUrl("/segments/default"));
     }
 
-    public Response getSegmentById(String id, String realm) {
-        return baseApiUrl("discoveryUrl").get(ORIGAMI_CRUD+"/v1/segments/"+id+"?realm="+realm);
+    public Response getSegmentById(String id) {
+        return get(Map.of("realm", appName), getUrl("/segments/" + id));
     }
 
-    public Response deleteSegmentById(String id, String realm) {
-        return baseApiUrl("discoveryUrl").delete(ORIGAMI_CRUD+"/v1/segments/"+id+"?realm="+realm);
+    public Response deleteSegmentById(String id) {
+        return delete(Map.of("realm", appName), getUrl("/segments/" + id));
     }
 
     public Response getSegments(Map<String, String> query) {
@@ -134,7 +139,7 @@ public class OrigamiCrud extends ApiHelper {
             query = new HashMap<>();
             query.put("realm", appName);
         }
-        return baseApiUrl("discoveryUrl").queryParams(query).get(ORIGAMI_CRUD+"/v1/segments");
+        return get(query, getUrl("/segments"));
     }
 
 
@@ -144,7 +149,8 @@ public class OrigamiCrud extends ApiHelper {
             query = new HashMap<>();
             query.put("realm", appName);
         }
-        return baseApiUrl("discoveryUrl").queryParams(query).get(ORIGAMI_CRUD+"/v1/config/clients");
+        return get(query, getUrl("/config/clients"));
+//        return baseApiUrl("discoveryUrl").queryParams(query).get(ORIGAMI_CRUD + "/config/clients");
     }
 
 }

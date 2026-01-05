@@ -14,7 +14,7 @@ public class MixParam {
     private int itemPerMix;
     private int minItemPerMix;
     private int mixCount;
-    private Object multiSourceRequest;
+    private MultiSourceRequest multiSourceRequest;
     private Object postProcessing;
     private Object noir;
     private Object zionUIDisplay;

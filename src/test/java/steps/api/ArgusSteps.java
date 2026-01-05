@@ -1,7 +1,5 @@
 package steps.api;
 
-import com.typesafe.config.Config;
-import config.ConfigLoader;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.restassured.response.Response;

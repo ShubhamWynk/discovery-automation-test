@@ -2,15 +2,17 @@ package services.discovery;
 
 import io.restassured.response.Response;
 import helpers.ApiHelper;
+import services.BaseServiceClient;
 
 import java.util.Map;
 
-public class OrigamiService extends ApiHelper {
+public class OrigamiService extends BaseServiceClient {
     public Response getDiscoveryOrigamiLayoutDebug(String page, Map<String,String> params) {
-        return baseApiUrl("discoveryUrl").params(params).get("/origami-service/v1/layout/debug/"+page);
+        return get(params,"/origami-service/v1/layout/debug/"+page);
     }
 
     public Response getDiscoveryOrigamiLayout(String page, Map<String,String> params) {
-        return baseApiUrl("discoveryUrl").params(params).get("/origami-service/v1/layout/"+page);
+        return get(params, "/origami-service/v1/layout/"+page);
+//        return baseApiUrl("discoveryUrl").queryParams(params).get("/origami-service/v1/layout/"+page);
     }
 }

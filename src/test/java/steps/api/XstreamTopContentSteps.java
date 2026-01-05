@@ -2,6 +2,7 @@ package steps.api;
 
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import io.restassured.response.Response;
 import model.Common.UserInfo;
 import model.Common.arsenalCollection.ArsenalCollection;

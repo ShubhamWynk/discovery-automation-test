@@ -1,6 +1,6 @@
 package model.response.userGrowth.GetCampaignThroughId;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -53,7 +53,7 @@ public class GetCampaignThroughIdResponse {
 
     @Data
     public static class TemplateInfoMap{
-        @JsonProperty("FALLBACK")
+        @SerializedName("FALLBACK")
         public ArrayList<String> fALLBACK;
     }
 

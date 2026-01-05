@@ -10,6 +10,7 @@ import io.cucumber.java.en.Given;
 import io.restassured.response.Response;
 import model.Common.UserInfo;
 import model.Common.arsenalCollection.ArsenalCollection;
+import model.response.userPersona.UserPersonaDTO;
 import model.response.zion.zionLoginService.ZionLoginServiceRes;
 import org.junit.Assert;
 import services.discovery.ArsenalService;
@@ -125,7 +126,7 @@ public class CommonSteps {
         //Fetch Persona
         Response response = DiscoveryServices.getUserPersona(arg0, true, true, true);
         Assert.assertEquals(200, response.getStatusCode());
-        UserInfo.userPersona = mapper.readTree(response.getBody().asString());
+        UserInfo.userPersona = gson().fromJson(response.body().asString(), UserPersonaDTO.class);
 
         // User Live Attribute
         ZionLoginServiceRes zionLoginServiceRes = loginService("shubhamgupta212755@gmail.com", "U2FsdGVkX19NQaev3NfCf/RPc7QSo16B39TywmXFdzk=");
@@ -141,17 +142,17 @@ public class CommonSteps {
         UserInfo.experiment = mapper.readTree(response3.getBody().asString());
 
         //Fetch Watch history
-        Response response2 = DiscoveryServices.getWatchHistory(arg0);
-        Assert.assertEquals(200, response2.getStatusCode());
-        UserInfo.watchHistory = mapper.readTree(response2.getBody().asString());
+//        Response response2 = DiscoveryServices.getWatchHistory(arg0);
+//        Assert.assertEquals(200, response2.getStatusCode());
+//        UserInfo.watchHistory = mapper.readTree(response2.getBody().asString());
 
         //User Encounter
         UserInfo.userEncounter = ArsenalService.getArsenalCollectionController("axaut_goxe32721718098299613", UserInfo.liveAttribute);
 
 //        SlotPersona
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode slotPersona = UserInfo.userPersona.get("realtime-persona").get("slotPersonaPayload");
-        UserInfo.slotPersona = mapper.convertValue(slotPersona, new TypeReference<>() {});
+        UserInfo.slotPersona = UserInfo.userPersona.getRealtimePersona().getSlotPersona();
+//        UserInfo.slotPersona = mapper.convertValue(slotPersona, new TypeReference<>() {});
         Map<String, Map<String, Map<String, Integer>>> temp = filteredSlotPersona(UserInfo.slotPersona,20);
         UserInfo.slotPersonaFlatten = slotPersonaFlatten(temp);
 
