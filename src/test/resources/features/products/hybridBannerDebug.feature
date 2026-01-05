@@ -114,6 +114,7 @@ Feature: Debug feature banner
       | axaut_4_NR_TR_new                | include  | 2     | 2     |                   | contentCount=25                                                                                           |                                                                                                                                                            |
     And fetch response for multiSource request
     Then Verify 1,3 is pinned and content 2 is sports content then other 3 content from Svod 2.0 and other 1 content is from (SVOD + Avod).
+
 #    // Subscription Based Reordering Scenarios
   Scenario: When user is Svod 2.0 user then 3 content from Svod 2.0 and 3 content form (SVOD + Avod).
     And build source collection list request for multiSource
@@ -161,7 +162,7 @@ Feature: Debug feature banner
     And fetch response for multiSource request
     Then Verify when two promoted tile is pinned on the same position then only one should be visible
 
-    #  Scenario: Verify When sports content dynamic tile usecase LIVE_MATCH_OF_TOURNAMENT, is live then live content should be visible on top if the tile is placed on the n position.
+#  Scenario: Verify When sports content dynamic tile usecase LIVE_MATCH_OF_TOURNAMENT, is live then live content should be visible on top if the tile is placed on the n position.
 #    Given fetch response for multiSource request
 #    Then Verify source of sports content should be from LIVE_MATCH_OF_TOURNAMENT usecase
 #    And Verify sports content should be visible on top of the banner
