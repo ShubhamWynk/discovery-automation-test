@@ -50,11 +50,11 @@ public class MultiSourceSteps {
 
         switch (type) {
             case "usl" -> userLangList.addAll(userSelectedLang);
-            case "ucl","cucl" -> {
+            case "ucl", "cucl" -> {
                 userLangList.addAll(dominantLang);
                 userLangList.addAll(significantLang);
             }
-            case "ul","cul" -> {
+            case "ul", "cul" -> {
                 userLangList.addAll(dominantLang);
                 userLangList.addAll(significantLang);
                 userLangList.addAll(userSelectedLang);
@@ -62,7 +62,8 @@ public class MultiSourceSteps {
             case "usil", "cusil" -> userLangList.addAll(significantLang);
             case "udl", "cudl" -> userLangList.addAll(dominantLang);
             default -> Collections.emptyList();
-        };
+        }
+        ;
 
         return userLangList;
 
@@ -83,20 +84,20 @@ public class MultiSourceSteps {
 
             sourceCollection.setCollectionId(row.get("collectionId"));
             sourceCollection.setOperator(Operator.valueOf(row.get("operator")));
-            if (row.containsKey("order") && row.get("order")!=null) {
+            if (row.containsKey("order") && row.get("order") != null) {
                 sourceCollection.setOrder(Long.valueOf(row.get("order")));
             }
-            if (row.containsKey("score") && row.get("score")!=null) {
+            if (row.containsKey("score") && row.get("score") != null) {
                 sourceCollection.setScore(Double.valueOf(row.get("score")));
             }
-            if (row.containsKey("type") && row.get("type")!=null) {
+            if (row.containsKey("type") && row.get("type") != null) {
                 sourceCollection.setType(row.get("type"));
             }
-            if (row.containsKey("params") && row.get("params")!=null) {
+            if (row.containsKey("params") && row.get("params") != null) {
                 Map<String, List<String>> params = Utils.convertIntoParamsObject(row.get("params"));
                 sourceCollection.setParams(params);
             }
-            if (row.containsKey("contents") && row.get("contents")!=null) {
+            if (row.containsKey("contents") && row.get("contents") != null) {
                 ArsenalCollection tem = ArsenalService.getArsenalCollectionController(row.get("collectionId"), UserInfo.liveAttribute);
                 List<Content> contentList = tem.getContents();
                 row.get("contents").lines().forEach(con -> {
@@ -107,7 +108,7 @@ public class MultiSourceSteps {
                 sourceCollection.setContents(contentList);
             }
 
-            if (row.containsKey("contents_list") && row.get("contents_list")!=null) {
+            if (row.containsKey("contents_list") && row.get("contents_list") != null) {
                 List<Content> contentList = new ArrayList<>();
                 List<String> tempList = List.of(row.get("contents_list").split(","));
                 tempList.forEach(con -> {
@@ -163,13 +164,11 @@ public class MultiSourceSteps {
     }
 
     @Then("Verify all content in Banner is from User languages")
-    public void verifyAllContentInBannerIsFromUserLanguages() throws JsonProcessingException {
+    public void verifyAllContentInBannerIsFromUserLanguages() {
         for (int i = 0; i < response.getContents().size(); i++) {
             Assert.assertTrue(
-                    getUserLanguage("cul",UserInfo.userPersona, UserInfo.liveAttribute).contains(
-                            response.getContents().get(i).getExtras().get("_language"
-                            )
-                    )
+                    getUserLanguage("cul", UserInfo.userPersona, UserInfo.liveAttribute)
+                            .contains(response.getContents().get(i).getExtras().get("_language"))
             );
         }
     }
@@ -178,5 +177,35 @@ public class MultiSourceSteps {
     public void verifyIfPinnedTileIsPresentThenSportsContentShouldNotTakeThatPositionAndShouldBeVisibleOnNextPosition() {
         Assert.assertEquals("tlxsta_zy8n02301756717793339", response.getContents().get(0).getContentId());
         Assert.assertEquals("tlxsta_225h79991767071939478", response.getContents().get(1).getContentId());
+    }
+
+    @Then("Verify both sports content should be visible on top in dec order of score.")
+    public void verifyBothSportsContentShouldBeVisibleOnTopInDecOrderOfScore() {
+        Assert.assertEquals("tlxsta_9kne94541757784501944", response.getContents().get(1).getContentId());
+        Assert.assertEquals("tlxsta_225h79991767071939478", response.getContents().get(0).getContentId());
+    }
+
+    @Then("Verify 1 sports content should be visible on 2 and second on 4 in dec order of score.")
+    public void verifySportsContentShouldBeVisibleOnAndSecondOnInDecOrderOfScore() {
+        Assert.assertEquals("tlxsta_zy8n02301756717793339", response.getContents().get(0).getContentId());
+        Assert.assertEquals("tlxsta_225h79991767071939478", response.getContents().get(1).getContentId());
+        Assert.assertEquals("", response.getContents().get(2).getContentId());
+        Assert.assertEquals("tlxsta_9kne94541757784501944", response.getContents().get(3).getContentId());
+    }
+
+    @Then("Verify 1 sports content should be visible on 1 and second on 3 in dec order of score.")
+    public void verifySportsContentShouldBeVisibleOnAndSecond() {
+        Assert.assertEquals("tlxsta_225h79991767071939478", response.getContents().get(0).getContentId());
+        Assert.assertEquals("tlxsta_8fw560791765539446323", response.getContents().get(1).getContentId());
+        Assert.assertEquals("tlxsta_9kne94541757784501944", response.getContents().get(2).getContentId());
+
+    }
+
+    @Then("Verify when two promoted tile is pinned on the same position then only one should be visible")
+    public void verifyWhenTwoPromotedTileIsPinnedOnTheSamePositionThenOnlyOneShouldBeVisible() {
+        Assert.assertEquals("tlxsta_zy8n02301756717793339", response.getContents().get(0).getContentId());
+        for (int i = 1; i < response.getContents().size(); i++) {
+            Assert.assertNotEquals("tlxsta_zy8n02301756717793339", response.getContents().get(i).getContentId());
+        }
     }
 }
