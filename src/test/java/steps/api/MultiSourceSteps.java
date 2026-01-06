@@ -198,7 +198,6 @@ public class MultiSourceSteps {
         Assert.assertEquals("tlxsta_225h79991767071939478", response.getContents().get(0).getContentId());
         Assert.assertEquals("tlxsta_8fw560791765539446323", response.getContents().get(1).getContentId());
         Assert.assertEquals("tlxsta_9kne94541757784501944", response.getContents().get(2).getContentId());
-
     }
 
     @Then("Verify when two promoted tile is pinned on the same position then only one should be visible")
