@@ -1,14 +1,12 @@
 package model.Common.arsenalCollection;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import constant.Operator;
+import model.Common.arsenalCollection.constants.Operator;
 import lombok.*;
 
 @Getter

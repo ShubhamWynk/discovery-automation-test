@@ -1,5 +1,6 @@
 package utilities;
 
+import constant.ContentType;
 import io.cucumber.datatable.DataTable;
 
 import java.io.IOException;
@@ -11,9 +12,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Utils {
 
@@ -43,13 +42,13 @@ public class Utils {
         return data2;
     }
 
-    public static String contentType(String contentId) {
-        return (contentId.startsWith("tlxsta")) ? "TILE"
-                : (contentId.startsWith("tlxaut")) ? "DYNAMIC_TILE"
-                : (contentId.startsWith("axaut")) ? "AUTOMATED"
-                : (contentId.startsWith("axsta")) ? "STATIC"
-                : (contentId.startsWith("axhyb")) ? "HYBRID"
-                : "unknown";
+    public static ContentType contentType(String contentId) {
+        return (contentId.startsWith("tlxsta")) ? ContentType.valueOf("TILE")
+                : (contentId.startsWith("tlxaut")) ? ContentType.valueOf("DYNAMIC_TILE")
+                : (contentId.startsWith("axaut")) ? ContentType.valueOf("AUTOMATED")
+                : (contentId.startsWith("axsta")) ? ContentType.valueOf("STATIC")
+                : (contentId.startsWith("axhyb")) ? ContentType.valueOf("HYBRID")
+                :ContentType.valueOf("OTHER") ;
     }
 
     public static Map<String, String> getParams(String url) throws Exception {
@@ -86,5 +85,10 @@ public class Utils {
 
     public static List<Map<String, String>> convertDataTableToMap(DataTable dataTable) throws IOException {
         return dataTable.asMaps(String.class, String.class);
+    }
+
+    public static List<String> getUnsubscribedCP(String partnerStatus) {
+        List<String> unSubscribedCP = new ArrayList<>();
+        return unSubscribedCP;
     }
 }

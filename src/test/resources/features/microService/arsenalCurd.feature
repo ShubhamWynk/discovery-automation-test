@@ -1,4 +1,5 @@
 Feature: Arsenal-Crud
+
   ** Collection Type -> **
   1. Static Collection :- collection of content :- manually curated by curators
   2. Automated Collection(Automated) :- collection of content :- dynamically populated based on rules/algorithms from downstream apis
