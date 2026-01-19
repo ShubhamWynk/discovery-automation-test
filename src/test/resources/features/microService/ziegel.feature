@@ -56,6 +56,10 @@ Feature: Ziegel Service
   Scenario: Create tile with valid inputs
 
   Scenario: Create tile without segmentId
+    When Create tile with these meta
+      | displayTitle |
+      |              |
+    Then Verify
 
 #    content Tile
   Scenario: Create content tile without contentId

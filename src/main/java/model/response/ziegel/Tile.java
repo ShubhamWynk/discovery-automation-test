@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Data
-public class TileRes {
+public class Tile {
 
     private String tileId;
     private Integer version;
