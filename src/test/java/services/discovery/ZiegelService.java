@@ -33,7 +33,7 @@ public class ZiegelService extends BaseServiceClient {
         return post(params, body, "/update");
     }
 
-    public static Response deleteTile(String tileId, Map<String, String> params){
-        return delete(params,"/" + tileId);
+    public static Response deleteTile(String tileId){
+        return delete(Map.of("realm", appName),"/" + tileId);
     }
 }

@@ -18,6 +18,7 @@ import java.util.Map;
 import static helpers.ApiHelper.gson;
 
 public class ZiegelStep {
+    Response res;
     Tile res1;
     Tile request;
     @And("fetch tile meta data for {string} tile with user query param")
@@ -67,5 +68,10 @@ public class ZiegelStep {
         Response res = ZiegelService.updateTile(gson().toJson(this.request), UserInfo.liveAttribute);
         Assert.assertEquals(200, res.getStatusCode());
         res1 = gson().fromJson(res.body().asString(), Tile.class);
+    }
+
+    @When("delete a live tile with tileId {string}")
+    public void deleteALiveTileWithTileId(String tileId) {
+        res = ZiegelService.deleteTile(tileId);
     }
 }
