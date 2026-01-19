@@ -1,17 +1,19 @@
 package model.Common.arsenalCollection;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 
-import constant.CollectionSortingMethod;
-import constant.ScoringMethod;
+import model.Common.arsenalCollection.constants.CollectionSortingMethod;
+import model.Common.arsenalCollection.constants.ScoringMethod;
 import lombok.*;
 
 @Data
 public class MultiSourceRequest {
     private List<SourceCollection> collections;
     private ScoringMethod scoringMethod;
+    private Double minimumScore;
     private Boolean reducer;
     private Boolean tileOutput;
+    private Boolean enrichMeta;
+    private Boolean excludeByDedupId;
     private CollectionSortingMethod sortingMethod;
 }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import config.ConfigLoader;
 import helpers.ApiHelper;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.restassured.response.Response;
@@ -39,7 +40,7 @@ public class CommonSteps {
         return req;
     }
 
-    public static Map<String, Map<String, Map<String, Integer>>> filteredSlotPersona(Map<String, Map<String,Map<String,Integer>>> slotPersona, long noOfDays) {
+    public static Map<String, Map<String, Map<String, Integer>>> filteredSlotPersona(Map<String, Map<String, Map<String, Integer>>> slotPersona, long noOfDays) {
         return slotPersona.entrySet().stream()
                 .filter(e -> Utils.calculateDateDifference(e.getKey()) <= noOfDays)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
@@ -90,26 +91,26 @@ public class CommonSteps {
         return session;
     }
 
-    public static Map<String,Map<String,List<String>>> slotPersonaFlatten(Map<String, Map<String, Map<String, Integer>>> temp) {
-        Map<String,Map<String,List<String>>> result = new HashMap<>();
+    public static Map<String, Map<String, List<String>>> slotPersonaFlatten(Map<String, Map<String, Map<String, Integer>>> temp) {
+        Map<String, Map<String, List<String>>> result = new HashMap<>();
         Set<String> contentId = new HashSet<>();
         for (String key : temp.keySet()) {
             contentId.addAll(temp.get(key).keySet());
         }
         List<String> contentIdList = new ArrayList<>(contentId);
 
-        Map<String, Integer> count = contentVisiblityCountMap(temp,contentIdList);
-        Map<String, List<String>> dates = contentVisiblityDateMap(temp,contentIdList);
-        Map<String, List<String>> session = contentVisiblitySessionMap(temp,contentIdList);
+        Map<String, Integer> count = contentVisiblityCountMap(temp, contentIdList);
+        Map<String, List<String>> dates = contentVisiblityDateMap(temp, contentIdList);
+        Map<String, List<String>> session = contentVisiblitySessionMap(temp, contentIdList);
 
         for (String s : contentIdList) {
-            Map<String,List<String>> resultTemp = new HashMap<>();
+            Map<String, List<String>> resultTemp = new HashMap<>();
             List<String> tempCountList = new ArrayList<>();
-            tempCountList.add(session.get(s).size()+"");
-            resultTemp.put("Count",tempCountList);
-            resultTemp.put("session",session.get(s));
-            resultTemp.put("dates",dates.get(s));
-            result.put(s,resultTemp);
+            tempCountList.add(session.get(s).size() + "");
+            resultTemp.put("Count", tempCountList);
+            resultTemp.put("session", session.get(s));
+            resultTemp.put("dates", dates.get(s));
+            result.put(s, resultTemp);
         }
         return result;
     }
@@ -153,16 +154,15 @@ public class CommonSteps {
         ObjectMapper mapper = new ObjectMapper();
         UserInfo.slotPersona = UserInfo.userPersona.getRealtimePersona().getSlotPersona();
 //        UserInfo.slotPersona = mapper.convertValue(slotPersona, new TypeReference<>() {});
-        Map<String, Map<String, Map<String, Integer>>> temp = filteredSlotPersona(UserInfo.slotPersona,20);
+        Map<String, Map<String, Map<String, Integer>>> temp = filteredSlotPersona(UserInfo.slotPersona, 20);
         UserInfo.slotPersonaFlatten = slotPersonaFlatten(temp);
 
         //TOD
-
     }
 
     @And("^Change user selected languages to \"([^\"]*)\"$")
     public void changePLanguagesTo(String arg1) throws Throwable {
-        UserInfo.liveAttribute.put("languages",arg1);
+        UserInfo.liveAttribute.put("languages", arg1);
     }
 
     @Given("login with curator user")
@@ -175,6 +175,14 @@ public class CommonSteps {
 
     @And("Add contentId {string} in params for recommendation")
     public void addContentIdInParamsForRecommendation(String contentId) {
-        UserInfo.liveAttribute.put("contentId",contentId);
+        UserInfo.liveAttribute.put("contentId", contentId);
+    }
+
+    @And("change user Live Attributes to")
+    public void changeUserLiveAttributesTo(DataTable dataTable) {
+        Map<String, String> data = dataTable.asMaps(String.class, String.class).getFirst();
+        for (String key : data.keySet()) {
+            UserInfo.liveAttribute.put(key, data.get(key));
+        }
     }
 }

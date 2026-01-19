@@ -3,11 +3,11 @@ Feature: Debug feature banner
   ->> Slot based Visual Skip
   ->> Live Sports Tile on top of banner (LIVE_MATCH_OF_TOURNAMENT, LIVE_SPORT_VIDEO)
   ->> Adds Slot Machine functionality in banner
-    -> Pinned Tile check - To verify pinned tile position in banner
+  -> Pinned Tile check - To verify pinned tile position in banner
   ->> Subscription Based reordering - To reorder contents based on user subscription type
-    -> Svod 2.0 :- User Who can watch content which of external, Internal cp's with free contents
-    -> XPP/Svod :- User Who can watch content which of Internal cp's and free contents
-    -> Free/Avod :- User Who can watch content which are free on our platform
+  -> Svod 2.0 :- User Who can watch content which of external, Internal cp's with free contents
+  -> XPP/Svod :- User Who can watch content which of Internal cp's and free contents
+  -> Free/Avod :- User Who can watch content which are free on our platform
   ->> Erotic content filter(_adultContent) - To remove adult content from banner
   ->> UL Filter check - To remove contents not in user language from banner
 
@@ -15,8 +15,9 @@ Feature: Debug feature banner
   tlxsta_zy8n02301756717793339, tlxsta_uhir91321762325618571 - Pinned Tile 1,1 position
   tlxsta_8fw560791765539446323 - Pinned Tile 2,2 position
   tlxsta_nypz14021764847206649 - Pinned Tile 3,3 position
-  - Pinned Tile 1,2 position
-  - Pinned Tile 1,3 position
+  - Pinned Tile 1,2 position range
+  - Pinned Tile 1,3 position range
+  tlxsta_qhw743391754926420710, tlxsta_tccw51801658835018716 - Pinned Tile 2,3 position range
   - Dynamic Sports Tile 10 position
   tlxsta_225h79991767071939478, tlxsta_9kne94541757784501944 - Static Sports Tile n position
 
@@ -59,7 +60,7 @@ Feature: Debug feature banner
     And fetch response for multiSource request
     And Verify if pinned tile is present then sports content should not take that position and should be visible on next position.
 
-  Scenario: When there are 2 contents live on banner and no pinned tile on top then both sports content should be visible on top in dec order of score.
+  Scenario: Verify When there are 2 contents live on banner and no pinned tile on top then both sports content should be visible on top in dec order of score.
     And build source collection list request for multiSource
       | collectionId                     | operator | score | order | type              | params                                                                                                    | contents_list                                                                                                                                              |
       | axaut_md2l09171655715984559-test | include  | 4     | 1     | banner_collection | fix_on_top=priority_tile,live_sport_redirect_tile,live_sport_video&temp_on_top=sports_video,promoted_tile | tlxsta_grhg64101726798474709:1,tlxsta_dpu533761765520157254:2,tlxsta_h5by30001765357353545:3,tlxsta_225h79991767071939478:4,tlxsta_9kne94541757784501944:5 |
@@ -67,7 +68,7 @@ Feature: Debug feature banner
     And fetch response for multiSource request
     Then Verify both sports content should be visible on top in dec order of score.
 
-  Scenario: When there are 2 contents live on banner and 2 pinned tile on top 1 and 3 then 1 sports content should be visible on 2 and second on 4 in dec order of score.
+  Scenario: Verify When there are 2 contents live on banner and 2 pinned tile on top 1 and 3 then 1 sports content should be visible on 2 and second on 4 in dec order of score.
     And build source collection list request for multiSource
       | collectionId                     | operator | score | order | type              | params                                                                                                    | contents_list                                                                                                                                                                             |
       | axaut_md2l09171655715984559-test | include  | 4     | 1     | banner_collection | fix_on_top=priority_tile,live_sport_redirect_tile,live_sport_video&temp_on_top=sports_video,promoted_tile | tlxsta_grhg64101726798474709:1,tlxsta_dpu533761765520157254:2,tlxsta_nypz14021764847206649:3,tlxsta_225h79991767071939478:4,tlxsta_zy8n02301756717793339:5,tlxsta_9kne94541757784501944:6 |
@@ -75,7 +76,7 @@ Feature: Debug feature banner
     And fetch response for multiSource request
     Then Verify 1 sports content should be visible on 2 and second on 4 in dec order of score.
 
-  Scenario: When there are 2 contents live on banner and 1 pinned tile on top 2nd position then 1 sports content should be visible on 1 and second on 3 in dec order of score.
+  Scenario: Verify When there are 2 contents live on banner and 1 pinned tile on top 2nd position then 1 sports content should be visible on 1 and second on 3 in dec order of score.
     And build source collection list request for multiSource
       | collectionId                     | operator | score | order | type              | params                                                                                                    | contents_list                                                                                                                                                                             |
       | axaut_md2l09171655715984559-test | include  | 4     | 1     | banner_collection | fix_on_top=priority_tile,live_sport_redirect_tile,live_sport_video&temp_on_top=sports_video,promoted_tile | tlxsta_grhg64101726798474709:1,tlxsta_dpu533761765520157254:2,tlxsta_h5by30001765357353545:3,tlxsta_225h79991767071939478:4,tlxsta_8fw560791765539446323:5,tlxsta_9kne94541757784501944:6 |
@@ -83,62 +84,12 @@ Feature: Debug feature banner
     And fetch response for multiSource request
     Then Verify 1 sports content should be visible on 1 and second on 3 in dec order of score.
 
-  Scenario: When there are no contents live on banner and 2 pinned tile on top 1 and 3 but upcoming live content placed on 5 position then content should not be visible on bunner until live.
-    And build source collection list request for multiSource
-      | collectionId                     | operator | score | order | type              | params                                                                                                    | contents_list                                                                                                                                              |
-      | axaut_md2l09171655715984559-test | include  | 4     | 1     | banner_collection | fix_on_top=priority_tile,live_sport_redirect_tile,live_sport_video&temp_on_top=sports_video,promoted_tile | tlxsta_grhg64101726798474709:1,tlxsta_dpu533761765520157254:2,tlxsta_h5by30001765357353545:3,tlxsta_225h79991767071939478:4,tlxsta_zy8n02301756717793339:5 |
-      | axaut_4_NR_TR_new                | include  | 2     | 2     |                   | contentCount=25                                                                                           |                                                                                                                                                            |
-    And fetch response for multiSource request
-    Then Verify upcoming live content should not be visible on bunner until live.
+  Scenario: Verify When there are no contents live on banner and 2 pinned tile on top 1 and 3 but upcoming live content placed on 5 position then content should not be visible on banner until live.
 
-  Scenario: When user is Avod user and 2 contents are pinned 1,3 and 1 sports content then 1,3 is pinned content 2 is sports content 3 content from AVod and 1 content form (SVOD and SVOD 2.0).
-    And build source collection list request for multiSource
-      | collectionId                     | operator | score | order | type              | params                                                                                                    | contents_list                                                                                                                                              |
-      | axaut_md2l09171655715984559-test | include  | 4     | 1     | banner_collection | fix_on_top=priority_tile,live_sport_redirect_tile,live_sport_video&temp_on_top=sports_video,promoted_tile | tlxsta_grhg64101726798474709:1,tlxsta_dpu533761765520157254:2,tlxsta_h5by30001765357353545:3,tlxsta_225h79991767071939478:4,tlxsta_zy8n02301756717793339:5 |
-      | axaut_4_NR_TR_new                | include  | 2     | 2     |                   | contentCount=25                                                                                           |                                                                                                                                                            |
-    And fetch response for multiSource request
-    Then Verify 1,3 is pinned content 2 is sports content 3 content from AVod and 1 content form (SVOD and SVOD 2.0).
 
-  Scenario: When user is XPP/Svod 1.0 user and 2 contents are pinned 1,3 and 1 sports content then 1,3 is pinned content 2 is sports content then other 4 content from AVod + Svod (playable).
-    And build source collection list request for multiSource
-      | collectionId                     | operator | score | order | type              | params                                                                                                    | contents_list                                                                                                                                              |
-      | axaut_md2l09171655715984559-test | include  | 4     | 1     | banner_collection | fix_on_top=priority_tile,live_sport_redirect_tile,live_sport_video&temp_on_top=sports_video,promoted_tile | tlxsta_grhg64101726798474709:1,tlxsta_dpu533761765520157254:2,tlxsta_h5by30001765357353545:3,tlxsta_225h79991767071939478:4,tlxsta_zy8n02301756717793339:5 |
-      | axaut_4_NR_TR_new                | include  | 2     | 2     |                   | contentCount=25                                                                                           |                                                                                                                                                            |
-    And fetch response for multiSource request
-    Then Verify 1,3 is pinned content 2 is sports content then other 4 content from AVod + Svod (playable).
-
-  Scenario: When user is Svod 2.0 user and 2 contents are pinned 1,3 and 1 sports content then 1,3 is pinned and content 2 is sports content then other 3 content from Svod 2.0 and other 1 content is from (SVOD + Avod).
-    And build source collection list request for multiSource
-      | collectionId                     | operator | score | order | type              | params                                                                                                    | contents_list                                                                                                                                              |
-      | axaut_md2l09171655715984559-test | include  | 4     | 1     | banner_collection | fix_on_top=priority_tile,live_sport_redirect_tile,live_sport_video&temp_on_top=sports_video,promoted_tile | tlxsta_grhg64101726798474709:1,tlxsta_dpu533761765520157254:2,tlxsta_h5by30001765357353545:3,tlxsta_225h79991767071939478:4,tlxsta_zy8n02301756717793339:5 |
-      | axaut_4_NR_TR_new                | include  | 2     | 2     |                   | contentCount=25                                                                                           |                                                                                                                                                            |
-    And fetch response for multiSource request
-    Then Verify 1,3 is pinned and content 2 is sports content then other 3 content from Svod 2.0 and other 1 content is from (SVOD + Avod).
-
-#    // Subscription Based Reordering Scenarios
-  Scenario: When user is Svod 2.0 user then 3 content from Svod 2.0 and 3 content form (SVOD + Avod).
-    And build source collection list request for multiSource
-      | collectionId                     | operator | score | order | type              | params                                                                                                    | contents_list                                                                                                                                              |
-      | axaut_md2l09171655715984559-test | include  | 4     | 1     | banner_collection | fix_on_top=priority_tile,live_sport_redirect_tile,live_sport_video&temp_on_top=sports_video,promoted_tile | tlxsta_grhg64101726798474709:1,tlxsta_dpu533761765520157254:2,tlxsta_h5by30001765357353545:3,tlxsta_225h79991767071939478:4,tlxsta_zy8n02301756717793339:5 |
-      | axaut_4_NR_TR_new                | include  | 2     | 2     |                   | contentCount=25                                                                                           |                                                                                                                                                            |
-    And fetch response for multiSource request
-    Then Verify 3 content from Svod 2.0 and 3 content form (SVOD + Avod).
-
-  Scenario: When user is XPP/Svod 1.0 user then 5 content from AVod + Svod and 1 content form (SVOD 2.0).
-    And build source collection list request for multiSource
-      | collectionId                     | operator | score | order | type              | params                                                                                                    | contents_list                                                                                                                                              |
-      | axaut_md2l09171655715984559-test | include  | 4     | 1     | banner_collection | fix_on_top=priority_tile,live_sport_redirect_tile,live_sport_video&temp_on_top=sports_video,promoted_tile | tlxsta_grhg64101726798474709:1,tlxsta_dpu533761765520157254:2,tlxsta_h5by30001765357353545:3,tlxsta_225h79991767071939478:4,tlxsta_zy8n02301756717793339:5 |
-      | axaut_4_NR_TR_new                | include  | 2     | 2     |                   | contentCount=25                                                                                           |                                                                                                                                                            |
-    And fetch response for multiSource request
-    Then Verify 5 content from AVod + Svod and 1 content form (SVOD 2.0).
-
-  Scenario: When user is Avod user then 3 content from AVod and 3 content form (SVOD and SVOD 2.0).
-    And build source collection list request for multiSource
-      | collectionId                     | operator | score | order | type              | params                                                                                                    | contents_list                                                                                                                                              |
-      | axaut_md2l09171655715984559-test | include  | 4     | 1     | banner_collection | fix_on_top=priority_tile,live_sport_redirect_tile,live_sport_video&temp_on_top=sports_video,promoted_tile | tlxsta_grhg64101726798474709:1,tlxsta_dpu533761765520157254:2,tlxsta_h5by30001765357353545:3,tlxsta_225h79991767071939478:4,tlxsta_zy8n02301756717793339:5 |
-      | axaut_4_NR_TR_new                | include  | 2     | 2     |                   | contentCount=25                                                                                           |                                                                                                                                                            |
-    And fetch response for multiSource request
-    Then Verify 3 content from AVod and 3 content form (SVOD and SVOD 2.0).
+  Scenario: Verify when 3 tile is pinned at same position
+  Scenario: Verify when 1 pinned tile target impression is completed then that tile is behave as regular tile.
+  Scenario: Verify when multiple pinned tile is present in banner then only first 3 pinned tile is present on banner.
 
 #//  Erotic Content Filter Scenarios
   Scenario: No erotic content should be present in the Banner.
@@ -161,6 +112,22 @@ Feature: Debug feature banner
       | axaut_4_NR_TR_new                | include  | 2     | 2     |                   | contentCount=25                                                                                           |                                                                                                                                                            |
     And fetch response for multiSource request
     Then Verify when two promoted tile is pinned on the same position then only one should be visible
+
+  Scenario: Verify when two promoted tile is pinned window range then high score tile should be visible on first position and other should be visible on next position.
+    And build source collection list request for multiSource
+      | collectionId                     | operator | score | order | type              | params                                                                                                    | contents_list                                                                                                                                                                                                            |
+      | axaut_md2l09171655715984559-test | include  | 4     | 1     | banner_collection | fix_on_top=priority_tile,live_sport_redirect_tile,live_sport_video&temp_on_top=sports_video,promoted_tile | tlxsta_grhg64101726798474709:1,tlxsta_dpu533761765520157254:2,tlxsta_h5by30001765357353545:3,tlxsta_uhir91321762325618571:4,tlxsta_zy8n02301756717793339:5,tlxsta_qhw743391754926420710:6,tlxsta_tccw51801658835018716:7 |
+      | axaut_4_NR_TR_new                | include  | 2     | 2     |                   | contentCount=25                                                                                           |                                                                                                                                                                                                                          |
+    And fetch response for multiSource request
+    Then Verify both tile visible one after another in the banner in given window range
+
+  Scenario: Verify when on promoted tile is pinned in banner then no promoted tile should be visible on banner.
+    And build source collection list request for multiSource
+      | collectionId                     | operator | score | order | type              | params                                                                                                    | contents_list                                                                                                                                              |
+      | axaut_md2l09171655715984559-test | include  | 4     | 1     | banner_collection | fix_on_top=priority_tile,live_sport_redirect_tile,live_sport_video&temp_on_top=sports_video,promoted_tile | tlxsta_grhg64101726798474709:1,tlxsta_dpu533761765520157254:2,tlxsta_h5by30001765357353545:3 |
+      | axaut_4_NR_TR_new                | include  | 2     | 2     |                   | contentCount=25                                                                                           |                                                                                                                                                            |
+    And fetch response for multiSource request
+    Then Verify no promoted tile should be visible on banner.
 
 #  Scenario: Verify When sports content dynamic tile usecase LIVE_MATCH_OF_TOURNAMENT, is live then live content should be visible on top if the tile is placed on the n position.
 #    Given fetch response for multiSource request

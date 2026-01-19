@@ -1,15 +1,11 @@
 Feature: User Content Feature
 
-#  Scenario: Verify content which are skipped by user in last five session.
-#    Given We are using "PX_r7GPUCo1kqaICY0" as a Xstream user
-#    And Fetch content from arsenal collection "axaut_goxe32721718098299613"
-#    Then Verify the count of the content is unique session
-#
-#  Scenario: Verify content which are skipped by user in last five session.
-#    Given We are using "PX_r7GPUCo1kqaICY0" as a Xstream user
-#    And Fetch content from arsenal collection "axaut_goxe32721718098299613"
-#    Then Verify the count of the content is unique session
+  Background:
+    Given We are using "PX_r7GPUCo1kqaICY0" as a Xstream user
 
+#  Scenario: Verify content which are skipped by user in last five session.
+#    And Fetch content from arsenal collection "axaut_goxe32721718098299613"
+#    Then Verify the count of the content from the collection is equal to the count of unique session
 
   Scenario: Verify xstream User content
     Given We are using "p-cWmUEqg4MGRdaJp0" as a Xstream user
