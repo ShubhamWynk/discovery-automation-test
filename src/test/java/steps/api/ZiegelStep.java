@@ -6,6 +6,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import model.Common.UserInfo;
+import model.Common.productOffer.ProductOffering;
 import model.response.ziegel.Tile;
 import org.junit.Assert;
 import services.discovery.ZiegelService;
@@ -42,7 +43,10 @@ public class ZiegelStep {
     public void verifyTheTileBehaveAsBroadbandUpSellTileOnTheBanner() {
         Assert.assertEquals("Upgrade Now",res1.getIptvDisplayTitle());
         Assert.assertEquals("Upgrade Now",res1.getDisplayTitle());
-        Assert.assertEquals("For Just 3.99 More",res1.getTitle());
+        ProductOffering ProductOffering1 = ZiegelService.getOfferedPlans("BLACK_55799");
+        ProductOffering ProductOffering2 = ZiegelService.getOfferedPlans("BLACK_62372");
+        double tem = (ProductOffering2.getData().getProductOfferingPrice().getFirst().getPrice().getValue() - ProductOffering1.getData().getProductOfferingPrice().getFirst().getPrice().getValue())/100;
+        Assert.assertEquals("For Just "+tem+" More",res1.getTitle());
         Assert.assertEquals("Watch Content from Amazon Prime & Hotstar",res1.getSubtitle());
         Assert.assertEquals("xstream://airtelxstream.com?type=BB_UPGRADE_COMPARE_SINGLE_PLAN&productOfferingId=BLACK_62372&sourceName=banner",res1.getDeepLinkJson().get("STB"));
     }

@@ -2,6 +2,9 @@ package services;
 
 import helpers.ApiHelper;
 import io.restassured.response.Response;
+import model.Common.productOffer.ProductOffering;
+import org.junit.Assert;
+import services.discovery.ZiegelService;
 
 import java.util.Map;
 
