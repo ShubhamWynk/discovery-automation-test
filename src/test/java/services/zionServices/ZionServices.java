@@ -32,9 +32,6 @@ public class ZionServices extends BaseServiceClient {
 
     public static String getJsonBody(String uid) {
         return "{"
-                + "\"method\":\"GET\","
-                + "\"endpoint\":\"atv-package-layout-service-prd-logstash-*\","
-                + "\"query\":{"
                 +     "\"size\":20,"
                 +     "\"query\":{"
                 +         "\"bool\":{"
@@ -51,7 +48,6 @@ public class ZionServices extends BaseServiceClient {
                 +     "\"sort\":["
                 +         "{\"@timestamp\":{\"order\":\"desc\"}}"
                 +     "]"
-                + "}"
                 + "}";
     }
 
@@ -145,9 +141,9 @@ public class ZionServices extends BaseServiceClient {
     }
 
     public static Response getUserLogs(String arg0) {
-        return baseApiUrl("zionApiUrl",headers)
-                .header("rtkn", BaseServiceClient.getAuth())
-                .body(getJsonBody(arg0)).post("/discovery/logs?realm="+appName);
+        return baseApiUrl("logstashUrl",headers)
+                .header("Authorization", "Basic ZGV2LWRlYnVnOklQMW9uRHQ3MDNLZA==")
+                .body(getJsonBody(arg0)).post("/atv-package-layout-service-prd-logstash-*/_search");
     }
 
     public static Response postNewTemplate(PostNewTemplate postTemplate) {

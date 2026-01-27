@@ -1,5 +1,7 @@
 package services;
 
+import com.typesafe.config.Config;
+import config.ConfigLoader;
 import helpers.ApiHelper;
 import io.restassured.response.Response;
 import model.Common.productOffer.ProductOffering;
@@ -9,6 +11,10 @@ import services.discovery.ZiegelService;
 import java.util.Map;
 
 public class BaseServiceClient extends ApiHelper {
+
+//    private static final Config conf = ConfigLoader.load();
+//    public static final String zionUser = conf.getString("zionUser");
+//    public static final String zionUserPassword = conf.getString("zionUserPassword");
 
     protected static Response get(String baseUrl, Map<String, String> param, String endPoint) {
         return baseApiUrl(baseUrl)

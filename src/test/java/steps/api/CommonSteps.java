@@ -1,5 +1,6 @@
 package steps.api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,6 +15,7 @@ import model.Common.arsenalCollection.ArsenalCollection;
 import model.response.userPersona.UserPersonaDTO;
 import model.response.zion.zionLoginService.ZionLoginServiceRes;
 import org.junit.Assert;
+import services.BaseServiceClient;
 import services.discovery.ArsenalService;
 import services.discovery.DiscoveryServices;
 import services.zionServices.ZionServices;
@@ -30,7 +32,7 @@ public class CommonSteps {
     ObjectMapper mapper = new ObjectMapper();
     JsonNode userLogs;
 
-    public static ArsenalCollection createDownStreamApiRequest(String useCase, Map<String, String[]> params, String downStreamApiUrl) throws IOException {
+    static ArsenalCollection createDownStreamApiRequest(String useCase, Map<String, String[]> params, String downStreamApiUrl) throws IOException {
         String jsonPath = "src/test/resources/data/json/collection.json";
         ArsenalCollection req = gson().fromJson(Utils.jsonToBody(jsonPath), ArsenalCollection.class);
         req.getDynamicMeta().getMixParam().setUseCase(useCase);
@@ -40,28 +42,13 @@ public class CommonSteps {
         return req;
     }
 
-    public static Map<String, Map<String, Map<String, Integer>>> filteredSlotPersona(Map<String, Map<String, Map<String, Integer>>> slotPersona, long noOfDays) {
+    private Map<String, Map<String, Map<String, Integer>>> filteredSlotPersona(Map<String, Map<String, Map<String, Integer>>> slotPersona, long noOfDays) {
         return slotPersona.entrySet().stream()
                 .filter(e -> Utils.calculateDateDifference(e.getKey()) <= noOfDays)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
-    public static Map<String, Integer> contentVisiblityCountMap(Map<String, Map<String, Map<String, Integer>>> temp, List<String> contentIdList) {
-        Map<String, Integer> count = new HashMap<>();
-
-        for (String content : contentIdList) {
-            int tempSize = 0;
-            for (String key : temp.keySet()) {
-                if (temp.get(key).containsKey(content))
-                    tempSize = tempSize + temp.get(key).get(content).size();
-
-                count.put(content, tempSize);
-            }
-        }
-        return count;
-    }
-
-    public static Map<String, List<String>> contentVisiblityDateMap(Map<String, Map<String, Map<String, Integer>>> temp, List<String> contentIdList) {
+    private Map<String, List<String>> contentVisiblityDateMap(Map<String, Map<String, Map<String, Integer>>> temp, List<String> contentIdList) {
         Map<String, List<String>> dates = new HashMap<>();
 
         for (String content : contentIdList) {
@@ -74,7 +61,7 @@ public class CommonSteps {
         return dates;
     }
 
-    public static Map<String, List<String>> contentVisiblitySessionMap(Map<String, Map<String, Map<String, Integer>>> temp, List<String> contentIdList) {
+    private Map<String, List<String>> contentVisiblitySessionMap(Map<String, Map<String, Map<String, Integer>>> temp, List<String> contentIdList) {
         Map<String, List<String>> session = new HashMap<>();
 
         for (String content : contentIdList) {
@@ -91,7 +78,7 @@ public class CommonSteps {
         return session;
     }
 
-    public static Map<String, Map<String, List<String>>> slotPersonaFlatten(Map<String, Map<String, Map<String, Integer>>> temp) {
+    private Map<String, Map<String, List<String>>> slotPersonaFlatten(Map<String, Map<String, Map<String, Integer>>> temp) {
         Map<String, Map<String, List<String>>> result = new HashMap<>();
         Set<String> contentId = new HashSet<>();
         for (String key : temp.keySet()) {
@@ -99,7 +86,7 @@ public class CommonSteps {
         }
         List<String> contentIdList = new ArrayList<>(contentId);
 
-        Map<String, Integer> count = contentVisiblityCountMap(temp, contentIdList);
+//        Map<String, Integer> count = contentVisiblityCountMap(temp, contentIdList);
         Map<String, List<String>> dates = contentVisiblityDateMap(temp, contentIdList);
         Map<String, List<String>> session = contentVisiblitySessionMap(temp, contentIdList);
 
@@ -115,49 +102,99 @@ public class CommonSteps {
         return result;
     }
 
-    public ZionLoginServiceRes loginService(String email, String pass) {
-        Response response = ZionServices.loginService(email, pass);
+//    public ZionLoginServiceRes loginService() {
+//        Response response = ZionServices.loginService(BaseServiceClient.zionUser, BaseServiceClient.zionUserPassword);
+//        Assert.assertEquals(200, response.getStatusCode());
+//        return gson().fromJson(response.body().asString(), ZionLoginServiceRes.class);
+//    }
+
+    private UserPersonaDTO getUserPersona(String uid, Boolean fetch_click_rt_persona, Boolean fetchXstreamOnboarding, Boolean fetchSlotRtPersona) {
+        Response response = DiscoveryServices.getUserPersona(uid, fetch_click_rt_persona, fetchXstreamOnboarding, fetchSlotRtPersona);
         Assert.assertEquals(200, response.getStatusCode());
-        return gson().fromJson(response.body().asString(), ZionLoginServiceRes.class);
+        return gson().fromJson(response.body().asString(), UserPersonaDTO.class);
+    }
+
+    private Map<String, String> getUserLiveAttributes(String arg0) throws Exception {
+        Response response4 = ZionServices.getUserLogs(arg0);
+        Assert.assertEquals(200, response4.getStatusCode());
+        userLogs = mapper.readTree(response4.getBody().asString());
+
+        return (!userLogs.get("hits").get("hits").isEmpty())
+                ? Utils.getParams(userLogs.get("hits").get("hits").get(0).get("_source").get("origamiRequest").asText())
+                : new HashMap<>();
+    }
+
+    private JsonNode getUserExperiment(String arg0) throws JsonProcessingException {
+        Response response3 = DiscoveryServices.getExperimentForUser(arg0);
+        Assert.assertEquals(200, response3.getStatusCode());
+        return mapper.readTree(response3.getBody().asString());
+    }
+
+    private JsonNode getUserWatchHistory(String arg0) throws JsonProcessingException {
+        Response response2 = DiscoveryServices.getWatchHistory(arg0);
+        Assert.assertEquals(200, response2.getStatusCode());
+        return mapper.readTree(response2.getBody().asString());
+    }
+
+    private Map<String, Map<String, List<String>>> getUserSlotPersona() {
+        UserInfo.slotPersona = UserInfo.userPersona.getRealtimePersona().getSlotPersona();
+        Map<String, Map<String, Map<String, Integer>>> temp = filteredSlotPersona(UserInfo.slotPersona, 20);
+        return slotPersonaFlatten(temp);
     }
 
     @Given("^We are using \"([^\"]*)\" as a Xstream user$")
     public void weAreUsingAsAXstreamUser(String arg0) throws Throwable {
 
-        //Fetch Persona
-        Response response = DiscoveryServices.getUserPersona(arg0, true, true, true);
-        Assert.assertEquals(200, response.getStatusCode());
-        UserInfo.userPersona = gson().fromJson(response.body().asString(), UserPersonaDTO.class);
+        // Fetch Persona
+        UserInfo.userPersona = getUserPersona(arg0, true, true, true);
 
         // User Live Attribute
-        ZionLoginServiceRes zionLoginServiceRes = loginService("shubhamgupta212755@gmail.com", "U2FsdGVkX19NQaev3NfCf/RPc7QSo16B39TywmXFdzk=");
-        ApiHelper.setAuth(zionLoginServiceRes.getRtkn());
-        Response response4 = ZionServices.getUserLogs(arg0);
-        Assert.assertEquals(200, response4.getStatusCode());
-        userLogs = mapper.readTree(response4.getBody().asString());
-        UserInfo.liveAttribute = Utils.getParams(userLogs.get("hits").get("hits").get(0).get("_source").get("origamiRequest").asText());
+        UserInfo.liveAttribute = getUserLiveAttributes(arg0);
 
-        //Fetch Experiment
-        Response response3 = DiscoveryServices.getExperimentForUser(arg0);
-        Assert.assertEquals(200, response3.getStatusCode());
-        UserInfo.experiment = mapper.readTree(response3.getBody().asString());
+        // Fetch Experiment
+//        UserInfo.experiment = getUserExperiment(arg0);
 
-        //Fetch Watch history
-//        Response response2 = DiscoveryServices.getWatchHistory(arg0);
-//        Assert.assertEquals(200, response2.getStatusCode());
-//        UserInfo.watchHistory = mapper.readTree(response2.getBody().asString());
+        // Fetch Watch history
+//        UserInfo.watchHistory = getUserWatchHistory(arg0);
 
-        //User Encounter
+        // User Encounter
         UserInfo.userEncounter = ArsenalService.getArsenalCollectionController("axaut_goxe32721718098299613", UserInfo.liveAttribute);
 
-//        SlotPersona
-        ObjectMapper mapper = new ObjectMapper();
-        UserInfo.slotPersona = UserInfo.userPersona.getRealtimePersona().getSlotPersona();
-//        UserInfo.slotPersona = mapper.convertValue(slotPersona, new TypeReference<>() {});
-        Map<String, Map<String, Map<String, Integer>>> temp = filteredSlotPersona(UserInfo.slotPersona, 20);
-        UserInfo.slotPersonaFlatten = slotPersonaFlatten(temp);
+        // SlotPersona
+        UserInfo.slotPersonaFlatten = getUserSlotPersona();
 
-        //TOD
+        // TOD
+    }
+
+    @Given("^We are using \"([^\"]*)\" as a Xstream user and fetch")
+    public void weAreUsingAsAXstreamUserAndFetch(String arg0, DataTable dataTable) throws Throwable {
+        Map<String, Boolean> data = dataTable.asMaps(String.class, Boolean.class).getFirst();
+        // Fetch Persona
+        UserInfo.userPersona = getUserPersona(arg0, true, true, true);
+
+        // User Live Attribute
+        UserInfo.liveAttribute = getUserLiveAttributes(arg0);
+
+
+        // Fetch Experiment
+        if (data.containsKey("Experiment") && data.get("Experiment")) {
+            UserInfo.experiment = getUserExperiment(arg0);
+        }
+
+        // Fetch Watch history
+        if (data.containsKey("WatchHistory") && data.get("WatchHistory")) {
+            UserInfo.watchHistory = getUserWatchHistory(arg0);
+        }
+
+        // User Encounter
+        if (data.containsKey("VisualSkip") && data.get("VisualSkip")) {
+            UserInfo.userEncounter = ArsenalService.getArsenalCollectionController("axaut_goxe32721718098299613", UserInfo.liveAttribute);
+        }
+        // SlotPersona
+        if (data.containsKey("SlotPersona") && data.get("SlotPersona")) {
+            UserInfo.slotPersonaFlatten = getUserSlotPersona();
+        }
+        // TOD
     }
 
     @And("^Change user selected languages to \"([^\"]*)\"$")
@@ -165,13 +202,13 @@ public class CommonSteps {
         UserInfo.liveAttribute.put("languages", arg1);
     }
 
-    @Given("login with curator user")
-    public void login_with_curator_user() throws Throwable {
-        if (Objects.equals(ConfigLoader.environment, "prod")) {
-            ZionLoginServiceRes zionLoginServiceRes = loginService("shubhamgupta212755@gmail.com", "U2FsdGVkX19NQaev3NfCf/RPc7QSo16B39TywmXFdzk=");
-            ApiHelper.setAuth(zionLoginServiceRes.getRtkn());
-        }
-    }
+//    @Given("login with curator user")
+//    public void login_with_curator_user() throws Throwable {
+//        if (Objects.equals(ConfigLoader.environment, "prod")) {
+//            ZionLoginServiceRes zionLoginServiceRes = loginService();
+//            ApiHelper.setAuth(zionLoginServiceRes.getRtkn());
+//        }
+//    }
 
     @And("Add contentId {string} in params for recommendation")
     public void addContentIdInParamsForRecommendation(String contentId) {

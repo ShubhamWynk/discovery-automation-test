@@ -71,3 +71,5 @@ Feature: Debug feature banner
   Scenario: Verify when two promoted tile is pinned on the same position then high score tile should be visible.
 
   Scenario: Verify when two promoted tile is pinned on the same position then high score tile should be visible and other should be after the 7 position.
+
+  Scenario: Verify content score reduced when content which are already skipped by user from banner

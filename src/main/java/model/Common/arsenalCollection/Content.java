@@ -1,6 +1,6 @@
 package model.Common.arsenalCollection;
 
-import constant.ContentType;
+import model.constant.ContentType;
 import lombok.Data;
 
 import java.util.Map;

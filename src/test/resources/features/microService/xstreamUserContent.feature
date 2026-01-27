@@ -3,18 +3,44 @@ Feature: User Content Feature
   Background:
     Given We are using "PX_r7GPUCo1kqaICY0" as a Xstream user
 
-#  Scenario: Verify content which are skipped by user in last five session.
-#    And Fetch content from arsenal collection "axaut_goxe32721718098299613"
-#    Then Verify the count of the content from the collection is equal to the count of unique session
-
-  Scenario: Verify xstream User content
+  Scenario: Verify free content which are skipped by user from banner
     Given We are using "p-cWmUEqg4MGRdaJp0" as a Xstream user
-    And Fetch user's en-countered content for "HOMEPAGE_TOP_MOVIE" with params
-      | dayFrom | dayTo | filter_type    | reduceToParent |
-      | 0       | 90    | tvshow, movie | true            |
-    Then Verify
+    And Fetch user's en-countered content for "banner_view_content" with params
+      | filter_freeContent    | filter_type                                                   |
+      | all, freeFirstEpisode | tvshow, movie, sports, video, trailer, program, livetvchannel |
+    Then Verify only free content which are skipped by user from banner should be visible
 
-  Scenario: Verify xstream User content for
+  Scenario: Verify all content which are skipped by user from banner
     Given We are using "p-cWmUEqg4MGRdaJp0" as a Xstream user
-    And Fetch user's en-countered content for "HOMEPAGE_TOP_MOVIE"
-    Then Verify
+    And Fetch user's en-countered content for "banner_view_content" with params
+      | filter_type                                                   |
+      | tvshow, movie, sports, video, trailer, program, livetvchannel |
+    Then Verify only content which are skipped by user from banner should be visible
+
+  Scenario: Verify score of the content should be in 2^n where n is the count of skip
+    Given We are using "p-cWmUEqg4MGRdaJp0" as a Xstream user
+    And Fetch user's en-countered content for "banner_view_content" with params
+      | filter_type                                                   |
+      | tvshow, movie, sports, video, trailer, program, livetvchannel |
+    Then Verify the score and count of the content which are skipped by user
+
+  Scenario: Verify content which are selected by user during onboarding
+    Given We are using "p-cWmUEqg4MGRdaJp0" as a Xstream user
+    And Fetch user's en-countered content for "onboarding" with params
+      | filter_type                                                   |
+      | tvshow, movie, sports, video, trailer, program, livetvchannel |
+    Then Verify only content which are selected by user during onboarding
+
+  Scenario: Verify content which are clicked by User in last 2 sessions
+    Given We are using "p-cWmUEqg4MGRdaJp0" as a Xstream user
+    And Fetch user's en-countered content for "content_clicked" with params
+      | filter_type                                                   |
+      | tvshow, movie, sports, video, trailer, program, livetvchannel |
+    Then Verify content which are clicked by User in last 2 sessions
+
+  Scenario: Verify content which are clicked by User in last 5 sessions
+    Given We are using "p-cWmUEqg4MGRdaJp0" as a Xstream user
+    And Fetch user's en-countered content for "content_clicked" with params
+      | filter_type                                                   | considerAllSession |
+      | tvshow, movie, sports, video, trailer, program, livetvchannel | true               |
+    Then Verify content which are clicked by User in last 5 sessions

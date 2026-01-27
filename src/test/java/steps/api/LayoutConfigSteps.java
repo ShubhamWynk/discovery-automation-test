@@ -44,11 +44,11 @@ public class LayoutConfigSteps {
     PostNewTemplate postNewTemplate = new PostNewTemplate();
     PostNewTemplateRes postNewTemplateRes;
 
-    public ZionLoginServiceRes loginService(String email,String pass){
-        Response response = ZionServices.loginService(email,pass);
-        Assert.assertEquals(200, response.getStatusCode());
-        return gson().fromJson(response.body().asString(), ZionLoginServiceRes.class);
-    }
+//    public ZionLoginServiceRes loginService(String email,String pass){
+//        Response response = ZionServices.loginService(email,pass);
+//        Assert.assertEquals(200, response.getStatusCode());
+//        return gson().fromJson(response.body().asString(), ZionLoginServiceRes.class);
+//    }
 
     public static GetSegmentation getSegmentsFromZion(String segment) {
         Map<String, String> param = new HashMap<>();

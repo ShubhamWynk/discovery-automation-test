@@ -22,6 +22,7 @@ public class ApiHelper {
     private static final Config conf = ConfigLoader.load();
     private static final String zionApiUrl = conf.getString("zionApiUrl");
 
+
     public static final String appName = conf.getString("appName");
     private static String auth = conf.getString("auth");
     public static Gson gson;

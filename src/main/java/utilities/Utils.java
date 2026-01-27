@@ -1,6 +1,6 @@
 package utilities;
 
-import constant.ContentType;
+import model.constant.ContentType;
 import io.cucumber.datatable.DataTable;
 
 import java.io.IOException;

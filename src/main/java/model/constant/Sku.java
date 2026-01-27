@@ -1,4 +1,4 @@
-package constant;
+package model.constant;
 
 import lombok.Data;
 

@@ -69,4 +69,12 @@ public class DownStreamService extends BaseServiceClient {
         query.put("realm",appName);
         return post(query, gson().toJson(request),"/xstream-watch-history/v1/user/watchlist/collection");
     }
+
+    public static Response getUserOnboardingDetails(Map<String,String> query) {
+        query.put("debug","true");
+        query.put("realm",appName);
+        return get(query,"/user-content/v1/user/xstream/onboarding/details");
+    }
+
+
 }

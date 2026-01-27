@@ -15,6 +15,7 @@ public class DiscoveryServices extends BaseServiceClient {
         Map<String, String> queryParams = Map.of(
                 "realm", appName,
                 "fetch_persona", "true",
+                "fetch_realtime_persona","true",
                 "fetch_custom_segments", "false",
                 "fetch_click_rt_persona", fetch_click_rt_persona.toString(),
                 "fetchXstreamOnboarding", fetchXstreamOnboarding.toString(),
