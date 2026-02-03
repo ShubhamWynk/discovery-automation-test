@@ -276,7 +276,7 @@ public class MultiSourceSteps {
     public void verifyBroadbandUpSellTileIsNotPresentOnTheBanner() {
         int count=0;
         for (int i = 0; i < response.getContents().size(); i++) {
-            if (response.getContents().get(i).getExtras().containsKey("_tileSubType")&&response.getContents().get(i).getExtras().get("_tileSubType").equals("UPSELL_TILE") ) {
+            if (response.getContents().get(i).getExtras().containsKey("_tileSubTypeV2")&&response.getContents().get(i).getExtras().get("_tileSubTypeV2").equals("UPSELL_TILE") ) {
                 count++;
             }
         }
@@ -287,8 +287,8 @@ public class MultiSourceSteps {
     public void verifyBroadbandUpSellTileIsPresentOnTheBanner() {
         boolean upsellTilePresent = false;
         for (int i = 0; true; i++) {
-            if (response.getContents().get(i).getExtras().containsKey("_tileSubType")) {
-                if (response.getContents().get(i).getExtras().get("_tileSubType").equals("UPSELL_TILE")) {
+            if (response.getContents().get(i).getExtras().containsKey("_tileSubTypeV2")) {
+                if (response.getContents().get(i).getExtras().get("_tileSubTypeV2").equals("UPSELL_TILE")) {
                     upsellTilePresent = true;
                     break;
                 }
@@ -301,8 +301,8 @@ public class MultiSourceSteps {
     public void verifyOnlyUnsubscribedCPIsRecommendedFromTheUpsellCollection() {
         int count = 0;
         for (int i = 0; i < 7; i++) {
-            if (response.getContents().get(i).getExtras().containsKey("_tileSubType")) {
-                if (response.getContents().get(i).getExtras().get("_tileSubType").equals("UPSELL_TILE")) {
+            if (response.getContents().get(i).getExtras().containsKey("_tileSubTypeV2")) {
+                if (response.getContents().get(i).getExtras().get("_tileSubTypeV2").equals("UPSELL_TILE")) {
                     Assert.assertEquals("AMAZON_PRIME", response.getContents().get(i).getExtras().get("_cpId"));
                     count++;
                 }

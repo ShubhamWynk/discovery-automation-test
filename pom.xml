@@ -88,17 +88,17 @@
         </dependency>
 
         <!-- Allure adapters (JUnit4) and commons for attaching results -->
-        <dependency>
-            <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-junit4</artifactId>
-            <version>2.20.1</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.qameta.allure</groupId>-->
+<!--            <artifactId>allure-junit4</artifactId>-->
+<!--            <version>2.20.1</version>-->
+<!--        </dependency>-->
 
-        <dependency>
-            <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-java-commons</artifactId>
-            <version>2.20.1</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.qameta.allure</groupId>-->
+<!--            <artifactId>allure-java-commons</artifactId>-->
+<!--            <version>2.20.1</version>-->
+<!--        </dependency>-->
 
     </dependencies>
 
@@ -124,6 +124,20 @@
 
             <!-- Serenity Maven Plugin for reports -->
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                        <include>**/RunTests.java</include>
+                    </includes>
+                    <systemPropertyVariables>
+                        <serenity.project.name>Serenity Cucumber Automation</serenity.project.name>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>net.serenity-bdd.maven.plugins</groupId>
                 <artifactId>serenity-maven-plugin</artifactId>
                 <version>${serenity.version}</version>
@@ -139,23 +153,23 @@
             </plugin>
 
             <!-- Allure Maven Plugin to generate and serve Allure reports -->
-            <plugin>
-                <groupId>io.qameta.allure</groupId>
-                <artifactId>allure-maven</artifactId>
-                <version>2.11.2</version>
-                <executions>
-                    <execution>
-                        <id>allure-report</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
-                </configuration>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>io.qameta.allure</groupId>-->
+<!--                <artifactId>allure-maven</artifactId>-->
+<!--                <version>2.11.2</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>allure-report</id>-->
+<!--                        <phase>post-integration-test</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>report</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <configuration>-->
+<!--                    <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
 
         </plugins>
     </build>
