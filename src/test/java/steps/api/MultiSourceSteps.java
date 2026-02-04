@@ -283,13 +283,13 @@ public class MultiSourceSteps {
 
     @Then("Verify Broadband upSell tile is not present on the banner")
     public void verifyBroadbandUpSellTileIsNotPresentOnTheBanner() {
-        int count=0;
+        int count = 0;
         for (int i = 0; i < response.getContents().size(); i++) {
-            if (response.getContents().get(i).getExtras().containsKey("_tileSubTypeV2")&&response.getContents().get(i).getExtras().get("_tileSubTypeV2").equals("UPSELL_TILE") ) {
+            if (response.getContents().get(i).getExtras().containsKey("_tileSubTypeV2") && response.getContents().get(i).getExtras().get("_tileSubTypeV2").equals("UPSELL_TILE")) {
                 count++;
             }
         }
-        Assert.assertTrue(count<2);
+        Assert.assertTrue(count < 2);
     }
 
     @Then("Verify Broadband upSell tile is present on the banner")
@@ -323,7 +323,7 @@ public class MultiSourceSteps {
     @Then("Verify banner should be in round robin linear with ott")
     public void verifyBannerShouldBeInRoundRobinLinearWithOtt() {
         Double per = UserInfo.userPersona.getLtvLinearTvStreamtimeSharePercent();
-        int j = (per==null || per >= 50) ? 1 : 0;
+        int j = (per == null || per >= 50) ? 1 : 0;
         for (int i = 0; i < 7; i++) {
             if (response.getContents().get(i).getExtras().containsKey("_meta")) {
                 continue;

@@ -133,6 +133,42 @@ Feature: Iptv Banner Tile Validation
     And Verify Only unsubscribed CP is recommended from the upsell collection
 
   @BroadbandUpSell @IPTV
+  Scenario: Verify Only unsubscribed CP content are present in collection, subscription status from partnerStatus.
+    Given We are using "PX_r7GPUCo1kqaICY0" as a Xstream user
+    And change user Live Attributes to
+      | partnerStatus                                                                                                                           | debug |
+      | appletv:claimed,jiohotstar:claimed,zeefive:claimed,xstreampremium:claimed,netflix:claimed,xstreampremium_paid,xstreampremium_telco_paid | true  |
+    And Fetch content from arsenal collection "axaut_ypko98701768385515656"
+    Then Verify broadband content should be visible for unsubscribed CP "AMAZON_PRIME" only
+
+  @BroadbandUpSell @IPTV
+  Scenario: Verify Only unsubscribed CP content are present in collection, subscription status from partnerStatus.
+    Given We are using "PX_r7GPUCo1kqaICY0" as a Xstream user
+    And change user Live Attributes to
+      | partnerStatus                                                                                                                                | debug |
+      | amazon_prime:claimed,jiohotstar:claimed,zeefive:claimed,xstreampremium:claimed,netflix:claimed,xstreampremium_paid,xstreampremium_telco_paid | true  |
+    And Fetch content from arsenal collection "axaut_ypko98701768385515656"
+    Then Verify broadband content should be visible for unsubscribed CP "APPLETV" only
+
+  @BroadbandUpSell @IPTV
+  Scenario: Verify Only unsubscribed CP content are present in collection, subscription status from sd.
+    Given We are using "PX_r7GPUCo1kqaICY0" as a Xstream user
+    And change user Live Attributes to
+      | sd                                                                      | debug |
+      | appletv:6102:3,netflix:596545:3,hotstar_dth:25002:3,zeedigital:991192:3 | true  |
+    And Fetch content from arsenal collection "axaut_ypko98701768385515656"
+    Then Verify broadband content should be visible for unsubscribed CP "AMAZON_PRIME" only
+
+  @BroadbandUpSell @IPTV
+  Scenario: Verify Only unsubscribed CP content are present in collection, subscription status from sd.
+    Given We are using "PX_r7GPUCo1kqaICY0" as a Xstream user
+    And change user Live Attributes to
+      | sd                                                                           | debug |
+      | amazon_prime:6102:3,netflix:596545:3,hotstar_dth:25002:3,zeedigital:991192:3 | true  |
+    And Fetch content from arsenal collection "axaut_ypko98701768385515656"
+    Then Verify broadband content should be visible for unsubscribed CP "APPLETV" only
+
+  @BroadbandUpSell @IPTV
   Scenario: Verify When User is subscribed for the all the CP then Broadband upSell tile should not be present on the banner
     Given We are using "p-cWmUEqg4MGRdaJp0" as a Xstream user
     And change user Live Attributes to
