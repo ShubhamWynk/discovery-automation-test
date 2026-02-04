@@ -190,6 +190,3 @@ Feature: Ziegel Service
 #  Scenario: Get Ziegel tile with invalid tileId
 #    When fetch tile details for "" tileId
 #    Then Verify user not able to fetch tile details with invalid tileId
-
-
-

@@ -5,6 +5,7 @@ import io.cucumber.java.en.And;
 import io.restassured.response.Response;
 import model.Common.UserInfo;
 import model.Common.arsenalCollection.ArsenalCollection;
+import net.serenitybdd.annotations.Steps;
 import services.discovery.DownStreamService;
 import utilities.Utils;
 
@@ -23,6 +24,9 @@ public class XstreamWatchHistory {
     String watchHistoryUrl = watchHistoryBaseUrl + "/v1/user/history/collection";
     String watchListUrl = watchHistoryBaseUrl + "/v1/user/watchlist/collection";
 
+    @Steps
+    DownStreamService downStreamService;
+
     private String getDownStreamUrl(String useCase){
         return useCase.equals("WATCH_LIST") ? watchListUrl : watchHistoryUrl;
     }
@@ -31,14 +35,14 @@ public class XstreamWatchHistory {
     public void fetchContentFromXstreamWatchHistory(String useCase, DataTable dataTable) throws IOException {
         Map<String, String[]> params = convertMapOfStringToMapOfList(Utils.convertDataTableToMap(dataTable).get(0));
         ArsenalCollection req = CommonSteps.createDownStreamApiRequest(useCase, params, getDownStreamUrl(useCase));
-        Response res = DownStreamService.applyXstreamWatchHistory(req, UserInfo.liveAttribute);
+        Response res = downStreamService.applyXstreamWatchHistory(req, UserInfo.liveAttribute);
         response = gson().fromJson(res.body().asString(), ArsenalCollection.class);
     }
 
     @And("Fetch user's {string} using watch history api")
     public void fetchContentFromXstreamWatchHistory(String useCase) throws IOException {
         ArsenalCollection req = CommonSteps.createDownStreamApiRequest(useCase, new HashMap<>(), getDownStreamUrl(useCase));
-        Response res = DownStreamService.applyXstreamWatchHistoryWatchList(req, UserInfo.liveAttribute);
+        Response res = downStreamService.applyXstreamWatchHistoryWatchList(req, UserInfo.liveAttribute);
         response = gson().fromJson(res.body().asString(), ArsenalCollection.class);
     }
 }

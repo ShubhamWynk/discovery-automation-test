@@ -5,6 +5,7 @@ import io.cucumber.java.en.And;
 import io.restassured.response.Response;
 import model.Common.UserInfo;
 import model.Common.arsenalCollection.ArsenalCollection;
+import net.serenitybdd.annotations.Steps;
 import services.discovery.DownStreamService;
 import utilities.Utils;
 
@@ -16,6 +17,10 @@ import static utilities.Utils.convertMapOfStringToMapOfList;
 
 public class ArgusSteps {
 
+    @Steps
+    DownStreamService downStreamService;
+
+
     String argusBaseUrl = DownStreamService.getCollectionUrls("argusApiUrl");
     String argusUrl = argusBaseUrl + "/v1/recommendation";
     ArsenalCollection response;
@@ -24,7 +29,7 @@ public class ArgusSteps {
     public void fetchContentFromArgusFor(DataTable dataTable) throws IOException {
         Map<String, String[]> params = convertMapOfStringToMapOfList(Utils.convertDataTableToMap(dataTable).get(0));
         ArsenalCollection req = CommonSteps.createDownStreamApiRequest("", params, argusUrl);
-        Response res = DownStreamService.applyArgus(req, UserInfo.liveAttribute);
+        Response res = downStreamService.applyArgus(req, UserInfo.liveAttribute);
         response = gson().fromJson(res.body().asString(), ArsenalCollection.class);
     }
 }

@@ -5,6 +5,7 @@ import io.cucumber.java.en.And;
 import io.restassured.response.Response;
 import model.Common.UserInfo;
 import model.Common.arsenalCollection.ArsenalCollection;
+import net.serenitybdd.annotations.Steps;
 import services.discovery.DownStreamService;
 import utilities.Utils;
 
@@ -21,18 +22,21 @@ public class XstreamTrendingSearchSteps {
     String trendingSearchUrl = trendingSearchBaseUrl + "/v1/trending";
     ArsenalCollection response;
 
+    @Steps
+    DownStreamService downStreamService;
+
     @And("Fetch top trending content for {string} with params")
     public void fetchTopTrendingContentForWithParams(String useCase, DataTable dataTable) throws IOException {
         Map<String, String[]> params = convertMapOfStringToMapOfList(Utils.convertDataTableToMap(dataTable).get(0));
         ArsenalCollection req = CommonSteps.createDownStreamApiRequest(useCase, params, trendingSearchUrl);
-        Response res = DownStreamService.applyTrendingSearch(req, UserInfo.liveAttribute);
+        Response res = downStreamService.applyTrendingSearch(req, UserInfo.liveAttribute);
         response = gson().fromJson(res.body().asString(), ArsenalCollection.class);
     }
 
     @And("Fetch top trending content for {string}")
     public void fetchTopTrendingContentFor(String useCase) throws IOException {
         ArsenalCollection req = CommonSteps.createDownStreamApiRequest(useCase, new HashMap<>(), trendingSearchUrl);
-        Response res = DownStreamService.applyTrendingSearch(req, UserInfo.liveAttribute);
+        Response res = downStreamService.applyTrendingSearch(req, UserInfo.liveAttribute);
         response = gson().fromJson(res.body().asString(), ArsenalCollection.class);
     }
 }

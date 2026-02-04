@@ -14,6 +14,7 @@ import model.response.content.getSongsContentList.GetSongContentListRes;
 import model.response.zion.getTileList.GetTilesListRes;
 import model.response.zion.postNewCollectionRes.PostNewCollectionRes;
 import model.response.zion.layout.uploadFile.UploadFilRes;
+import net.serenitybdd.annotations.Steps;
 import org.junit.Assert;
 import services.zionServices.ContentZionService;
 import services.zionServices.ZionServices;
@@ -31,60 +32,69 @@ public class CollectionSteps {
     PostTileIntoCollectionReq postTileIntoCollectionReq = new PostTileIntoCollectionReq();
     PostNewCollectionRes postNewCollectionRes;
 
-    public static PostNewCollectionRes updateCollectionStatus(String id, UpdateCollectionStatusReq updateCollectionStatusReq) {
-        Response response = ContentZionService.updateCollectionStatus(id, updateCollectionStatusReq);
+    @Steps
+    ContentZionService contentZionService;
+
+    @Steps
+    ZionServices zionServices;
+
+//    @Steps
+//    LayoutConfigSteps layoutConfigSteps;
+
+    public PostNewCollectionRes updateCollectionStatus(String id, UpdateCollectionStatusReq updateCollectionStatusReq) {
+        Response response = contentZionService.updateCollectionStatus(id, updateCollectionStatusReq);
         Assert.assertEquals(200, response.getStatusCode());
         // assertThat(response.getBody().asString(),matchesJsonSchemaInClasspath("file/jsonSchema/getAllAssortment.json"));
         return gson().fromJson(response.body().asString(), PostNewCollectionRes.class);
     }
 
-    public static PostNewCollectionRes postTilesIntoCollection(String id, PostTileIntoCollectionReq postTileIntoCollectionReq) {
-        Response response = ContentZionService.postTilesIntoCollection(id, postTileIntoCollectionReq);
+    public PostNewCollectionRes postTilesIntoCollection(String id, PostTileIntoCollectionReq postTileIntoCollectionReq) {
+        Response response = contentZionService.postTilesIntoCollection(id, postTileIntoCollectionReq);
         Assert.assertEquals(200, response.getStatusCode());
         // assertThat(response.getBody().asString(),matchesJsonSchemaInClasspath("file/jsonSchema/getAllAssortment.json"));
         return gson().fromJson(response.body().asString(), PostNewCollectionRes.class);
     }
 
-    public GetSongContentListRes getSongsContent(GetSongsContantListReq getSongsContantListReq){
-        Response res = ContentZionService.getSongsContent(getSongsContantListReq);
+    public GetSongContentListRes getSongsContent(GetSongsContantListReq getSongsContantListReq) {
+        Response res = contentZionService.getSongsContent(getSongsContantListReq);
         Assert.assertEquals(200, res.getStatusCode());
         // assertThat(response.getBody().asString(),matchesJsonSchemaInClasspath("file/jsonSchema/getAllAssortment.json"));
         return gson().fromJson(res.body().asString(), GetSongContentListRes.class);
     }
 
-    public static GetTilesListRes getTiles(Map<String, String> param) {
-        Response response = ZionServices.getTiles(param);
+    public GetTilesListRes getTiles(Map<String, String> param) {
+        Response response = zionServices.getTiles(param);
         Assert.assertEquals(200, response.getStatusCode());
         // assertThat(response.getBody().asString(),matchesJsonSchemaInClasspath("file/jsonSchema/getAllAssortment.json"));
         return gson().fromJson(response.body().asString(), GetTilesListRes.class);
     }
 
     public PostNewCollectionRes postNewCollection(PostTileIntoCollectionReq postTileIntoCollectionReq) {
-        Response response = ContentZionService.postNewCollection(postTileIntoCollectionReq);
+        Response response = contentZionService.postNewCollection(postTileIntoCollectionReq);
         Assert.assertEquals(200, response.getStatusCode());
         // assertThat(response.getBody().asString(),matchesJsonSchemaInClasspath("file/jsonSchema/getAllAssortment.json"));
         return gson().fromJson(response.body().asString(), PostNewCollectionRes.class);
     }
 
-    @Given("^User create new tile with \"([^\"]*)\" segment$")
-    public void userCreateNewTileWithSegment(String segment, List<PostNewTileReq> postNewTile) throws Throwable {
-        postNewTileReq = postNewTile.get(0);
-        postNewTileReq.setSegmentId(LayoutConfigSteps.searchSegmentsFromZion(segment));
-    }
+//    @Given("^User create new tile with \"([^\"]*)\" segment$")
+//    public void userCreateNewTileWithSegment(String segment, List<PostNewTileReq> postNewTile) throws Throwable {
+//        postNewTileReq = postNewTile.get(0);
+//        postNewTileReq.setSegmentId(layoutConfigSteps.searchSegmentsFromZion(segment));
+//    }
 
-    @And("^for \"([^\"]*)\" regions and \"([^\"]*)\" File$")
-    public void forRegionsAndFile(String regions, String fileName) throws Throwable {
-        List<String> regionList = Arrays.asList(regions.split(", "));
-        postNewTileReq.setRegions(regionList);
-        postNewTileReq.setEntityId("");
-        File currentDir = new File("");
-        UploadFilRes uploadFilRes = LayoutConfigSteps.uploadFile(currentDir.getAbsolutePath() + "/src/test/resources/file/" + fileName);
-        postNewTileReq.setThumbnailUrl(uploadFilRes.getFileUrl());
-    }
+//    @And("^for \"([^\"]*)\" regions and \"([^\"]*)\" File$")
+//    public void forRegionsAndFile(String regions, String fileName) throws Throwable {
+//        List<String> regionList = Arrays.asList(regions.split(", "));
+//        postNewTileReq.setRegions(regionList);
+//        postNewTileReq.setEntityId("");
+//        File currentDir = new File("");
+//        UploadFilRes uploadFilRes = layoutConfigSteps.uploadFile(currentDir.getAbsolutePath() + "/src/test/resources/file/" + fileName);
+//        postNewTileReq.setThumbnailUrl(uploadFilRes.getFileUrl());
+//    }
 
     @Then("^User hit tile create api$")
     public void userHitTileCreateApi() {
-        Response response = ZionServices.postNewTile(postNewTileReq);
+        Response response = zionServices.postNewTile(postNewTileReq);
         Assert.assertEquals(200, response.getStatusCode());
     }
 
@@ -175,39 +185,39 @@ public class CollectionSteps {
 //        postNewCollectionRes = postNewCollection(postTileIntoCollectionReq);
     }
 
-    @Then("^User add artworks$")
-    public void userAddArtworks(DataTable dataTable) throws ParseException {
-        List<Map<String, String>> data = dataTable.asMaps(String.class, String.class);
-        Artworks artworks = new Artworks();
-        List<DEFAULT> dEFAULT = new ArrayList<>();
-        List<SCHEDULED> sCHEDULED = new ArrayList<>();
-        for (Map<String, String> datum : data) {
-            File currentDir = new File("");
-            UploadFilRes uploadFilRes = LayoutConfigSteps.uploadFile(currentDir.getAbsolutePath() + "/src/test/resources/file/" + data.get(0).get("file"));
-
-            DEFAULT DEFAULT = new DEFAULT();
-            DEFAULT.setStatus("DEFAULT");
-            DEFAULT.setLocation(uploadFilRes.getFileUrl());
-            DEFAULT.setType(datum.get("type"));
-            dEFAULT.add(DEFAULT);
-
-            if (!(datum.get("availableFrom").equals("") && !(datum.get("availableTill").equals("")))) {
-                SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
-                SCHEDULED scheduled = new SCHEDULED();
-                scheduled.setStatus("SCHEDULED");
-                scheduled.setStatus(uploadFilRes.getFileUrl());
-                scheduled.setType(datum.get("type"));
-                scheduled.setAvailableFrom(DateFor.parse(datum.get("availableFrom")).getTime());
-                scheduled.setAvailableTill(DateFor.parse(datum.get("availableTill")).getTime());
-                sCHEDULED.add(scheduled);
-            }
-        }
-        artworks.setDEFAULT(dEFAULT);
-        artworks.setSCHEDULED(sCHEDULED);
-        postTileIntoCollectionReq.getZbrew().getDraft().setCurrentStep(3);
-        postTileIntoCollectionReq.setArtworks(artworks);
-//        postNewCollectionRes = postNewCollection(postTileIntoCollectionReq);
-    }
+//    @Then("^User add artworks$")
+//    public void userAddArtworks(DataTable dataTable) throws ParseException {
+//        List<Map<String, String>> data = dataTable.asMaps(String.class, String.class);
+//        Artworks artworks = new Artworks();
+//        List<DEFAULT> dEFAULT = new ArrayList<>();
+//        List<SCHEDULED> sCHEDULED = new ArrayList<>();
+//        for (Map<String, String> datum : data) {
+//            File currentDir = new File("");
+//            UploadFilRes uploadFilRes = layoutConfigSteps.uploadFile(currentDir.getAbsolutePath() + "/src/test/resources/file/" + data.get(0).get("file"));
+//
+//            DEFAULT DEFAULT = new DEFAULT();
+//            DEFAULT.setStatus("DEFAULT");
+//            DEFAULT.setLocation(uploadFilRes.getFileUrl());
+//            DEFAULT.setType(datum.get("type"));
+//            dEFAULT.add(DEFAULT);
+//
+//            if (!(datum.get("availableFrom").equals("") && !(datum.get("availableTill").equals("")))) {
+//                SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
+//                SCHEDULED scheduled = new SCHEDULED();
+//                scheduled.setStatus("SCHEDULED");
+//                scheduled.setStatus(uploadFilRes.getFileUrl());
+//                scheduled.setType(datum.get("type"));
+//                scheduled.setAvailableFrom(DateFor.parse(datum.get("availableFrom")).getTime());
+//                scheduled.setAvailableTill(DateFor.parse(datum.get("availableTill")).getTime());
+//                sCHEDULED.add(scheduled);
+//            }
+//        }
+//        artworks.setDEFAULT(dEFAULT);
+//        artworks.setSCHEDULED(sCHEDULED);
+//        postTileIntoCollectionReq.getZbrew().getDraft().setCurrentStep(3);
+//        postTileIntoCollectionReq.setArtworks(artworks);
+////        postNewCollectionRes = postNewCollection(postTileIntoCollectionReq);
+//    }
 
     @Then("^User add timelines$")
     public void userAddTimelines(DataTable dataTable) throws ParseException {

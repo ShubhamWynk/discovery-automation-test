@@ -9,13 +9,13 @@ import java.util.Map;
 
 public class DiscoveryServices extends BaseServiceClient {
 
-    public static Response getUserPersona(
+    public Response getUserPersona(
             String uid, Boolean fetch_click_rt_persona, Boolean fetchXstreamOnboarding, Boolean fetchSlotRtPersona
     ) {
         Map<String, String> queryParams = Map.of(
                 "realm", appName,
                 "fetch_persona", "true",
-                "fetch_realtime_persona","true",
+                "fetch_realtime_persona", "true",
                 "fetch_custom_segments", "false",
                 "fetch_click_rt_persona", fetch_click_rt_persona.toString(),
                 "fetchXstreamOnboarding", fetchXstreamOnboarding.toString(),
@@ -27,20 +27,20 @@ public class DiscoveryServices extends BaseServiceClient {
         );
     }
 
-    public static Response getExperimentForUser(String uid) {
+    public Response getExperimentForUser(String uid) {
         return get(
                 Map.of("realm", appName),
                 "/segmentation/v1/persona/" + uid + "/experiment"
         );
     }
 
-    public static Response checkSegmentation(SegmentationCheckReq segmentationCheckReq) {
+    public Response checkSegmentation(SegmentationCheckReq segmentationCheckReq) {
         return post(
                 gson().toJson(segmentationCheckReq), "/segmentation/v1/segmentation"
         );
     }
 
-    public static Response getWatchHistory(String userID) {
+    public Response getWatchHistory(String userID) {
         return get(
                 Map.of("uid", userID), "/get/userWatchInfo"
         );

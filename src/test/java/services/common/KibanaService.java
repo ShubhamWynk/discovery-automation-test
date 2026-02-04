@@ -21,7 +21,7 @@ public class KibanaService extends BaseServiceClient {
             new Header("accept-encoding", "gzip, deflate, br")
     );
 
-    public static Response getDiscoveryArsenalCollection(SongsDetailsFromKibanaReq songsDetails) {
+    public Response getDiscoveryArsenalCollection(SongsDetailsFromKibanaReq songsDetails) {
         return baseApiUrl("catalogKibana", kibanaHeaders).body(gson().toJson(songsDetails)).post("/api/console/proxy?path=catalog.song/_search&method=POST");
     }
 }

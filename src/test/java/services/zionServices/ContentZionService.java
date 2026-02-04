@@ -21,29 +21,29 @@ public class ContentZionService extends BaseServiceClient {
             new Header("accept", "*/*")
     );
 
-    public static Response getContentSong(GetSongContentReq getSongContentReq) {
+    public  Response getContentSong(GetSongContentReq getSongContentReq) {
         return baseApiUrl("zionApiUrl", zionHeaders).body(gson().toJson(getSongContentReq)).post("/content/song/search?realm=" + appName);
     }
 
-    public static Response getSongsContent(GetSongsContantListReq getSongsContantListReq) {
+    public  Response getSongsContent(GetSongsContantListReq getSongsContantListReq) {
         return baseApiUrl("zionApiUrl", zionHeaders).body(gson().toJson(getSongsContantListReq)).post("/content/song/search?realm=" + appName);
     }
 
-    public static Response updateCollectionStatus(String id, UpdateCollectionStatusReq updateCollectionStatusReq) {
+    public  Response updateCollectionStatus(String id, UpdateCollectionStatusReq updateCollectionStatusReq) {
         return baseApiUrl("zionApiUrl", zionHeaders).body(gson().toJson(updateCollectionStatusReq)).post("/content/collection/" + id + "/updateStatus?realm=" + appName);
     }
 
-    public static Response getCollections(Map<String, String> param) {
+    public Response getCollections(Map<String, String> param) {
         param.put("realm", appName);
         return baseApiUrl("zionApiUrl", zionHeaders).queryParams(param).get("/content/collections");
     }
 
-    public static Response postNewCollection(PostTileIntoCollectionReq postTileIntoCollectionReq) {
+    public  Response postNewCollection(PostTileIntoCollectionReq postTileIntoCollectionReq) {
         postTileIntoCollectionReq.setRealm(appName);
         return baseApiUrl("zionApiUrl", zionHeaders).body(gson().toJson(postTileIntoCollectionReq)).post("/content/collection/?realm=" + appName);
     }
 
-    public static Response postTilesIntoCollection(String collectionId, PostTileIntoCollectionReq postTileIntoCollectionReq) {
+    public  Response postTilesIntoCollection(String collectionId, PostTileIntoCollectionReq postTileIntoCollectionReq) {
         postTileIntoCollectionReq.setRealm(appName);
         return baseApiUrl("zionApiUrl", zionHeaders).body(gson().toJson(postTileIntoCollectionReq)).post("/content/collection/" + collectionId + "?realm=" + appName);
     }

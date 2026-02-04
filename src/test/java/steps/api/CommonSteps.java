@@ -14,6 +14,7 @@ import model.Common.UserInfo;
 import model.Common.arsenalCollection.ArsenalCollection;
 import model.response.userPersona.UserPersonaDTO;
 import model.response.zion.zionLoginService.ZionLoginServiceRes;
+import net.serenitybdd.annotations.Steps;
 import org.junit.Assert;
 import services.BaseServiceClient;
 import services.discovery.ArsenalService;
@@ -31,6 +32,15 @@ public class CommonSteps {
 
     ObjectMapper mapper = new ObjectMapper();
     JsonNode userLogs;
+
+    @Steps
+    DiscoveryServices discoveryServices;
+
+    @Steps
+    ArsenalService arsenalService;
+
+    @Steps
+    ZionServices zionServices;
 
     static ArsenalCollection createDownStreamApiRequest(String useCase, Map<String, String[]> params, String downStreamApiUrl) throws IOException {
         String jsonPath = "src/test/resources/data/json/collection.json";
@@ -109,13 +119,13 @@ public class CommonSteps {
 //    }
 
     private UserPersonaDTO getUserPersona(String uid, Boolean fetch_click_rt_persona, Boolean fetchXstreamOnboarding, Boolean fetchSlotRtPersona) {
-        Response response = DiscoveryServices.getUserPersona(uid, fetch_click_rt_persona, fetchXstreamOnboarding, fetchSlotRtPersona);
+        Response response = discoveryServices.getUserPersona(uid, fetch_click_rt_persona, fetchXstreamOnboarding, fetchSlotRtPersona);
         Assert.assertEquals(200, response.getStatusCode());
         return gson().fromJson(response.body().asString(), UserPersonaDTO.class);
     }
 
     private Map<String, String> getUserLiveAttributes(String arg0) throws Exception {
-        Response response4 = ZionServices.getUserLogs(arg0);
+        Response response4 = zionServices.getUserLogs(arg0);
         Assert.assertEquals(200, response4.getStatusCode());
         userLogs = mapper.readTree(response4.getBody().asString());
 
@@ -125,13 +135,13 @@ public class CommonSteps {
     }
 
     private JsonNode getUserExperiment(String arg0) throws JsonProcessingException {
-        Response response3 = DiscoveryServices.getExperimentForUser(arg0);
+        Response response3 = discoveryServices.getExperimentForUser(arg0);
         Assert.assertEquals(200, response3.getStatusCode());
         return mapper.readTree(response3.getBody().asString());
     }
 
     private JsonNode getUserWatchHistory(String arg0) throws JsonProcessingException {
-        Response response2 = DiscoveryServices.getWatchHistory(arg0);
+        Response response2 = discoveryServices.getWatchHistory(arg0);
         Assert.assertEquals(200, response2.getStatusCode());
         return mapper.readTree(response2.getBody().asString());
     }
@@ -158,7 +168,7 @@ public class CommonSteps {
 //        UserInfo.watchHistory = getUserWatchHistory(arg0);
 
         // User Encounter
-        UserInfo.userEncounter = ArsenalService.getArsenalCollectionController("axaut_goxe32721718098299613", UserInfo.liveAttribute);
+        UserInfo.userEncounter = arsenalService.getArsenalCollectionController("axaut_goxe32721718098299613", UserInfo.liveAttribute);
 
         // SlotPersona
         UserInfo.slotPersonaFlatten = getUserSlotPersona();
@@ -188,7 +198,7 @@ public class CommonSteps {
 
         // User Encounter
         if (data.containsKey("VisualSkip") && data.get("VisualSkip")) {
-            UserInfo.userEncounter = ArsenalService.getArsenalCollectionController("axaut_goxe32721718098299613", UserInfo.liveAttribute);
+            UserInfo.userEncounter = arsenalService.getArsenalCollectionController("axaut_goxe32721718098299613", UserInfo.liveAttribute);
         }
         // SlotPersona
         if (data.containsKey("SlotPersona") && data.get("SlotPersona")) {

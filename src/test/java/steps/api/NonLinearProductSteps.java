@@ -6,15 +6,19 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import model.Common.UserInfo;
 import model.Common.arsenalCollection.ArsenalCollection;
+import net.serenitybdd.annotations.Steps;
 import org.junit.Assert;
 import services.discovery.ArsenalService;
 
 public class NonLinearProductSteps {
     ArsenalCollection version1Collections;
 
+    @Steps
+    ArsenalService arsenalService;
+
     @And("^Fetch content from arsenal collection \"([^\"]*)\"$")
     public void fetchContentFromArsenalCollection(String collectionId) throws Throwable {
-        version1Collections = ArsenalService.getArsenalCollectionController(collectionId, UserInfo.liveAttribute);
+        version1Collections = arsenalService.getArsenalCollectionController(collectionId, UserInfo.liveAttribute);
     }
 
 

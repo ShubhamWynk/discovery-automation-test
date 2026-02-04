@@ -22,38 +22,38 @@ public class ZiegelService extends BaseServiceClient {
             new Header("x-basic-auth-client","discovery-epc-api")
     );
 
-    public static Response getDynamicTileDetails(String tileId, Map<String, String> params) {
+    public Response getDynamicTileDetails(String tileId, Map<String, String> params) {
         return get(params, getUrl("/generateTile/" + tileId));
     }
 
-    public static Response getTileDetails(String tileId, Map<String, String> params) {
+    public  Response getTileDetails(String tileId, Map<String, String> params) {
         return get(params, getUrl("/" + tileId));
     }
 
-    public static Response searchTile(Map<String, String> params) {
+    public Response searchTile(Map<String, String> params) {
         return get(params, getUrl("/tiles/search"));
     }
 
-    public static Response createTile(String body, Map<String, String> params) {
+    public Response createTile(String body, Map<String, String> params) {
         return post(params, body, "/add");
     }
 
-    public static Response updateTile(String body, Map<String, String> params) {
+    public Response updateTile(String body, Map<String, String> params) {
         return post(params, body, "/update");
     }
 
-    public static Response deleteTile(String tileId){
+    public Response deleteTile(String tileId){
         return delete(Map.of("realm", appName),"/" + tileId);
     }
 
-    public static Response getPlanDetails(String offerId) {
+    public Response getPlanDetails(String offerId) {
         return baseApiUrl("productOfferingUrl",OfferedPlansHeaders)
                 .queryParam("productOfferingId",offerId)
                 .get("/broadband/s2s/productOffering/details");
     }
 
-    public static ProductOffering getOfferedPlans(String offerId){
-        Response tempRes = ZiegelService.getPlanDetails(offerId);
+    public ProductOffering getOfferedPlans(String offerId){
+        Response tempRes = this.getPlanDetails(offerId);
         Assert.assertEquals(200, tempRes.statusCode());
         return gson().fromJson(tempRes.prettyPrint(), ProductOffering.class);
     }

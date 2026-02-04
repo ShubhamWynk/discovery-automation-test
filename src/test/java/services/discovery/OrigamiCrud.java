@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class OrigamiCrud extends BaseServiceClient {
 
-    private final static String ORIGAMI_CRUD = "/origami-crud/v1";
+    private final String ORIGAMI_CRUD = "/origami-crud/v1";
 
     private String getUrl(String endPoint) {
         return ORIGAMI_CRUD + endPoint;

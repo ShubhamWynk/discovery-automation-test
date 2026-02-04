@@ -28,6 +28,7 @@ import model.response.zion.layoutConfig.postNewChildPage.PostNewChildPageRes;
 import model.response.zion.layout.uploadFile.UploadFilRes;
 import model.response.zion.layoutConfig.getPage.SegmentModule;
 import model.response.zion.zionLoginService.ZionLoginServiceRes;
+import net.serenitybdd.annotations.Steps;
 import org.junit.Assert;
 import services.zionServices.ZionServices;
 
@@ -44,25 +45,28 @@ public class LayoutConfigSteps {
     PostNewTemplate postNewTemplate = new PostNewTemplate();
     PostNewTemplateRes postNewTemplateRes;
 
+    @Steps
+    ZionServices zionServices;
+
 //    public ZionLoginServiceRes loginService(String email,String pass){
 //        Response response = ZionServices.loginService(email,pass);
 //        Assert.assertEquals(200, response.getStatusCode());
 //        return gson().fromJson(response.body().asString(), ZionLoginServiceRes.class);
 //    }
 
-    public static GetSegmentation getSegmentsFromZion(String segment) {
+    public GetSegmentation getSegmentsFromZion(String segment) {
         Map<String, String> param = new HashMap<>();
         param.put("query", segment);
         param.put("pageNo", "0");
         param.put("pageSize", "50");
         param.put("types", "DEFAULT,PARENT,CHILD");
-        Response segmentRes = ZionServices.getSegmentsFromZion(param);
+        Response segmentRes = zionServices.getSegmentsFromZion(param);
         Assert.assertEquals(200, segmentRes.getStatusCode());
         // assertThat(response.getBody().asString(),matchesJsonSchemaInClasspath("file/jsonSchema/getAllAssortment.json"));
         return gson().fromJson(segmentRes.body().asString(), GetSegmentation.class);
     }
 
-    public static String searchSegmentsFromZion(String segment) {
+    public String searchSegmentsFromZion(String segment) {
         GetSegmentation getSegmentation = getSegmentsFromZion(segment);
         for (int i = 0; i < getSegmentation.getData().size(); i++) {
             if (getSegmentation.getData().get(i).getName().equals(segment)) {
@@ -73,84 +77,84 @@ public class LayoutConfigSteps {
     }
 
     public GetPageResponce getPageFromZion(String id, Map<String, String> param) {
-        Response getDataResponse = ZionServices.getPageFromZion(id, param);
+        Response getDataResponse = zionServices.getPageFromZion(id, param);
         Assert.assertEquals(200, getDataResponse.getStatusCode());
         // assertThat(response.getBody().asString(),matchesJsonSchemaInClasspath("file/jsonSchema/getAllAssortment.json"));
         return gson().fromJson(getDataResponse.body().asString(), GetPageResponce.class);
     }
 
     public GetTemplatesRes getPageFromZion() {
-        Response response = ZionServices.getLayoutTemplateFromZion(new HashMap<>());
+        Response response = zionServices.getLayoutTemplateFromZion(new HashMap<>());
         Assert.assertEquals(200, response.getStatusCode());
         // assertThat(response.getBody().asString(),matchesJsonSchemaInClasspath("file/jsonSchema/getAllAssortment.json"));
         return gson().fromJson(response.body().asString(), GetTemplatesRes.class);
     }
 
-    public static UploadFilRes uploadFile(String filePath) {
-        Response uploadFile = ZionServices.uploadFile(filePath);
+    public UploadFilRes uploadFile(String filePath) {
+        Response uploadFile = zionServices.uploadFile(filePath);
         Assert.assertEquals(200, uploadFile.getStatusCode());
         // assertThat(response.getBody().asString(),matchesJsonSchemaInClasspath("file/jsonSchema/getAllAssortment.json"));
         return gson().fromJson(uploadFile.body().asString(), UploadFilRes.class);
     }
 
     public GetSectionDetailsResponse getSectionFromZion(String id, Map<String, String> param) {
-        Response response = ZionServices.getSectionFromZion(id, param);
+        Response response = zionServices.getSectionFromZion(id, param);
         Assert.assertEquals(200, response.getStatusCode());
         // assertThat(response.getBody().asString(),matchesJsonSchemaInClasspath("file/jsonSchema/getAllAssortment.json"));
         return gson().fromJson(response.body().asString(), GetSectionDetailsResponse.class);
     }
 
-    public static GetAllFieldsResponse[] getLayoutFieldsFromZion(Map<String, String> param) {
-        Response response = ZionServices.getLayoutFieldsFromZion(param);
+    public GetAllFieldsResponse[] getLayoutFieldsFromZion(Map<String, String> param) {
+        Response response = zionServices.getLayoutFieldsFromZion(param);
         Assert.assertEquals(200, response.getStatusCode());
         // assertThat(response.getBody().asString(),matchesJsonSchemaInClasspath("file/jsonSchema/getAllAssortment.json"));
         return gson().fromJson(response.body().asString(), GetAllFieldsResponse[].class);
     }
 
-    public static PostNewFieldRes postNewField(PostNewFieldReq postNewFieldReq) {
-        Response response = ZionServices.postNewField(postNewFieldReq);
+    public PostNewFieldRes postNewField(PostNewFieldReq postNewFieldReq) {
+        Response response = zionServices.postNewField(postNewFieldReq);
         Assert.assertEquals(200, response.getStatusCode());
         // assertThat(response.getBody().asString(),matchesJsonSchemaInClasspath("file/jsonSchema/getAllAssortment.json"));
         return gson().fromJson(response.body().asString(), PostNewFieldRes.class);
     }
 
-    public static PostNewFieldRes editField(String id,PostNewFieldReq postNewFieldReq) {
-        Response response = ZionServices.editField(id,postNewFieldReq);
+    public PostNewFieldRes editField(String id,PostNewFieldReq postNewFieldReq) {
+        Response response = zionServices.editField(id,postNewFieldReq);
         Assert.assertEquals(200, response.getStatusCode());
         // assertThat(response.getBody().asString(),matchesJsonSchemaInClasspath("file/jsonSchema/getAllAssortment.json"));
         return gson().fromJson(response.body().asString(), PostNewFieldRes.class);
     }
 
     public PostNewChildPageRes postNewPage(PostNewPageReq postNewChildPageReq) {
-        Response response = ZionServices.postNewPage(postNewChildPageReq);
+        Response response = zionServices.postNewPage(postNewChildPageReq);
         Assert.assertEquals(200, response.getStatusCode());
         // assertThat(response.getBody().asString(),matchesJsonSchemaInClasspath("file/jsonSchema/getAllAssortment.json"));
         return gson().fromJson(response.body().asString(), PostNewChildPageRes.class);
     }
 
     public PostNewChildPageRes updatePage(PostNewPageReq postNewChildPageReq) {
-        Response response = ZionServices.editPage(postNewChildPageReq);
+        Response response = zionServices.editPage(postNewChildPageReq);
         Assert.assertEquals(200, response.getStatusCode());
         // assertThat(response.getBody().asString(),matchesJsonSchemaInClasspath("file/jsonSchema/getAllAssortment.json"));
         return gson().fromJson(response.body().asString(), PostNewChildPageRes.class);
     }
 
     public GetSectionsListRes getLayoutSectionsFromZion(Map<String, String> param) {
-        Response sectionRes = ZionServices.getLayoutSectionsFromZion(param);
+        Response sectionRes = zionServices.getLayoutSectionsFromZion(param);
         Assert.assertEquals(200, sectionRes.getStatusCode());
         // assertThat(response.getBody().asString(),matchesJsonSchemaInClasspath("file/jsonSchema/getAllAssortment.json"));
         return gson().fromJson(sectionRes.body().asString(), GetSectionsListRes.class);
     }
 
     public PostNewSectionRes postNewSection(PostNewSectionReq postNewSectionReq) {
-        Response response = ZionServices.postNewSection(postNewSectionReq);
+        Response response = zionServices.postNewSection(postNewSectionReq);
         Assert.assertEquals(200, response.getStatusCode());
         // assertThat(response.getBody().asString(),matchesJsonSchemaInClasspath("file/jsonSchema/getAllAssortment.json"));
         return gson().fromJson(response.body().asString(), PostNewSectionRes.class);
     }
 
     public PostNewSectionRes putSection(PostNewSectionReq postNewSectionReq) {
-        Response response = ZionServices.putSection(postNewSectionReq);
+        Response response = zionServices.putSection(postNewSectionReq);
         Assert.assertEquals(200, response.getStatusCode());
         // assertThat(response.getBody().asString(),matchesJsonSchemaInClasspath("file/jsonSchema/getAllAssortment.json"));
         return gson().fromJson(response.body().asString(), PostNewSectionRes.class);
@@ -162,14 +166,14 @@ public class LayoutConfigSteps {
         param2.put("pageNo", "0");
         param2.put("pageSize", "50");
         param2.put("pageType", pageType);
-        Response childPageRes = ZionServices.getPagesFromZion(param2);
+        Response childPageRes = zionServices.getPagesFromZion(param2);
         Assert.assertEquals(200, childPageRes.getStatusCode());
         // assertThat(response.getBody().asString(),matchesJsonSchemaInClasspath("file/jsonSchema/getAllAssortment.json"));
         return gson().fromJson(childPageRes.body().asString(), GetPagesListResponse.class);
     }
 
     public PostNewTemplateRes postNewTemplate(PostNewTemplate postNewTemplate) {
-        Response response = ZionServices.postNewTemplate(postNewTemplate);
+        Response response = zionServices.postNewTemplate(postNewTemplate);
         Assert.assertEquals(200, response.getStatusCode());
         // assertThat(response.getBody().asString(),matchesJsonSchemaInClasspath("file/jsonSchema/getAllAssortment.json"));
         return gson().fromJson(response.body().asString(), PostNewTemplateRes.class);
@@ -218,7 +222,7 @@ public class LayoutConfigSteps {
 
     @Then("^Verify Template should be added$")
     public void verifyTemplateShouldBeAdded() {
-        Response response = ZionServices.getLayoutTemplateFromZion(new HashMap<>());
+        Response response = zionServices.getLayoutTemplateFromZion(new HashMap<>());
         Assert.assertEquals(200, response.getStatusCode());
         Assert.assertTrue(response.body().asString().contains(postNewTemplateRes.getId()));
         Assert.assertTrue(response.body().asString().contains(postNewTemplateRes.getTitle()));
@@ -226,19 +230,19 @@ public class LayoutConfigSteps {
 
     @Then("^User delete template$")
     public void userDeleteTemplate() {
-        Response response = ZionServices.deleteTemplate("");
+        Response response = zionServices.deleteTemplate("");
         Assert.assertEquals(200, response.getStatusCode());
     }
 
     @Then("^User delete field$")
     public void userDeleteField() {
-        Response response = ZionServices.deleteField("");
+        Response response = zionServices.deleteField("");
         Assert.assertEquals(200, response.getStatusCode());
     }
 
     @Then("^User delete section$")
     public void userDeleteSection() {
-        Response response = ZionServices.deleteSectionsFromZion("");
+        Response response = zionServices.deleteSectionsFromZion("");
         Assert.assertEquals(200, response.getStatusCode());
     }
 

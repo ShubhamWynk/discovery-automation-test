@@ -5,6 +5,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import model.Common.UserInfo;
 import model.Common.arsenalCollection.ArsenalCollectionResponse;
+import net.serenitybdd.annotations.Steps;
 import org.junit.Assert;
 import services.discovery.ArsenalService;
 
@@ -14,6 +15,9 @@ public class YouTubeRecommendationsSteps {
 
     UserInfo userInfo = new UserInfo();
     ArsenalCollectionResponse arsenalCollectionResponse;
+
+    @Steps
+    ArsenalService arsenalService;
 
     @Given("We are using {string} as a Xstream user and {string} as realm")
     public void weAreUsingAsAXstreamUserAndAsRealm(String uid,String realm) {
@@ -28,7 +32,7 @@ public class YouTubeRecommendationsSteps {
 
     @And("Fetch content from YouTube arsenal collection {string}")
     public void fetchContentFromYouTubeArsenalCollection(String collectionId) throws Throwable {
-        arsenalCollectionResponse = ArsenalService.getArsenalCollectionControllerResponse(collectionId, UserInfo.liveAttribute);
+        arsenalCollectionResponse = arsenalService.getArsenalCollectionControllerResponse(collectionId, UserInfo.liveAttribute);
         System.out.println("Fetched content for collectionId: " + collectionId);
     }
 

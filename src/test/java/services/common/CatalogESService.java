@@ -16,11 +16,11 @@ public class CatalogESService extends BaseServiceClient {
             new Header("Accept", "*/*")
     );
 
-    public static Response getMeta(String contentId) {
+    public  Response getMeta(String contentId) {
         return baseApiUrl("elasticSearchUrl", elasticHeaders).get("/prod_atv_playable_content/_doc"+contentId);
     }
 
-    public static Response getContentByQuery(String body) {
+    public  Response getContentByQuery(String body) {
         return baseApiUrl("elasticSearchUrl", elasticHeaders).body(body).post("prod_atv_playable_content/_search");
     }
 

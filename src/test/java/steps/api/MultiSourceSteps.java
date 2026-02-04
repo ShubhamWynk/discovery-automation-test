@@ -1,6 +1,7 @@
 package steps.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import helpers.ApiHelper;
 import model.Common.arsenalCollection.*;
 import model.Common.arsenalCollection.constants.Operator;
 import io.cucumber.datatable.DataTable;
@@ -9,6 +10,7 @@ import io.cucumber.java.en.Then;
 import io.restassured.response.Response;
 import model.Common.UserInfo;
 import model.response.userPersona.UserPersonaDTO;
+import net.serenitybdd.annotations.Steps;
 import org.junit.Assert;
 import services.discovery.ArsenalService;
 import services.discovery.DownStreamService;
@@ -23,11 +25,18 @@ import static utilities.Utils.convertMapOfStringToMapOfList;
 
 
 public class MultiSourceSteps {
+
+    @Steps
+    DownStreamService downStreamService;
+
+    @Steps
+    ArsenalService arsenalService;
+
     String multiSourceBaseUrl = DownStreamService.getCollectionUrls("multiSourceApiUrl");
     String multiSourceUrl = multiSourceBaseUrl + "/v1/content";
     ArsenalCollection response;
     ArsenalCollection req;
-    MultiSourceRequest mutiSourceRequest;
+    MultiSourceRequest multiSourceRequest;
     PostProcessing postProcessing;
 
     String[] CPList = {
@@ -75,7 +84,7 @@ public class MultiSourceSteps {
 
     @And("build multiSource request in dynamic Meta")
     public void buildMultiSourceRequestInDynamicMeta(List<MultiSourceRequest> mutiSourceRequest) {
-        this.mutiSourceRequest = mutiSourceRequest.getFirst();
+        this.multiSourceRequest = mutiSourceRequest.getFirst();
     }
 
     @And("post process request with")
@@ -108,7 +117,7 @@ public class MultiSourceSteps {
                 sourceCollection.setParams(params);
             }
             if (row.containsKey("contents") && row.get("contents") != null) {
-                ArsenalCollection tem = ArsenalService.getArsenalCollectionController(row.get("collectionId"), UserInfo.liveAttribute);
+                ArsenalCollection tem = arsenalService.getArsenalCollectionController(row.get("collectionId"), UserInfo.liveAttribute);
                 List<Content> contentList = tem.getContents();
                 row.get("contents").lines().forEach(con -> {
                     String[] replaceContent = con.split(":");
@@ -138,19 +147,19 @@ public class MultiSourceSteps {
 //            }
             sourceCollectionList.add(sourceCollection);
         });
-        this.mutiSourceRequest.setCollections(sourceCollectionList);
+        this.multiSourceRequest.setCollections(sourceCollectionList);
     }
 
     @And("pass params for multiSource request")
     public void passParamsForMultiSourceRequest(DataTable dataTable) throws IOException {
         Map<String, String[]> params = convertMapOfStringToMapOfList(Utils.convertDataTableToMap(dataTable).getFirst());
         req = CommonSteps.createDownStreamApiRequest("multi-source", params, multiSourceUrl);
-        req.getDynamicMeta().getMixParam().setMultiSourceRequest(this.mutiSourceRequest);
+        req.getDynamicMeta().getMixParam().setMultiSourceRequest(this.multiSourceRequest);
     }
 
     @And("fetch response for multiSource request")
     public void fetchResponseForMultiSourceRequest() throws IOException {
-        Response res = DownStreamService.applyMultiSourceCollection(req, UserInfo.liveAttribute);
+        Response res = downStreamService.applyMultiSourceCollection(req, UserInfo.liveAttribute);
         response = gson().fromJson(res.body().asString(), ArsenalCollection.class);
     }
 

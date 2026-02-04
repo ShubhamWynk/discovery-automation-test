@@ -25,233 +25,233 @@ public class ZionServices extends BaseServiceClient {
             new Header("accept", "*/*")
     );
 
-    public static Response uploadFile(String filePath) {
-        File file =new File(filePath);
+    public Response uploadFile(String filePath) {
+        File file = new File(filePath);
         return zionApiUrla().multiPart(file).post("/uploadFile");
     }
 
-    public static String getJsonBody(String uid) {
+    private String getJsonBody(String uid) {
         return "{"
-                +     "\"size\":20,"
-                +     "\"query\":{"
-                +         "\"bool\":{"
-                +             "\"must\":["
-                +                 "{\"term\":{\"transactionName.keyword\":\"origamiRequest\"}},"
-                +                 "{\"term\":{\"uid.keyword\":\"" + uid + "\"}},"
-                +                 "{\"term\":{\"pageId.keyword\":\"homepage2\"}}"
-                +             "]"
-                +         "}"
-                +     "},"
-                +     "\"_source\":["
-                +         "\"startTime\",\"endTime\",\"@timestamp\",\"pageId\",\"uid\",\"transactionName\",\"message\",\"origamiRequest\""
-                +     "],"
-                +     "\"sort\":["
-                +         "{\"@timestamp\":{\"order\":\"desc\"}}"
-                +     "]"
+                + "\"size\":20,"
+                + "\"query\":{"
+                + "\"bool\":{"
+                + "\"must\":["
+                + "{\"term\":{\"transactionName.keyword\":\"origamiRequest\"}},"
+                + "{\"term\":{\"uid.keyword\":\"" + uid + "\"}},"
+                + "{\"term\":{\"pageId.keyword\":\"homepage2\"}}"
+                + "]"
+                + "}"
+                + "},"
+                + "\"_source\":["
+                + "\"startTime\",\"endTime\",\"@timestamp\",\"pageId\",\"uid\",\"transactionName\",\"message\",\"origamiRequest\""
+                + "],"
+                + "\"sort\":["
+                + "{\"@timestamp\":{\"order\":\"desc\"}}"
+                + "]"
                 + "}";
     }
 
-    public static Response getLayoutConfigFromZion(Map<String, String> param) {
-        param.put("realm",appName);
-        return baseApiUrl("zionApiUrl",headers)
+    public Response getLayoutConfigFromZion(Map<String, String> param) {
+        param.put("realm", appName);
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
                 .queryParams(param).get("/layout/config");
     }
 
-    public static Response getLayoutFieldsFromZion(Map<String, String> param) {
-        param.put("realm",appName);
-        return baseApiUrl("zionApiUrl",headers)
+    public Response getLayoutFieldsFromZion(Map<String, String> param) {
+        param.put("realm", appName);
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
                 .queryParams(param).get("/layout/fields");
     }
 
-    public static Response getTiles(Map<String, String> param) {
-        param.put("realm",appName);
-        param.put("pageNo","0");
-        return baseApiUrl("zionApiUrl",headers)
+    public Response getTiles(Map<String, String> param) {
+        param.put("realm", appName);
+        param.put("pageNo", "0");
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
                 .queryParams(param).get("/tile/tiles/search?pageSize=10&query=Shubham&sort=-lastUpdatedOn");
     }
 
-    public static Response getLayoutTemplateFromZion(Map<String, String> param) {
-        param.put("realm",appName);
-        return baseApiUrl("zionApiUrl",headers)
+    public Response getLayoutTemplateFromZion(Map<String, String> param) {
+        param.put("realm", appName);
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
                 .queryParams(param).get("/layout/templates");
     }
 
-    public static Response getLayoutSectionsFromZion(Map<String, String> param) {
-        param.put("realm",appName);
-        return baseApiUrl("zionApiUrl",headers)
+    public Response getLayoutSectionsFromZion(Map<String, String> param) {
+        param.put("realm", appName);
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
                 .queryParams(param).get("/layout/sections");
     }
 
-    public static Response deleteSectionsFromZion(String sectionId) {
-        return baseApiUrl("zionApiUrl",headers)
+    public Response deleteSectionsFromZion(String sectionId) {
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
-                .delete("/layout/sections"+sectionId+"?realm="+appName);
+                .delete("/layout/sections" + sectionId + "?realm=" + appName);
     }
 
-    public static Response getSegmentsFromZion(Map<String, String> param) {
-        param.put("realm",appName);
-        return baseApiUrl("zionApiUrl",headers)
+    public Response getSegmentsFromZion(Map<String, String> param) {
+        param.put("realm", appName);
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
                 .queryParams(param).get("/layout/segments");
     }
 
-    public static Response getSegmentFromZionById(String segmentId, Map<String, String> param) {
-        param.put("realm",appName);
-        return baseApiUrl("zionApiUrl",headers)
+    public Response getSegmentFromZionById(String segmentId, Map<String, String> param) {
+        param.put("realm", appName);
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
-                .queryParams(param).get("/layout/segments/"+segmentId);
+                .queryParams(param).get("/layout/segments/" + segmentId);
     }
 
-    public static Response getSectionFromZion(String sectionId,Map<String, String> param) {
-        param.put("realm",appName);
-        return baseApiUrl("zionApiUrl",headers)
+    public Response getSectionFromZion(String sectionId, Map<String, String> param) {
+        param.put("realm", appName);
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
-                .queryParams(param).get("/layout/sections/"+sectionId);
+                .queryParams(param).get("/layout/sections/" + sectionId);
     }
 
-    public static Response getSectionFromZion(String sectionId) {
-        return baseApiUrl("zionApiUrl",headers)
+    public Response getSectionFromZion(String sectionId) {
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
-                .get("/layout/sections/"+sectionId+"?realm="+appName);
+                .get("/layout/sections/" + sectionId + "?realm=" + appName);
     }
 
-    public static Response getPagesFromZion(Map<String, String> param) {
-        param.put("realm",appName);
-        return baseApiUrl("zionApiUrl",headers)
+    public Response getPagesFromZion(Map<String, String> param) {
+        param.put("realm", appName);
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
                 .queryParams(param).get("/layout/pages");
     }
 
-    public static Response getPageFromZion(String pageId,Map<String, String> param) {
-        param.put("realm",appName);
-        return baseApiUrl("zionApiUrl",headers)
+    public Response getPageFromZion(String pageId, Map<String, String> param) {
+        param.put("realm", appName);
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
-                .queryParams(param).get("/layout/pages/"+pageId);
+                .queryParams(param).get("/layout/pages/" + pageId);
     }
 
-    public static Response postSegment(PostSegment postSegment) {
-        return baseApiUrl("zionApiUrl",headers)
+    public Response postSegment(PostSegment postSegment) {
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
-                .body(gson().toJson(postSegment)).post("/layout/segments?realm="+appName);
+                .body(gson().toJson(postSegment)).post("/layout/segments?realm=" + appName);
     }
 
-    public static Response getUserLogs(String arg0) {
-        return baseApiUrl("logstashUrl",headers)
+    public Response getUserLogs(String arg0) {
+        return baseApiUrl("logstashUrl", headers)
                 .header("Authorization", "Basic ZGV2LWRlYnVnOklQMW9uRHQ3MDNLZA==")
                 .body(getJsonBody(arg0)).post("/atv-package-layout-service-prd-logstash-*/_search");
     }
 
-    public static Response postNewTemplate(PostNewTemplate postTemplate) {
+    public Response postNewTemplate(PostNewTemplate postTemplate) {
         postTemplate.setRealm(appName);
-        return baseApiUrl("zionApiUrl",headers)
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
-                .body(gson().toJson(postTemplate)).post("/layout/templates?realm="+appName);
+                .body(gson().toJson(postTemplate)).post("/layout/templates?realm=" + appName);
     }
 
-    public static Response postNewField(PostNewFieldReq postNewFieldReq) {
+    public Response postNewField(PostNewFieldReq postNewFieldReq) {
         postNewFieldReq.setRealm(appName);
-        return baseApiUrl("zionApiUrl",headers)
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
-                .body(gson().toJson(postNewFieldReq)).post("/layout/fields?realm="+appName);
+                .body(gson().toJson(postNewFieldReq)).post("/layout/fields?realm=" + appName);
     }
 
-    public static Response editField(String fieldId,PostNewFieldReq postNewFieldReq) {
+    public Response editField(String fieldId, PostNewFieldReq postNewFieldReq) {
         postNewFieldReq.setRealm(appName);
-        return baseApiUrl("zionApiUrl",headers)
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
-                .body(gson().toJson(postNewFieldReq)).put("/layout/fields/"+fieldId+"?realm="+appName);
+                .body(gson().toJson(postNewFieldReq)).put("/layout/fields/" + fieldId + "?realm=" + appName);
     }
 
-    public static Response deleteTemplate(String templateId) {
-        return baseApiUrl("zionApiUrl",headers)
+    public Response deleteTemplate(String templateId) {
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
-                .delete("/layout/templates/"+templateId+"?realm="+appName);
+                .delete("/layout/templates/" + templateId + "?realm=" + appName);
     }
 
-    public static Response deleteField(String fieldId) {
-        return baseApiUrl("zionApiUrl",headers)
+    public Response deleteField(String fieldId) {
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
-                .delete("/layout/fields/"+fieldId+"?realm="+appName);
+                .delete("/layout/fields/" + fieldId + "?realm=" + appName);
     }
 
-    public static Response getModuleFromZion(Map<String, String> param) {
-        param.put("realm",appName);
-        return baseApiUrl("zionApiUrl",headers)
+    public Response getModuleFromZion(Map<String, String> param) {
+        param.put("realm", appName);
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
                 .queryParams(param).get("/layout/modules");
     }
 
-    public static Response postModuleFromZion(Object postXMasterModule) {
-        return baseApiUrl("zionApiUrl",headers)
+    public Response postModuleFromZion(Object postXMasterModule) {
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
-                .body(gson().toJson(postXMasterModule)).post("/layout/modules?realm="+appName);
+                .body(gson().toJson(postXMasterModule)).post("/layout/modules?realm=" + appName);
     }
 
-    public static Response putModuleFromZion(Object postXMasterModule) {
-        return baseApiUrl("zionApiUrl",headers)
+    public Response putModuleFromZion(Object postXMasterModule) {
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
-                .body(gson().toJson(postXMasterModule)).put("/layout/modules?realm="+appName);
+                .body(gson().toJson(postXMasterModule)).put("/layout/modules?realm=" + appName);
     }
 
-    public static Response postNewSection(PostNewSectionReq postNewSectionRes) {
+    public Response postNewSection(PostNewSectionReq postNewSectionRes) {
         postNewSectionRes.setRealm(appName);
-        return baseApiUrl("zionApiUrl",headers)
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
-                .body(gson().toJson(postNewSectionRes)).post("/layout/sections?realm="+appName);
+                .body(gson().toJson(postNewSectionRes)).post("/layout/sections?realm=" + appName);
     }
 
-    public static Response putSection(PostNewSectionReq postNewSectionRes) {
+    public Response putSection(PostNewSectionReq postNewSectionRes) {
         postNewSectionRes.setRealm(appName);
-        return baseApiUrl("zionApiUrl",headers)
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
-                .body(gson().toJson(postNewSectionRes)).put("/layout/sections/?realm="+appName);
+                .body(gson().toJson(postNewSectionRes)).put("/layout/sections/?realm=" + appName);
     }
 
-    public static Response postNewPage(PostNewPageReq postNewChildPageReq) {
+    public Response postNewPage(PostNewPageReq postNewChildPageReq) {
         postNewChildPageReq.setRealm(appName);
-        return baseApiUrl("zionApiUrl",headers)
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
-                .body(gson().toJson(postNewChildPageReq)).post("/layout/pages?realm="+appName);
+                .body(gson().toJson(postNewChildPageReq)).post("/layout/pages?realm=" + appName);
     }
 
-    public static Response editPage(PostNewPageReq postNewChildPageReq) {
+    public Response editPage(PostNewPageReq postNewChildPageReq) {
         postNewChildPageReq.setRealm(appName);
-        return baseApiUrl("zionApiUrl",headers)
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
-                .body(gson().toJson(postNewChildPageReq)).put("/layout/pages?realm="+appName);
+                .body(gson().toJson(postNewChildPageReq)).put("/layout/pages?realm=" + appName);
     }
 
-    public static Response postNewModulePositionInSection(String sectionId, List<PostModuleInSection> postModuleInSection) {
+    public Response postNewModulePositionInSection(String sectionId, List<PostModuleInSection> postModuleInSection) {
         System.out.println(gson().toJson(postModuleInSection));
-        return baseApiUrl("zionApiUrl",headers)
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
-                .body(gson().toJson(postModuleInSection)).post("/layout/sections/"+sectionId+"/add?realm="+appName);
+                .body(gson().toJson(postModuleInSection)).post("/layout/sections/" + sectionId + "/add?realm=" + appName);
     }
 
-    public static Response postNewTile(PostNewTileReq postNewTileReq) {
+    public Response postNewTile(PostNewTileReq postNewTileReq) {
         postNewTileReq.setRealm(appName);
         postNewTileReq.setStatus("ACTIVE");
         postNewTileReq.setType("TILE");
         postNewTileReq.setStatus("ACTIVE");
-        return baseApiUrl("zionApiUrl",headers)
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
-                .body(gson().toJson(postNewTileReq)).post("/tile/add?realm="+appName);
+                .body(gson().toJson(postNewTileReq)).post("/tile/add?realm=" + appName);
     }
 
-    public static Response updateExistingSegment(UpdateSegment updateSegment) {
-        return baseApiUrl("zionApiUrl",headers)
+    public Response updateExistingSegment(UpdateSegment updateSegment) {
+        return baseApiUrl("zionApiUrl", headers)
                 .header("rtkn", BaseServiceClient.getAuth())
-                .body(gson().toJson(updateSegment)).put("/layout/segments?realm="+appName);
+                .body(gson().toJson(updateSegment)).put("/layout/segments?realm=" + appName);
     }
 
-    public static Response loginService(String email,String password) {
+    public Response loginService(String email, String password) {
         return baseApiUrl("zionApiUrl_be")
                 .header("rtkn", BaseServiceClient.getAuth())
-                .body("{\"email\": \""+email+"\", \"password\": \""+password+"\"}").post("/user/zion/sign-in?realm=WYNK_MUSIC");
+                .body("{\"email\": \"" + email + "\", \"password\": \"" + password + "\"}").post("/user/zion/sign-in?realm=WYNK_MUSIC");
     }
 }
