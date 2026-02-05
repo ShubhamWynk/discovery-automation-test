@@ -76,7 +76,7 @@ public class ZiegelStep {
         ProductOffering ProductOffering1 = ziegelService.getOfferedPlans(active);
         ProductOffering ProductOffering2 = ziegelService.getOfferedPlans(recommended);
         int tem = (int) ((ProductOffering2.getData().getProductOfferingPrice().getFirst().getPrice().getValue() - ProductOffering1.getData().getProductOfferingPrice().getFirst().getPrice().getValue()) / 100);
-        Assert.assertEquals("For Just ₹ " + tem + " More", res1.getTitle());
+        Assert.assertEquals("For Just " + tem + " More", res1.getTitle());
         if (params.containsKey("_cpId") && params.get("_cpId").equals("AMAZON_PRIME")) {
             Assert.assertEquals("Watch Content from Amazon Prime, Netflix And Apple TV+", res1.getSubtitle());
         }

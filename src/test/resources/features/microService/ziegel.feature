@@ -12,7 +12,7 @@ Feature: Ziegel Service
   Scenario: Verify Broadband upSell tile should be visible for the recommended plan
     And fetch tile meta data for "tlxsta_ughs36681767604864445" tile without user query param
       | uid                | realm   | _tileSubTypeV2 | activeBBFixedId | bbRecommendedId | _cpId        | partnerStatus                                                                                                                           |
-      | PX_r7GPUCo1kqaICY0 | XSTREAM | UPSELL_TILE    | BLACK_55799     | BLACK_62372     | AMAZON_PRIME | appletv:claimed,jiohotstar:claimed,zeefive:claimed,xstreampremium:claimed,netflix:claimed,xstreampremium_paid,xstreampremium_telco_paid |
+      | PX_r7GPUCo1kqaICY0 | XSTREAM | UPSELL_TILE    | BLACK_55809     | BLACK_55813     | AMAZON_PRIME | appletv:claimed,jiohotstar:claimed,zeefive:claimed,xstreampremium:claimed,netflix:claimed,xstreampremium_paid,xstreampremium_telco_paid |
     Then Verify the tile behave as Broadband upSell tile on the banner
 
   @BroadbandUpSell @IPTV
